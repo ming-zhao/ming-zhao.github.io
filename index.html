@@ -246,6 +246,19 @@ p {
     }
 }
 
+.boxed {
+    /* border: 1px solid green ; */
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    width: 700px;
+    border-radius: 10px;
+    -moz-border-radius: 20px;
+}
+
+li:not(:last-child) {
+    margin-bottom: 5px;
+}
 <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -272,13 +285,85 @@ p {
 	<div class="container">
 		<ul class="nav navbar-nav">
 		  <li><a href="/">Home</a></li>
-		  <li><a href="#publications">Publications</a></li>
-		  <li><a href="#teaching">Teaching</a></li>
-		  <li><a href="./CV.pdf", target='_blank'>CV</a></li>
-		  <li><a href="#links">Useful Links</a></li> 
+		  <li><a href="research.html">Research</a></li>
+		  <li><a href="teaching.html">Teaching</a></li>
 		</ul>
 	</div>
 </nav>
+
+<div class="container">
+	<div class="row">
+		<!-- Contact Info on the Sidebar -->
+		<div class="col-md-4">
+			<!-- Main Image -->
+			<img class="img-responsive" src="./images/profile.png" width="140" height="80" alt=""><br>
+			<div style="font-family: 'Oswald', sans-serif; font-size: 32px;">Ming Zhao</div></b><br>
+			<p>Assistant Professor<br>
+			<a href="https://www.bauer.uh.edu/">C. T. Bauer College of Business</a><br>
+			Department of Decision and Information Sciences<br>
+			334 Melcher Hall, Houston, TX 77204<br>
+			Phone: 713.743.7530<br>
+			Email: mzhao(at)bauer(dot)uh(dot)edu	
+			</p>
+		</div>
+		<div class="col-md-8">
+			<p style="margin-top:3%; text-align:justify;">
+				<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Research Interests:</div></b>
+				<div style="padding: 5px 0px 20px 0px; margin: 0px; font-size: 14px;">Data Driven Optimization, Risk Management, Healthcare, Big Data Analytics.</div>
+				<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Biography:</div></b>
+				<div style="padding: 5px 0px 10px 0px; margin: 0px; font-size: 14px;">Dr. Zhao is an assistant professor of business analytics in the Department of Decision and Information Sciences at the University of Houston. Before joining the University of Houston, he served as a senior operations research specialist in Advanced Analytics and Optimization Services (AAOS) group at <a href="https://www.sas.com/en_us/home.html">SAS</a> from 2009 to 2015. He received a PhD degree in the <a href="http://engineering.buffalo.edu/industrial-systems.html">Department of Industrial & System Engineering at the University at Buffalo</a> in 2008 and was a postdoctoral researcher  in Business Analytics & Mathematical Sciences (BAMS) group at <a href="https://www.research.ibm.com/labs/watson/">IBM T.J. Watson research center</a>from 2008 to 2009.</div>
+			<p>
+			
+			
+			
+			<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Publications:</div></b>
+			<ol style="padding: 10px 0px 0px 25px; margin: 0px; font-size: 14px;">
+				<li>
+				M. Zhao and and M. Zhang, 2019, "Multiechelon Lot Sizing: New Complexities and Inequalities," <strong>Operations Research</strong>, accepted.
+				</li>
+                <li>
+				M. Zhao and N.K. Freeman, 2019, "Robust Sourcing from Suppliers under Ambiguously Correlated Major Disruption Risks," <strong>Production and Operations Management</strong>, 28(2), 441-456.
+                <!--
+				<a class="buttan free" href="https://eprint.iacr.org/2018/822">Link</a>
+				-->
+				</li>
+				<li>
+				N.K. Freeman, M. Zhao and S.H. Melouk, 2018, "An Iterative Approach for Case Mix Planning Under Uncertainty," <strong>Omega: International Journal of Management Science</strong>, 76, 160-173. 
+				</li>
+				<li>
+				M. Zhao, K. Huang and B. Zeng, 2017, "A Polyhedral Study on Chance Constrained Program with Random Right-Hand Side," <strong>Mathematical Programming</strong>, 166(1), 19-64. 
+				</li>
+				<li>
+				N. Esquejo, K. Miller, K. Norwood, I. Oliveira, R. Pratt and M. Zhao, 2015, "Statistical and Optimization Techniques for Laundry Portfolio Optimization at P&G," <strong>Interfaces</strong>, 45(5), 444-461.
+				</li>
+				<li>
+				I.R. de Farias JR., E. Kozyreff and M. Zhao,  2014, "Branch-and-Cut for Complementarity-Constrained Optimization," <strong>Mathematical Programming Computation</strong>, 6(4), 365-403.
+				</li>
+				<li>
+				I.R. de Farias JR., R. Gupta, E. Kozyreff and M. Zhao, 2013, "Branch-and-Cut for Separable Piecewise Linear Optimization: Computation," <strong>Mathematical Programming Computation</strong>, 5(1), 75-112.
+				</li>
+				<li>
+				I.R. de Farias JR. and M. Zhao,  2013, "A Polyhedral Study of the Semi-Continuous Knapsack Problem," <strong>Mathematical Programming</strong>, 142(1) 169-203.
+				</li>
+				<li>
+				M. Zhao and I.R. de Farias JR., 2013, "The Piecewise Linear Optimization Polytope: New Inequalities and Intersection with Semi-Continuous Constraints," <strong>Mathematical Programming</strong>, 142(1), 217-255.
+				</li>
+				<li>
+				I.R. de Farias JR., H. Zhao, and M. Zhao, 2010, ''A Family of Inequalities Valid for the Robust Single Machine Scheduling Polyhedron," <strong>Computers and Operations Research</strong>, 37(9), 1610-1614. 
+				</li>
+				<li>
+				M. Zhao and I.R. de Farias JR.,  2008, "A Note on the Continuous Mixing Set," <strong>Operations Research Letters</strong>, 36(6), 726-733.
+				</li>
+				<li>
+				I.R. de Farias JR., M. Zhao, and H. Zhao, 2008, "A Special Ordered Set Approach for Optimizing a Discontinuous Separable Piecewise Linear Function," <strong>Operations Research Letters</strong>, 36(2), 234-238.
+				</li>
+				<li>
+				M. Zhao and I.R. de Farias JR., 2008, "The Mixing-MIR Set with Divisible Capacities," <strong>Mathematical Programming</strong>, 115(1), 73-103.
+				</li>
+			</ol>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
