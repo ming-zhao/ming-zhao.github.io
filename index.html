@@ -1,77 +1,576 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- <title>Welcome to Taewoo Lee's website</title> -->
-    <link rel="stylesheet" href="style.css">
-  </head>
+<!--
+    Plain-Academic by Vasilios Mavroudis
+    Released under the  Simplified BSD License/FreeBSD (2-clause) License.
+    https://github.com/mavroudisv/plain-academic
+-->
 
-  <body>
+<style>
+a.buttan:link, a.buttan:visited{
+    color: black;
+    padding: 0px 3px;
+    margin: 1px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid black;
+    position:relative;
+}
 
-    <div class="topnav">
-      <a class="active" href="index.html">Home</a>
-      <!-- <a href="research.html">Research</a> -->
-      <a href="publications.html">Publications</a>
-      <a href="teaching.html">Teaching</a>
-      <a href="students.html">Students</a>
-      <a href="service.html">Service</a>
-      <a href="contact.html">Contact</a>
+a.nf:link, a.nf:visited, .nf {
+    background-color: #b1d2ac;
+}
+a.nf:hover, a.nf:active {
+    background-color: #b1d2ac;
+}
+a.free:link, a.free:visited, .free {
+    background-color: #89C5EA;
+}
+a.free:hover, a.free:active, {
+    background-color: #89C5EA;
+}
+a.talk:link, a.talk:visited, .talk {
+    background-color: #89C5EA;
+}
+a.talk:hover, a.talk:active, {
+    background-color: #89C5EA;
+}
+a.aux:link, a.aux:visited, .aux {
+    background-color: #A08E7A;
+    color: white;
+}
+a.aux:hover, a.aux:active {
+    background-color: #A08E7A;
+}
+ul.vert {
+    border-left: 0px solid red;
+    background-color: #f1f1f1;
+    list-style-type: none;
+}
+ul.vert >li {
+    border-left: 10px solid #d1d1d1;
+    background-color: #f1f1f1;
+    list-style-type: none;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    margin-left: -45px;
+}
+a.buttan:after{
+    padding: 5px;
+    display:none;
+    position: absolute;
+    text-align: center;
+    color: #111111;
+    top:-30px;
+    right:30px;
+    width:200px;
+    background-color: #fef4c5;
+    border: 1px solid #d4b943;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+	z-index: 98;
+}
+a.buttan:hover:after{
+    display: block;
+}
+a.nf.buttan:after{
+content: "Publisher Version \A Subscription Needed" ;
+white-space: pre;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(61, 146, 201);
+}
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+h2 {
+    font-weight: 100;
+}
+
+/* LAYOUT CSS */
+.pure-img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+#layout {
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    top: auto;
+    margin: 3em auto;
+}
+
+.sidebar {
+    background: rgb(61, 79, 93);
+    color: #fff;
+}
+
+.brand-title,
+.brand-tagline {
+    margin: 0;
+}
+.brand-tagline {
+    font-weight: 300;
+    color: rgb(176, 202, 219);
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-item {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+.nav-item a {
+    background: transparent;
+    border: 2px solid rgb(176, 202, 219);
+    color: #fff;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 85%;
+}
+.nav-item a:hover,
+.nav-item a:focus {
+    border: 2px solid rgb(61, 146, 201);
+    text-decoration: none;
+}
+
+.content-subhead {
+    text-transform: uppercase;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+    padding: 0.4em 0;
+    font-size: 80%;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.content {
+    padding: 2em 1em 0;
+}
+
+.post {
+    padding-bottom: 2em;
+}
+.h2 {
+    font-size: 2em;
+    color: #222;
+    margin-bottom: 0.2em;
+}
+
+p {
+    font-family: Georgia, "Cambria", serif;
+    color: #444;
+    line-height: 1.8em;
+}
+.post-meta {
+    color: #999;
+    font-size: 90%;
+    margin: 0;
+}
+
+.post-category {
+    margin: 0 0.1em;
+    padding: 0.3em 1em;
+    color: #fff;
+    background: #999;
+    font-size: 80%;
+}
+    .post-category-design {
+        background: #5aba59;
+    }
+    .post-category-pure {
+        background: #4d85d1;
+    }
+    .post-category-yui {
+        background: #8156a7;
+    }
+    .post-category-js {
+        background: #df2d4f;
+    }
+
+.post-images {
+    margin: 1em 0;
+}
+.post-image-meta {
+    margin-top: -3.5em;
+    margin-left: 1em;
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+}
+
+.footer {
+    text-align: center;
+    padding: 1em 0;
+}
+.footer a {
+    color: #ccc;
+    font-size: 80%;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background: none;
+}
+
+@media (min-width: 48em) {
+    .content {
+        padding: 2em 3em 0;
+        margin-left: 25%;
+    }
+
+    .header {
+        margin: 80% 2em 0;
+        text-align: right;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+    }
+    .nav-item {
+    display:block;    
+    }
+
+}
+
+<!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="firstcss.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+</style>
+
+  <link rel="stylesheet" href="pure-min.css">
+  <link rel="stylesheet" href="grids-responsive-min.css">
+
+<html lang="en">
+<head>
+  <title>Jonathan Bootle</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="firstcss.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="#publications">Publications</a></li>
+              <li><a href="#teaching">Teaching</a></li>
+              <li><a href="./CV.pdf", target='_blank'>CV</a></li>
+              <li><a href="#links">Useful Links</a></li> 
+            </ul>
+        </div>
+    </nav>
+
+
+
+  
+  <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Entries Column -->
+            <div class="col-md-8">
+                
+                <!-- Main Image -->
+                <img class="img-responsive" src="hilltop.jpg" width="600" height="100" alt=""><br>
+                
+                <p style="margin-top:3%; text-align:justify;">
+
+                I am a postdoctoral researcher in the area of cryptography, working at IBM Research, Z&uuml;rich. I am currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions. I am also interested in number theory, game theory, and both classical and quantum information theory.<p>
+
+                Before joining IBM, I was a PhD student at University College London, supervised by <a href="http://www.cs.ucl.ac.uk/staff/j.groth/">Dr Jens Groth</a> and <a href="http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.">Dr Sarah Meiklejohn</a>. Previously, I studied Mathematics to Part III at Clare College, University of Cambridge.<p>             
+
+            </div> 
+
+            <!-- Contact Info on the Sidebar -->
+            <div class="col-md-4">
+                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;">Jonathan Bootle</div></b><br>
+                <p><b>jbt at zurich dot ibm dot com</b><br>
+                <p><a HREF="https://www.zurich.ibm.com/crypto/">Security and Privacy Group</a><br>
+                <a HREF="https://www.zurich.ibm.com/">IBM Research Z&uuml;rich</a> <br>
+                S&auml;umerstrasse 4 <br>
+                8803 R&uuml;schlikon <br>
+                Switzerland<br>
+                </p>
+            </div>
+            
+
+	<div class="col-md-4" style="margin-top:1%">
+		<div class="media">
+		  <div>
+			<h3>News</h3>
+				<div class="text-justify">
+				- The <a href="https://www2.nict.go.jp/security/apkc2019/">APKC2019 workshop</a> will be held on July 7-12th in Auckland, New Zealand. Consider submitting your papers!</p>
+			  </div>
+		  </div>
+		</div>
+	</div>
+
+            
+            <!-- Links on the Sidebar -->
+            
+	    <div class="col-md-8">	
+	    <!-- Old: <div class="col-md-8" style="height: 120vh;"> -->
+		<h2 id="publications">Publications</h2>
+            
+                <p>Publisher links are often <span class="nf">non-free</span>. Links to <span class="free">free</span> preprints and e-prints are included where available. Presentation slides and other <span class="aux">extra materials</span> are sometimes included.</p>
+
+
+                <ul class="vert">
+
+
+                <li>
+                <strong> LWE Without Modular Reduction and Improved Side-Channel Attacks Against BLISS</strong>. <br>
+		Jonathan Bootle, Claire Delaplace, Thomas Espitau, Pierre-Alain Fouque and Mehdi Tibouchi <br>
+		Advances in Cryptology - ASIACRYPT 2018 - To Appear.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2018/822">IACR ePrint</a>
+		</li>
+
+                <li>
+                <strong>Arya: Nearly Linear-Time Zero-Knowledge Proofs for Correct Program Execution</strong>. <br>
+                 Jonathan Bootle, Andrea Cerulli, Jens Groth, Sune K. Jakobsen and Mary Maller<br>
+		Advances in Cryptology - ASIACRYPT 2018 - To Appear.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2018/380">IACR ePrint</a>
+		</li>
+
+                <li>
+                <strong>Sub-linear Lattice-Based Zero-Knowledge Arguments for Arithmetic Circuits</strong>. <br>
+                Carsten Baum, Jonathan Bootle, Andrea Cerulli, Rafa&euml;l del Pino, Jens Groth and Vadim Lyubashevsky<br>
+		<a class="buttan nf" href="https://link.springer.com/chapter/10.1007/978-3-319-96881-0_23">Advances in Cryptology - CRYPTO 2018</a> LNCS 10992, pages 669-699.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2018/560">IACR ePrint</a>
+		<a class="buttan aux" href="./PresentationSlides/crypto2018.ppsx">Slides</a>
+		<a class="buttan aux" href="https://www.youtube.com/watch?v=Dj073BX-lUg">Talk Video</a>
+		</li>
+
+                <li>
+                <strong>Bulletproofs: Efficient Range Proofs for Confidential Transactions</strong>. <br>
+                Benedikt B&uuml;nz, Jonathan Bootle, Dan Boneh, Andrew Poelstra, Pieter Wuille and Greg Maxwell<br>
+		<a class="buttan nf" href="https://www.computer.org/csdl/proceedings/sp/2018/4353/00/435301a319-abs.html">2018 IEEE Symposium on Security and Privacy - S&P 2018</a> pages 319-338.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2017/1066">IACR ePrint</a>
+		<a class="buttan aux" href="https://www.youtube.com/watch?v=Adrh6BCc_Ao">Talk Video</a>
+		</li>
+
+                <li>
+                <strong>Cryptanalysis of Compact-LWE</strong>. <br>
+                Jonathan Bootle, Mehdi Tibouchi and Keita Xagawa<br>
+		<a class="buttan nf" href="https://link.springer.com/chapter/10.1007/978-3-319-76953-0_5">Topics in Cryptology - CT-RSA 2018</a> LNCS 10808, pages 80-97.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2017/742">IACR ePrint</a>
+		<a class="buttan aux" href="./PresentationSlides/ctrsa2018.pdf">Slides</a>
+		</li>
+
+                <li>
+                <strong>Efficient Batch Zero-Knowledge Arguments for Low-Degree Polynomials</strong>. <br>
+                Jonathan Bootle and Jens Groth<br>
+		<a class="buttan nf" href="https://link.springer.com/chapter/10.1007/978-3-319-76581-5_19">Public Key Cryptography - PKC 2018</a> LNCS 10770, pages 561-588.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2018/045">IACR ePrint</a>
+		<a class="buttan aux" href="./PresentationSlides/pkc2018.pdf">Slides</a>
+		</li>
+
+                <li>
+                <strong>Linear-Time Zero-Knowledge Proofs for Arithmetic Circuit Satisfiability</strong>. <br>
+                Jonathan Bootle, Andrea Cerulli, Essam Ghadafi, Jens Groth, Mohammad Hajiabadi and Sune K. Jacobsen<br>
+                <a class="buttan nf" href="https://link.springer.com/chapter/10.1007%2F978-3-319-70700-6_12">Advances in Cryptology - ASIACRYPT 2017</a> LNCS 10626, pages 336-365.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2017/872">IACR ePrint</a>
+		<a class="buttan aux" href="./PresentationSlides/asiacrypt2017.pdf">Slides</a>
+<a class="buttan aux" href="https://www.youtube.com/watch?v=ZG2IfG8jtOU">Talk Video</a>
+		</li>
+
+                <li>
+                <strong>Efficient Zero-Knowledge Proof Systems</strong> <br>
+                Jonathan Bootle, Andrea Cerulli, Pyrros Chaidos and Jens Groth<br> 
+                <a class="buttan nf" href="http://link.springer.com/chapter/10.1007/978-3-319-43005-8_1">Foundations of Security Analysis and Design VIII - FOSAD 2015</a> LNCS 9808, pages 1-31.
+                <br><a class="buttan free" href="./Misc/fosad2015.pdf">Preprint</a>
+                </li>
+
+
+                <li>
+                <strong>Foundations of Fully Dynamic Group Signatures</strong> <br>
+                Jonathan Bootle, Andrea Cerulli, Pyrros Chaidos, Essam Ghadafi and Jens Groth<br> 
+                <a class="buttan nf" href="http://dx.doi.org/10.1007/978-3-319-39555-5_7">Applied Cryptography and Network Security - ACNS 2016</a> LNCS 9696, pages 117-136.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2016/368">IACR ePrint</a>
+                </li>
+
+
+
+                <li>
+                <strong>Efficient Zero-Knowledge Arguments for Arithmetic Circuits in the Discrete Log Setting</strong>. <br>
+                Jonathan Bootle, Andrea Cerulli, Pyrros Chaidos, Jens Groth and Christophe Petit<br>
+                <a class="buttan nf" href="http://dx.doi.org/10.1007/978-3-662-49896-5_12">Advances in Cryptology - EUROCRYPT 2016</a> LNCS 9666, pages 327-357.<br>
+                <a class="buttan free" href="http://eprint.iacr.org/2016/263">IACR ePrint</a>
+                <a class="buttan aux" href="http://www.cs.ucl.ac.uk/staff/J.Groth/ICISC2015.pptx">Slides</a>
+                </li>
+
+
+                <li>
+                <strong>Short Accountable Ring Signatures Based on DDH</strong>. <br>
+                Jonathan Bootle, Andrea Cerulli, Pyrros Chaidos, Essam Ghadafi, Jens Groth and Christophe Petit<br>
+                <a class="buttan nf" href="http://dx.doi.org/10.1007/978-3-319-24174-6_13">Computer Security - ESORICS 2015</a> LNCS 9326, pages 243-265.<br>
+                <a class="buttan free" href="https://eprint.iacr.org/2015/643">IACR ePrint</a>
+                <a class="buttan aux" href="./PresentationSlides/esorics2015.pdf">Slides</a>
+                </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-8">	
+		<h2 id="teaching">Teaching</h2>
+            
+                <p>I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.</p>
+
+			<ul>
+				<li><a href="./LabSlides/Lab 1 - Introduction to SAGE.pdf", target='_blank'>Lab 1 - Introduction to SAGE</a></li>
+				<li><a href="./LabSlides/Lab 2 - Algorithmic Number Theory.pdf", target='_blank'>Lab 2 - Algorithmic Number Theory</a></li>
+				<li><a href="./LabSlides/Lab 3 - Discrete Logarithm Attacks.pdf", target='_blank'>Lab 3 - Discrete Logarithm Attacks</a></li>
+				<li><a href="./LabSlides/Lab 4 - LLL and Elliptic Curves.pdf", target='_blank'>Lab 4 - LLL and Elliptic Curves</a></li>
+				<li><a href="./LabSlides/Lab 5 - Index Calculus and Other Attacks.pdf", target='_blank'>Lab 5 - Index Calculus and Other Attacks</a></li>
+				<li><a href="./LabSlides/Lab 6 - Factorisation Attacks.pdf", target='_blank'>Lab 6 - Factorisation Attacks</a></li>
+			</ul>
+
+                <h2>Notes</h2>
+            
+                <p>Useful notes, to include a variety of topics in the future.</p>
+
+			<ul>
+				<li><a href="./Misc/pippenger.pdf", target='_blank'>Efficient Multi-exponentiation Algorithm</a></li>
+				<li><a href="./Misc/snfs.pdf", target='_blank'>Special Number Field Sieve Example</a></li>
+			</ul>
+
+                <h2>Old Lecture Notes</h2>
+
+		<p>My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.</p>
+
+
+		<p>Part IA</p>
+			<ul>
+				<li><a href="./P1aNotes/P1a---Analysis-I-Notes.pdf", target='_blank'>Part IA - Analysis I</a></li>
+
+				<li><a href="./P1aNotes/P1a---Differential-Equations-Notes.pdf", target='_blank'>Part IA - Differential Equations</a></li>
+
+				<li><a href="./P1aNotes/P1a---Dynamics-and-Relativity-Notes.pdf", target='_blank'>Part IA - Dynamics and Relativity</a></li>
+
+				<li><a href="./P1aNotes/P1a---Groups-Notes.pdf", target='_blank'>Part IA - Groups</a></li>
+
+				<li><a href="./P1aNotes/P1a---Numbers-and-Sets-Notes.pdf", target='_blank'>Part IA - Numbers and Sets</a></li>
+
+				<li><a href="./P1aNotes/P1a---Probability-Notes.pdf", target='_blank'>Part IA - Probability</a></li>
+
+			</ul>
+		<p>Part IB</p>
+			<ul>
+				<li><a href="./P1bNotes/P1b---Analysis-II-Notes.pdf", target='_blank'>Part IB - Analysis II</a></li>
+
+				<li><a href="./P1bNotes/P1b---Fluid-Dynamics-Notes.pdf", target='_blank'>Part IB - Fluid Dynamics</a></li>
+
+				<li><a href="./P1bNotes/P1b---Geometry-Notes.pdf", target='_blank'>Part IB - Geometry</a></li>
+
+				<li><a href="./P1bNotes/P1b---Groups,-Rings-and-Modules-Notes.pdf", target='_blank'>Part IB - Groups, Rings and Modules</a></li>
+
+				<li><a href="./P1bNotes/P1b---Linear-Algebra-Notes.pdf", target='_blank'>Part IB - Linear Algebra</a></li>
+
+				<li><a href="./P1bNotes/P1b---Markov-Chains-Notes.pdf", target='_blank'>Part IB - Markov Chains</a></li>
+
+				<li><a href="./P1bNotes/P1b---Metric-and-Topological-Spaces-Notes.pdf", target='_blank'>Part IB - Metric and Topological Spaces</a></li>
+
+				<li><a href="./P1bNotes/P1b---Quantum-Mechanics-Notes.pdf", target='_blank'>Part IB - Quantum Mechanics</a></li>
+
+				<li><a href="./P1bNotes/P1b---Variational-Principles-Notes.pdf", target='_blank'>Part IB - Variational Principles</a></li>
+
+			</ul>
+		<p>Part II</p>
+			<ul>
+
+				<li><a href="./P2Notes/P2---Coding-and-Cryptography-Notes.pdf", target='_blank'>Part II - Coding and Cryptography</a></li>
+
+				<li><a href="./P2Notes/P2---Galois-Theory-Notes.pdf", target='_blank'>Part II - Galois Theory</a></li>
+
+				<li><a href="./P2Notes/P2---Graph-Theory-Notes.pdf", target='_blank'>Part II - Graph Theory</a></li>
+
+				<li><a href="./P2Notes/P2---Logic-and-Set-Theory-Notes.pdf", target='_blank'>Part II - Logic and Set Theory</a></li>
+
+				<li><a href="./P2Notes/P2---Number-Fields-Notes.pdf", target='_blank'>Part II - Number Fields</a></li>
+
+				<li><a href="./P2Notes/P2---Number-Theory-Notes.pdf", target='_blank'>Part II - Number Theory</a></li>
+
+				<li><a href="./P2Notes/P2---Probability-and-Measure-Theory-Notes.pdf", target='_blank'>Part II - Probability and Measure Theory</a></li>
+
+				<li><a href="./P2Notes/P2---Riemann-Surfaces-Notes.pdf", target='_blank'>Part II - Riemann Surfaces</a></li>
+
+				<li><a href="./P2Notes/P2---Topics-in-Analysis-Notes.pdf", target='_blank'>Part II - Topics in Analysis</a></li>
+
+			</ul>
+
+		<p>Part III</p>
+			<ul>
+
+				<li><a href="./P3Notes/P3---Algebraic-Number-Theory-Notes.pdf", target='_blank'>Part III - Algebraic Number Theory</a></li>
+
+				<li><a href="./P3Notes/P3---Commutative-Algebra-Notes.pdf", target='_blank'>Part III - Commutative Algebra</a></li>
+
+				<li><a href="./P3Notes/P3---Elliptic-Curves-Notes.pdf", target='_blank'>Part III - Elliptic Curves</a></li>
+
+				<li><a href="./P3Notes/P3---Modular-Forms-Notes.pdf", target='_blank'>Part III - Modular Forms</a></li>
+
+				<li><a href="./P3Notes/P3---Ramsey-Theory-Notes.pdf", target='_blank'>Part III - Ramsey Theory</a></li>
+
+				<li><a href="./P3Notes/P3---Riemann-Zeta-Function-Notes.pdf", target='_blank'>Part III - Riemann Zeta Function</a></li>
+
+				<li><a href="./P3Notes/P3---Topics-in-Infinite-Groups-Notes.pdf", target='_blank'>Part III - Topics in Infinite Groups</a></li>
+
+				<li><a href="./P3Notes/P33---Iwasawa-Theory-Notes.pdf", target='_blank'>Part III - Iwasawa Theory</a></li>
+
+			</ul>
+
+            </div>
+
+            <div class="col-md-8">	
+		<h2 id="links">Useful Links</h2>
+			<ul>
+				<li><a href="https://people.math.osu.edu/goss.3/style.html">Hints on Mathematical Writing</a></li>
+				<li><a href="https://www.zurich.ibm.com/securityprivacy/">Security and Privacy Research at IBM Research, Z&uuml;rich</a></li>
+				<li><a href="http://www.google.com">Search the internet!</a></li>
+			</ul>
+
+            </div>
+            
+        </div>
+
+
     </div>
-
-  <div class="boxed">
-  <div id="container">
-    <div id="left">
-      <img src="img/Lee2.png" width="140">
-    </div>
-    <div id="right">
-      <div style="height: 10px;">
-        <br>
-        <b><font size="+3">Taewoo Lee</font></b> <br><br>
-        Assistant Professor <br>
-        Industrial Engineering <br>
-        University of Houston <br>
-        CV: <a href="docs/TLee_CV_UH.pdf"  target="_blank">PDF</a> <br>
-        email: <a href="mailto:tlee6@uh.edu">tlee6 [at] uh [dot] edu</a><br>
-      </div>
-    </div>
-    <div class="clear"></div>
-  </div>
-
-    <p>Welcome to my website! I am an <a href="www.ie.uh.edu/faculty/lee">assistant professor</a> of <a href="www.ie.uh.edu">Industrial Engineering</a> at the <a href="www.uh.edu">University of Houston</a>. I received my PhD in 2015 in <a href="https://www.mie.utoronto.ca">operations research</a> (industrial engineering) from the <a href="https://www.utoronto.ca">University of Toronto</a>. Before joining UH, I was at the department of <a href="https://caam.rice.edu/">Computational and Applied Mathematics</a> at <a href="https://www.rice.edu">Rice University</a> as a postdoctoral researcher.</p>
-
-    <p>My research interest is in the application of optimization techniques such as inverse optimization, robust optimization, and dynamic programming to healthcare operations and medical decision making. Specific application areas that I have recently focused on are radiation therapy treatment planning, organ transplantation, and screening for diabetic complications.</p>
-  </div>
-
-  <div class="boxed">
-    <b>Research Interests</b>
-    <ul>
-    <li> Inverse optimization and statistical machine learning
-    <li> Knowledge-based multicriteria optimization in radiation therapy treatment planning
-    <li> Designing telescreening and homecare programs
-    <li> Policy making for organ transplantation centers
-    </ul>
-  </div>
-
-  <div class="boxed">
-    <b>Recent News</b>
-    <ul>
-    <li> New paper available: "<a href="https://arxiv.org/pdf/1901.09209.pdf">Generalizing Performance Bounds for the Greedy Algorithm: Approximate Submodularity and Localization</a>"
-    <li> New paper available: "<a href="https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2017.2992">Inverse Optimization: Closed-Form Solutions, Geometry, and Goodness of Fit</a>" at Management Science
-    <li> Thank you to NSF for supporting our project: "Optimal Performance Incentives for Organ Transplantation Centers"
-    <li> Teaching INDE7932: Decision Modeling and Optimization under Uncertainty in Spring 2019
-    <li> New paper available: "<a href="https://www.sciencedirect.com/science/article/abs/pii/S0377221718301784">Trade-off preservation in inverse multi-objective convex optimization</a>" at EJOR
-    <li> New paper available: "<a href="https://www.sciencedirect.com/science/article/pii/S0167637717305655">Robust inverse optimization</a>" at OR Letters
-    </ul>
-  </div>
-
-  <div class="boxed">
-    <b>Recent/Upcoming Trips</b>
-    <ul>
-    <li>NSF OE Workshop, Marck 2019, Dallas TX
-    <li>POMS, May 2019, Washington DC
-    <li>INFORMS Healthcare, July 2020, Boston MA
-    </ul>
-  </div>
-
-</div>
+    <!-- /.container -->
+    
+    <!-- Other people may like it too! -->
+    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
+    
 </body>
+
 </html>
