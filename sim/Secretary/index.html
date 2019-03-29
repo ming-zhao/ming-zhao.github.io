@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#" class="csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Secretary Problem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Poly:400' rel='stylesheet' type='text/css'> -->
+    <!-- <link href="./files/css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="./files/css(1)" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="./files/css(2)" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" media="screen, projection" href="./files/screen.css" type="text/css">
+    <!-- <link rel="stylesheet" media="print" href="./files/print.css" type="text/css"> -->
+</head>
+
+<body>
+	<script>
+	  var s;
+	  // if (document.location.hostname === 'rsms.me') {
+	  //   s = document.createElement('script');
+	  //   s.async = true;
+	  //   s.src = "http://connect.facebook.net/en_US/all.js#appId=38027689216&xfbml=1";
+	  //   document.getElementsByTagName('head')[0].appendChild(s);
+	  // }
+	  
+	  if (window.navigator.userAgent.indexOf('iPad') != -1) {
+		document.documentElement.className = 'ios ipad';
+		window.rsmsHostIsIOS = 'ipad';
+	  } else if (window.navigator.userAgent.indexOf('iPhone') != -1) {
+		document.documentElement.className = 'ios iphone';
+		window.rsmsHostIsIOS = 'iphone';
+	  }
+	</script>
+
+	<!-- <style type="text/css"> -->
+		<!-- .hide_door { -->
+		  <!-- display:none !important; -->
+		<!-- } -->
+
+		<!-- .aspectshrinkDoor { -->
+		   <!-- position: relative !important; -->
+			<!-- width: 35px !important; -->
+			<!-- height:35px !important; -->
+			<!-- top: 5px !important; -->
+			<!-- left: 95px !important; -->
+		<!-- } -->
+
+
+		<!-- div.content img aspectshrinkDoor{  -->
+		  <!-- margin: 0 0; -->
+		  <!-- max-width:100% !important;  -->
+		  <!-- position: relative !important; -->
+		  <!-- width: 35px !important; -->
+		  <!-- height:35px !important; -->
+		  <!-- top: 5px !important; -->
+		  <!-- left: 95px !important; -->
+
+		  <!-- } -->
+
+		<!-- .button { -->
+			<!-- background-color: #4CAF50; /* Green */ -->
+			<!-- border: none; -->
+			<!-- color: white; -->
+			<!-- padding: 15px 32px; -->
+			<!-- text-align: center; -->
+			<!-- text-decoration: none; -->
+			<!-- display: inline-block; -->
+			<!-- font-size: 16px; -->
+		<!-- } -->
+	<!-- </style> -->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<script src="./files/underscore-min.js.download"> </script>
+<script src="./files/jquery.js.download"> </script>
+<link rel="stylesheet" type="text/css" media="all" href="./files/styleSecretary.css">
+<!-- <script src="./files/jquery.quicksearch.js.download"></script> -->
+<script src="./files/jquery.isotope.js.download"></script>
+<script src="./files/jstorage.js.download"></script>
+<!-- <script src="./files/bootstrap.js.download"></script> -->
+
+<h1>Secretary Problem</h1>
+
+<p>Click on green call button to begin.</p>
+
+<div id="selectOptions" style="display:flex">
+	<div>
+	<select>
+		<!-- <option value="5">5 Candidates</option> -->
+		<option value="3">3 Candidates</option>
+		<option value="4">4 Candidates</option>
+		<option value="5" selected="selected">5 Candidates</option>
+		<option value="6">6 Candidates</option>
+	</select>
+	</div>
+	<div> 
+	  <button id="retry" class="btn_red" style="margin-left: 2cm;">
+		Reset
+	  </button>
+	</div>
+</div>
+
+<div id="cards">
+	<div id="card0" class="card">
+		<div class="front">
+			<img src="./files/woman4.jpg" width="225" height="240" class="aspectshrink"><img src="./files/callHer.svg" class="door aspectshrinkDoor"><span class="flip_back"></span>
+		</div>
+		<div class="back">
+			<span class="mediumFont">54 positive reviews</span><button id="0" class="reject btn_red"><span>Skip</span></button><button class="accept btn_green"><span>Hire</span></button><span class="flip_front"></span>
+		</div>
+	</div>
+	<div id="card1" class="card">
+		<div class="front">
+			<img src="./files/woman3.svg" width="225" height="240" class="aspectshrink"><img src="./files/callHer.svg" class="door aspectshrinkDoor hide_door"><span class="flip_back"></span>
+		</div>
+		<div class="back">
+			<span class="mediumFont">73 positive reviews</span><button id="1" class="reject btn_red"><span>Skip</span></button><button class="accept btn_green"><span>Hire</span></button><span class="flip_front"></span>
+		</div>
+	</div>
+	<div id="card2" class="card">
+		<div class="front"><img src="./files/male3.png" width="225" height="240" class="aspectshrink"><img src="./files/callHer.svg" class="door aspectshrinkDoor hide_door"><span class="flip_back"></span></div>
+		<div class="back"><span class="mediumFont">82 positive reviews</span><button id="2" class="reject btn_red"><span>Skip</span></button><button class="accept btn_green"><span>Hire</span></button><span class="flip_front"></span></div>
+	</div>
+	<div id="card3" class="card">
+		<div class="front"><img src="./files/male1.png" width="225" height="240" class="aspectshrink"><img src="./files/callHer.svg" class="door aspectshrinkDoor hide_door"><span class="flip_back"></span></div>
+		<div class="back"><span class="mediumFont">67 positive reviews</span><button id="3" class="reject btn_red"><span>Skip</span></button><button class="accept btn_green"><span>Hire</span></button><span class="flip_front"></span></div>
+	</div>
+	<div id="card4" class="card">
+		<div class="front"><img src="./files/woman4.jpg" width="225" height="240" class="aspectshrink"><img src="./files/callHer.svg" class="door aspectshrinkDoor hide_door"><span class="flip_back"></span></div>
+		<div class="back"><span class="mediumFont">70 positive reviews</span><button id="4" class="reject btn_red hide_door"><span>Skip</span></button><button class="accept btn_green"><span>Hire</span></button><span class="flip_front"></span></div>
+	</div>
+</div>
+
+<div style="display:flex; top: 550px; position:absolute">
+	<div style="color: #83A603;">
+		<span class="medFont" style="margin-left:1em">Your (Best Hires/ Total Trials) </span>
+		<span class="medFont" id="myTrials"> (0/0) </span>
+		<br>
+		<span id="score" class="bigFont"> 0% </span>
+	</div>
+	<div style="margin-left: 4cm; color: #026873;"> 
+		<span class="medFont" style="font-style:bold"> Theoretical highest probability of Best Hire </span>
+		<br>
+		<span id="theory" class="bigFont"> 43% </span>
+	</div>
+</div>
+
+<footer align="right" vertical-align="bottom" style="font-size:15px">
+	<small>copied from https://pmirla.github.io/2017/06/12/secretary_problem.html</small>
+</footer>
+
+<script type="text/javascript">
+    jQuery.browser={};(function(){jQuery.browser.msie=false;
+    jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)\./)){
+    jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+    var globalData;
+    var globalOfCards = 5
+    $.jStorage.set("trials",0)
+    $.jStorage.set("score",0)
+    $.jStorage.set("clicks",0)
+    var theoryBest = [50,46,43,43]
+
+    d3.csv("https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/secretary.csv", function  (d) {
+        _.map(d, function(d) { d.qualityCopy  =  parseInt(d.quality)})
+		//d = [{quality: 1},{quality: 1},{quality: 1},{quality: 1},{quality: 1}]
+        globalData = d
+
+        createGraph()
+		debugger;
+        d3.select("#retry").on('click', function() {
+            var value = 1 + $.jStorage.get("trials")
+            $.jStorage.set("trials",value)
+            createGraph(_.sample(globalData,globalOfCards))
+            $.jStorage.set("trials",0)
+            $.jStorage.set("score",0)
+            $.jStorage.set("clicks",0)
+            myScore = $.jStorage.get("score")
+            value = $.jStorage.get("trials")
+            $('#score').text((myScore*100).toFixed(0) +"%")
+            $("#theory").text( theoryBest[globalOfCards-3] + "%" )
+            $('#myTrials').text("("+myScore + "/" + value +")")
+        })
+
+        d3.select("#selectOptions").on("change", function(d) {
+            var selectedValue  = parseInt($("select").val()) // is the selected value
+            globalOfCards = selectedValue
+            $.jStorage.set("trials",0)
+            $.jStorage.set("score",0)
+            $.jStorage.set("clicks",0)
+            var myScore = $.jStorage.get("score")
+            $('#score').text((myScore*100).toFixed(0) +"%")
+            $("#theory").text( theoryBest[globalOfCards-3] + "%" )
+            createGraph()
+        })
+    }) //END OF D3.CSV
+
+
+function createGraph(d) {
+    d = globalData;
+    d = _.sample(d, globalOfCards);
+
+    var newLikes = toiletLikes(globalOfCards);
+
+    _.map(d, function(d,i) { d.quality  =  parseInt(Math.round(newLikes[i]))})
+
+    d3.selectAll(".card").remove();
+
+    var vis = d3.select("#cards");
+    var cards = vis.selectAll("div.cards").data(d);
+
+    cards.selectAll(".front img").attr("src",function (d) { return d.frontImg }).attr("width",225).attr("height",240).classed("aspectshrink",true)
+    cards.selectAll(".back").text(function (d) { return d.backHeading1 })
+
+    var enter = cards.enter()
+    .append("div")
+    .attr("id", function(d,i) { return "card"+i})
+    .classed("card", true);
+
+    enterFront = enter.append("div")
+    .attr("class","front")
+    enterFront.append("img").attr("src",function (d) { return d.frontImg }).attr("width",225).attr("height",240).classed("aspectshrink",true)
+    enterFront.append("img").attr("src","./files/callHer.svg").attr("class","door aspectshrinkDoor")
+
+    enterFront.append("span").attr("class","flip_back")
+
+    enterBack  = enter.append("div")
+    .attr("class","back")
+    spanPart = enterBack.append("span").text(function(d,i) { return d.quality + "\n positive \n reviews"})
+    .classed('mediumFont',true)
+
+    enterBack.append("button")
+		.attr("id", function(d,i) { return i})
+		.classed("reject btn_red",true)
+		.append("span").text("Skip")
+    enterBack.append("button")
+		.classed("accept btn_green",true)
+		.append("span").text("Hire")
+
+    enterBack.append("span").attr("class","flip_front")
+	
+    d3.selectAll(".door").classed("hide_door",true)
+    d3.selectAll("#card0 .door").classed("hide_door",false)
+    var lastCard = "#card"+(globalOfCards-1) + " .reject"
+    d3.select(lastCard).classed("hide_door",true)
+
+    d3.selectAll(".accept").on('click', function(d) { 
+		d.accept ="true"
+		var value =  $.jStorage.get("trials")
+		value = value + 1
+		$.jStorage.set("trials", value)
+
+		d3.selectAll(".card").classed('flip',true);
+		var chosenQuality = parseInt(this.parentNode.__data__.quality)
+		_.pluck(d3.selectAll(".card").data(),'quality')
+		debugger;
+		var bestValue = parseInt(_.max(d3.selectAll(".card").data(),function(d) { return d.quality}).quality)
+
+		debugger;
+		if(chosenQuality>=bestValue) { 
+			var msg = "Great. You picked the best candidate"
+			increment  = 1
+		} else  { 
+			var msg = "Oops. You missed best candidate"
+			increment =0
+		}
+		var scorevalue  = $.jStorage.get("score") + increment
+		$.jStorage.set("score",scorevalue);
+		var myScore = $.jStorage.get("score")
+		$('#myTrials').text("("+myScore + "/" + value +")")
+
+		$('#score').text( ((scorevalue/value)*100).toFixed(0) +"%");
+		debugger;
+		d3.select("#tweetMessage").attr("alt", "I played Optimal stopping game. My score:% Succes" )
+		$("#theory").text( theoryBest[globalOfCards-3] + "%" )
+
+		swal({ title: msg,  
+			text: "So far: Total Trials: " + value + " Best Hires: " +  scorevalue, 
+			showCancelButton: true, 
+			confirmButtonColor: "#DD6B55",  
+			confirmButtonText: "Invite candidates again for Interviews", 
+			cancelButtonText: "Quit",   
+			closeOnConfirm: true, 
+			closeOnCancel: true },
+			function(isConfirm){   
+				if (isConfirm) {  
+					swal("New trial", "Doors will be shuffled. Begin with first door"); 
+					var value = 1 + $.jStorage.get("trials")
+					$.jStorage.set("key",value)
+					createGraph()
+				} 
+				else {   
+					var value = $.jStorage.get("trials")
+					swal("Your score"," Total Trials: " + value + " Best Hires: " +  scorevalue ); 
+					$.jStorage.set("trials",0)
+					$.jStorage.set("score",0)
+					createGraph()
+				}
+			}
+		);
+	})   
+    d3.selectAll(".card .front .rejectSignal").classed("hide_door", function(d) { return !d.reject})
+    d3.selectAll(".reject").on('click', function(d) { 
+		debugger;
+		$(this.parentNode).find( ".accept" ).css( "display", "none" );
+		d.reject = "true";
+		var nextCardID = parseInt(this.id)+1
+		var nextCard ="#card"+nextCardID  + " .door"
+		//Here allow opening of second door
+		d3.selectAll(nextCard).classed("hide_door",false)
+    })
+    cards.exit().remove();
+    d3.selectAll(".door").on('click', function(d) {
+    d3.select(this.parentElement.parentElement).classed("flip",true)
+    //$(this).addClass('flip');
+    debugger;
+    })
+}
+
+function randomNumber(a,b,alpha) {
+	return a+alpha*(b-a) + (1-2*alpha)* Math.floor(Math.random()*(b-a+1));
+}
+
+function toiletLikes(numberToilets) {
+    // fraction of parts left at the extreme of the allows likes range
+    var alpha = 0.3;  
+
+    // We leave room on the left and on the right of the number of likes of the first toilet
+    var likesOfFirstToilet = Math.round(randomNumber(0, 100, alpha));
+    //34
+    // We keep track of two lists of toilets
+    var toiletLikes = [likesOfFirstToilet];  // This is the number of likes of the toilets
+    var orderedLikes = [likesOfFirstToilet]; // This is an ordered list of the number of likes
+    var order;  // The order of the current toilet among all toilets
+    var min;  // The order of the current toilet determines a lower bound on its likes
+    var max;  // The order of the current toilet determines an upper bound on its likes
+    var likes;  // The number of likes of the current toilet
+    for (var toilet=1; toilet<numberToilets; toilet++) {
+    // We first pick randomly how the toilet will compare to other toilets
+    order = Math.round(randomNumber(0,toilet,0));
+    // This determines the range within which its likes will be
+    min = (order == 0) ? 0 : orderedLikes[order-1];
+    max = (order == toilet) ? 100 : orderedLikes[order];
+    likes = Math.round(randomNumber( min, max, alpha));
+    // Finally we insert the likes of the toilets to our lists
+    toiletLikes.push(likes);
+    orderedLikes.splice(order, 0, likes);
+    }
+    // We return the array with the likes of the toilets
+    return toiletLikes;
+}
+
+function createTable (dataArray) {
+    var possibilities = permutator(_.pluck(dataArray,'quality'))
+    var tr = d3.select("tbody").selectAll("tr")
+    .data(possibilities)
+    .enter().append("tr").attr("class", function (d,i) { return "row-"+i});
+    //tr.append("th")
+    // .text(function(d) { return d.State; });
+    td =tr.selectAll("td")
+    .data(function(d) {return d })
+    .enter().append("td").attr("class", function (d,i) { return "col-"+i})
+    .append("div").attr("class","divSize")
+    .append("img").attr("src", function (d) { return "images/secretary/" + d + ".jpg"}).classed("aspectshrinkTable",true)
+}
+</script>
+</body></html>
