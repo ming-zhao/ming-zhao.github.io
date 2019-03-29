@@ -161,7 +161,7 @@
 		$.jStorage.set("clicks",0)
 		var theoryBest = [50,46,43,43]
 
-		d3.csv("./files/secretary.csv", function  (d) {
+		d3.csv("https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/sim/Secretary/files/secretary.csv", function  (d) {
 			_.map(d, function(d) { d.qualityCopy  =  parseInt(d.quality)})
 			//d = [{quality: 1},{quality: 1},{quality: 1},{quality: 1},{quality: 1}]
 			globalData = d
