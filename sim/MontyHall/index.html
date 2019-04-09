@@ -1,54 +1,61 @@
 <!DOCTYPE HTML>
-<html>
-  <head>
-  <title>Monty Hall</title>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <style>
-      #win{
-        color: green;
-      }
-      #loss{
-        color: red;
-      }
-      #ratio{
-        font-size: 36px;
-      }
-      body {
-          font-family: 'Source Sans Pro', 'Arial';
-          font-size: 24px;
-          background-color: #F9F9F9;
-        }
-      canvas { /* Just to get rid of selected text when click */
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        outline: none;
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
-      }
-    </style>
-  </head>
 
-  <body>
-    <h1 align="center" style="font-family: times, serif">Monty Hall Problem</h1>
+<html>
+<head>
+	<title>Simulation</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+<!-- 	<script src="js/d3.v3.min.js"></script>
+	<script src="js/underscore-min.js"> </script>
+	<script src="js/jquery.js"> </script>
+	<script src="js/jquery.isotope.js"></script>
+	<script src="js/jstorage.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+	<script src="js/sweetalert2.all.min.js"></script>
+	<link rel='stylesheet' href='css/sweetalert2.min.css'> -->
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="col-md-4"> </div>
+			<ul class="nav navbar-nav">
+			  <li><a href="../../index.html">Home</a></li>
+			  <li><a href="../../research.html">Research</a></li>
+			  <li><a href="../../teaching.html">Teaching</a></li>
+			</ul>
+		</div>
+	</nav>
 	
-	<div align="center">
-		<canvas id="myCanvas" width="600" height="380"></canvas>
-		<br>
-		<p align="center"><span id="status"></span></p>
-		Wins: <span id="win"></span> &emsp; 
-		Losses: <span id="loss"></span>&emsp; 
-		Winning percentage: <span id="ratio"></span> %
-		<br>
-		<br>
-		<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cXqDIFUB7YU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<h1>Monty Hall Problem</h1>
+				<canvas id="myCanvas" width="600" height="370"></canvas>
+				<br>
+				<p align="left" style="font-size:24px; font-weight:bold">Status: 
+					<span id="status" style="font-size:24px; font-weight:bold"></span>
+				</p>
+				<p align="left" style="font-size:20px; font-weight:bold">
+					Wins: <span id="win" style="color: green"></span> &emsp; 
+					Losses: <span id="loss" style="color: red"></span>&emsp; 
+					Winning percentage: <span id="ratio"></span> %
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h1><a href="https://www.imdb.com/title/tt0478087/" target="_blank">21 (2008)</a></h1>
+				<br>
+				<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cXqDIFUB7YU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+		</div>
 	</div>
   	
-	<footer align="right" vertical-align="bottom" style="font-size:15px">
+<!-- 	<footer align="right" vertical-align="bottom" style="font-size:15px">
 		<small>From https://github.com/allanino</small>
-	</footer>
+	</footer> -->
 
     <script>
       // Variables to keep track of score
@@ -58,7 +65,7 @@
 
       // Html element to write messages to player
       var stats = document.getElementById('status');
-      stats.innerHTML = 'Choose/Mark a door';
+      stats.innerHTML = 'Choose a door';
 	  stats.style.color = "black";
 
       // Html documents to write the scores
@@ -81,11 +88,11 @@
       var imageCar = new Image();
 
       // I have to figure out copyright of images. I'll put the sources on the front of each one
-      imageOpenDoor.src = 'img/open_door.png' // http://th08.deviantart.net/fs71/PRE/i/2012/109/8/d/open_door_png_by_glammgramma-d4wy185.png
-      imageCloseDoor.src ='img/closed_door.png' // http://th01.deviantart.net/fs71/PRE/i/2012/109/6/f/closed_door_png_by_glammgramma-d4wy1cv.png
-      imageCheck.src = 'img/check.png' // http://www.come4news.com/images/users/5454/check.png
-      imageGoat.src = 'img/goat.png' // 
-      imageCar.src = 'img/car.png' // http://www.wpclipart.com/transportation/car/classic_cars/purple_muscle_car.png
+      imageOpenDoor.src = 'images/open_door.png' // http://th08.deviantart.net/fs71/PRE/i/2012/109/8/d/open_door_png_by_glammgramma-d4wy185.png
+      imageCloseDoor.src ='images/closed_door.png' // http://th01.deviantart.net/fs71/PRE/i/2012/109/6/f/closed_door_png_by_glammgramma-d4wy1cv.png
+      imageCheck.src = 'images/check.png' // http://www.come4news.com/images/users/5454/check.png
+      imageGoat.src = 'images/goat.png' // 
+      imageCar.src = 'images/car.png' // http://www.wpclipart.com/transportation/car/classic_cars/purple_muscle_car.png
 
       // Random choose doors for car and goats
       var carDoor = Math.floor(Math.random() * 3); // Door with car
@@ -165,7 +172,7 @@
             }
           }
           context.drawImage(imageCheck, check*200+50,50,50,50);
-          stats.innerHTML = 'Stay or switch?'
+          stats.innerHTML = 'Stay or Switch?'
 		  stats.style.color = "red";
           ++turn;
         }
@@ -198,12 +205,12 @@
 
             if(open == carDoor){
               ++numWin;
-              stats.innerHTML = 'Congratulations!';
+              stats.innerHTML = 'Congratulations! You get a car.';
 			  stats.style.color = "green";
             }
             else {
               ++numLoss;
-              stats.innerHTML = 'Loss...';
+              stats.innerHTML = 'You get a goat.';
 			  stats.style.color = "orange";
             }
             ratioValue = 1.0*numWin/(numWin+numLoss);

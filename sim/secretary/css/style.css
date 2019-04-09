@@ -1,0 +1,403 @@
+.modal-footer button {
+	float: right;
+	margin-left: 10px;
+}
+
+.card {
+	height: 220px;
+	margin: 0 10px 20px 10px;
+	position: relative;
+	width: 140px;
+	-webkit-perspective: 600px;
+	perspective: 600px;
+}
+
+
+/* line 18, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card h3 {
+	font-size: 14px;
+	font-weight: bold;
+	margin: 20px 10px 10px;
+}
+
+
+/* line 23, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card h4 {
+	margin: 20px 10px 0px;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+
+/* line 28, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card strong {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+
+/* line 32, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card p {
+	margin: 0 10px 10px;
+}
+
+
+/* line 35, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card a {
+	color: #999999;
+	font-weight: normal;
+	background: transparent url(../images/globe.png) 0 -38px no-repeat;
+	padding-left: 15px;
+}
+
+
+/* line 40, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card a:hover {
+	color: #ee0011;
+	background-position: 0 0px;
+}
+
+
+/* line 45, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card ul {
+	margin: 3px 5px 5px;
+	padding: 0 0 0 2px;
+	list-style: none;
+	color: #999999;
+}
+
+
+/* line 50, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card li {
+	margin: 10px 0px 0px 10px;
+}
+
+.card ul li a {
+	font-weight: normal;
+}
+
+
+/* line 54, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card img {
+	margin: 0;
+}
+
+
+/* line 57, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .front,
+.card .back {
+	float: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: inherit;
+	border: 2px solid #dddddd;
+	padding: 1px;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+	-webkit-transition-duration: 0.5s, 0.2s;
+	-moz-transition-duration: 0.5s, 0.2s;
+	-ms-transition-duration: 0.5s, 0.2s;
+	-o-transition-duration: 0.5s, 0.2s;
+	transition-duration: 0.5s, 0.2s;
+	-webkit-transition-property: -webkit-transform, box-shadow;
+	-moz-transition-property: -moz-transform, box-shadow;
+	-ms-transition-property: -ms-transform, box-shadow;
+	-o-transition-property: -o-transform, box-shadow;
+	transition-property: transform box-shadow;
+}
+
+
+/* line 72, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .front {
+	z-index: 900;
+	background: #fff;
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+}
+
+
+/* line 76, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .front a {
+	visibility: hidden;
+}
+
+
+/* line 80, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card.flip .front {
+	z-index: 900;
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+
+/* line 84, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .back {
+	z-index: 800;
+	border-color: #cccccc;
+	background: black;
+	/*border-color: #d4000f;*/
+	color: #fff;
+	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	-ms-transform: rotateY(-180deg);
+	-o-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+}
+
+
+/* line 90, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .back a {
+	background-position: 0 2px;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* line 93, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .back a:hover {
+	color: white;
+	background-position: 0 -18px;
+}
+
+
+/* line 100, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card.flip .back {
+	z-index: 1000;
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+	-webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* line 107, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .front:hover {
+	border-color: #cccccc;
+	-webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+/* line 112, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .front:hover a {
+	visibility: visible;
+}
+
+
+/* line 116, /Users/Benjamin/Dropbox/Interactive Things/IXT Programmierung/GIT/i1010_datavisualization/selection/assets/app/stylesheets/components/_deck.scss */
+
+.card .flip_back,
+.card .flip_front {
+	visibility: hidden;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 20px;
+	height: 20px;
+}
+
+.card:hover {
+	z-index: 1000;
+}
+
+.card:hover .flip_back,
+.card:hover .flip_front {
+	visibility: visible;
+}
+
+.hide_door {
+	display: none;
+}
+
+.hide {
+	display: none;
+}
+
+#overlay {
+	position: absolute;
+	left: 50px;
+	height: 100px;
+	width: 70px;
+	top: 320px;
+}
+
+#overlay2 {
+	position: absolute;
+	left: 650px;
+	height: 100px;
+	width: 70px;
+	top: 340px;
+}
+
+.medFont {
+	font-size: 16px;
+	color: #026873;
+	font-weight: bold;
+}
+
+.mediumFont {
+	font-size: 35px;
+	color: white;
+}
+
+.bigFont {
+	font-size: 100px;
+}
+
+#scores {
+	font-size: 14px;
+	position: absolute;
+	left: 50px;
+	height: 500px;
+	width: 320px;
+	top: 280px;
+	color: #83A603;
+}
+
+#theoryDiv {
+	font-size: 14px;
+	position: absolute;
+	left: 585px;
+	height: 500px;
+	width: 270px;
+	top: 280px;
+	color: #026873;
+}
+
+#selectOptions {
+	position: relative;
+	height: 50px;
+}
+
+#socialButtons {
+	position: absolute;
+	left: 370px;
+	height: 350px;
+	width: 270px;
+	top: 400px;
+	color: gray;
+}
+
+.btn_green {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 10px;
+	background: green;
+	padding: 5px 4px 3px 3px;
+	text-decoration: none;
+}
+
+.btn_red {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 10px;
+	background: #d9344a;
+	padding: 5px 4px 3px 3px;
+	text-decoration: none;
+}
+
+label {
+	color: white;
+}
+
+.divSize {
+	width: 25;
+	height: 25;
+}
+
+img.aspectshrink {
+	width: 140px;
+	height: 120px;
+}
+
+#cards {
+	width: 1300px;
+	float: left;
+	height: 600px;
+	/*overflow:hidden;*/
+}
+
+#cards div {
+	float: left;
+}
+
+.door {
+	cursor: pointer;
+}
+
+.accept {
+	cursor: pointer;
+}
+
+.reject {
+	cursor: pointer;
+}
+
+img.aspectshrinkPlayagain {
+	width: 80px;
+	height: 80px;
+}
+
+.aspectshrinkSocial {
+	width: 80px;
+	height: 80px;
+}
+
+img.aspectshrinkIcons {
+	width: 40px;
+	height: 40px;
+}
+
+img.aspectshrinkDoor {
+	position: relative;
+	width: 35px;
+	height: 35px;
+	top: 5px;
+	left: 95px;
+}
+
+img.aspectshrinkMan {
+	width: 240px;
+	height: 240px;
+}
+
+img.aspectshrinkDog {
+	width: 140px;
+	height: 200px;
+}
