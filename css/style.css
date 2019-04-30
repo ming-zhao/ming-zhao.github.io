@@ -207,7 +207,7 @@ li:not(:last-child) {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 400px;
+  width: 200px;
   
   background-color: #BCC52A;
   color: #fff;
