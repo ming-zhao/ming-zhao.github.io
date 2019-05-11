@@ -17,5 +17,5 @@ cases,ts4,
 linear_programming,mip5,
 mixed-integer_programming,mip5,
 nonlinear_programming,mip5,
-example,dd
-history,dd
+example,dd,
+history,dd,
