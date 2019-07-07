@@ -97,11 +97,15 @@ a:focus {
 @media (min-width:992px) {
 	.col-md-1,
 	.col-md-4,
+	.col-md-6,
 	.col-md-8 {
 		float: left
 	}
 	.col-md-8 {
 		width: 66.66666667%
+	}
+	.col-md-6 {
+		width: 50%
 	}
 	.col-md-4 {
 		width: 33.33333333%
