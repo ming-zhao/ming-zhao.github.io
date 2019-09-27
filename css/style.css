@@ -118,23 +118,19 @@ a:focus {
 .nav {
 	padding-left: 0;
 	margin-bottom: 0;
-	overflow: hidden;
+	/* overflow: hidden; */
 	list-style: none
 }
 
-.nav>li {
+.nav>a {
 	position: relative;
-	display: block
-}
-
-.nav>li>a {
-	position: relative;
-	display: block;
+	text-align: center;
+	/* display: block; */
 	padding: 10px 15px
 }
 
-.nav>li>a:focus,
-.nav>li>a:hover {
+.nav>a:focus,
+.nav>a:hover {
 	text-decoration: none;
 	background-color: #eee
 }
@@ -158,19 +154,17 @@ a:focus {
 	}
 }
 
-@media (min-width:768px) {
+/* @media (min-width:768px) { */
 	.navbar-nav {
 		float: left;
 		margin: 0
 	}
-	.navbar-nav>li {
-		float: left
-	}
-	.navbar-nav>li>a {
+	.navbar-nav>a {
+		float: left;
 		padding-top: 15px;
 		padding-bottom: 15px
 	}
-}
+/* } */
 
 .navbar-inverse {
 	background-color: #222;
@@ -181,12 +175,12 @@ a:focus {
 	color: #9d9d9d
 }
 
-.navbar-inverse .navbar-nav>li>a {
+.navbar-inverse .navbar-nav>a {
 	color: #9d9d9d
 }
 
-.navbar-inverse .navbar-nav>li>a:focus,
-.navbar-inverse .navbar-nav>li>a:hover {
+.navbar-inverse .navbar-nav>a:focus,
+.navbar-inverse .navbar-nav>a:hover {
 	color: #fff;
 	background-color: transparent
 }
