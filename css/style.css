@@ -59,26 +59,27 @@ a:focus {
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
-	margin-left: auto
+	margin-left: auto;
+	width: 970px
 }
 
-@media (min-width:768px) {
-	.container {
-		width: 750px
-	}
-}
+/* @media (min-width:768px) { */
+	/* .container { */
+		/* width: 750px */
+	/* } */
+/* } */
 
-@media (min-width:992px) {
-	.container {
-		width: 970px
-	}
-}
+/* @media (min-width:992px) { */
+	/* .container { */
+		/* width: 970px */
+	/* } */
+/* } */
 
-@media (min-width:1200px) {
-	.container {
-		width: 1170px
-	}
-}
+/* @media (min-width:1200px) { */
+	/* .container { */
+		/* width: 1170px */
+	/* } */
+/* } */
 
 .row {
 	margin-right: -15px;
@@ -142,28 +143,28 @@ a:focus {
 	border: 1px solid transparent
 }
 
-@media (min-width:768px) {
+/* @media (min-width:768px) { */
 	.navbar {
 		border-radius: 4px
 	}
-}
+/* } */
 
-@media (min-width:768px) {
+/* @media (min-width:768px) { */
 	.navbar-header {
 		float: left
 	}
-}
+/* } */
 
 /* @media (min-width:768px) { */
-	.navbar-nav {
-		float: left;
-		margin: 0
-	}
-	.navbar-nav>a {
-		float: left;
-		padding-top: 15px;
-		padding-bottom: 15px
-	}
+.navbar-nav {
+	float: left;
+	margin: 0
+}
+.navbar-nav>a {
+	float: left;
+	padding-top: 15px;
+	padding-bottom: 15px
+}
 /* } */
 
 .navbar-inverse {
