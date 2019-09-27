@@ -118,6 +118,7 @@ a:focus {
 .nav {
 	padding-left: 0;
 	margin-bottom: 0;
+	overflow: hidden;
 	list-style: none
 }
 
