@@ -13084,7 +13084,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "264.797px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13101,12 +13101,171 @@ $( document ).ready(function(){
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hide this cell</span>
+<span class="o">%</span><span class="k">run</span> ./script.py
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<script>
+  var password = "123";
+  is_sphnix = 0;
+  is_jupyterNotebook = 1;
+  is_jupyterLab = 0;
+
+  function code_toggle(e) {
+    var target = e;
+    if (is_jupyterNotebook == 1) {
+        while (!target.closest(".output_wrapper").previousElementSibling.classList.contains("input")) {
+          target = target.closest(".output_wrapper").previousElementSibling;
+        }
+        target = target.closest(".output_wrapper").previousElementSibling;
+        if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+          target.style.display = "none";
+          e.innerHTML = 'show code';
+        }
+        else {
+          target.style.removeProperty("display");
+          e.innerHTML = 'hide code';
+        }
+    }
+  }
+
+  function hide_comment(e) {
+    if (is_jupyterNotebook == 1) {
+        target = e.parentElement.parentElement.getElementsByTagName('p');
+        for (var i = 1, len = target.length; i < len; ++i) {
+            if (target[i].style.display == null || target[i].style.display == "") {
+              target[i].style.display = "none";
+              e.innerHTML = "show comment";
+            }
+            else {
+              target[i].style.removeProperty("display");
+              e.innerHTML = "hide comment";
+            }        
+        }
+        var target = e;
+        while ((target = target.parentElement) && !target.classList.contains("text_cell"));
+        target = target.nextElementSibling;
+        do {
+            if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+              target.style.display = "none";
+            }
+            else {
+              target.style.removeProperty("display");
+            }        
+            target = target.nextElementSibling;
+        } while (target.innerHTML.indexOf("blacksquare<") != -1)
+    }
+  }
+
+  $(document).ready(function() {
+  $.ajax({
+    type: "GET",  
+    url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/bzan.csv",
+    dataType: "text",       
+    success: function(data)  
+    {
+        is_sphnix = 0;
+        is_jupyterNotebook = 1;
+        is_jupyterLab = 0;
+
+        if (is_jupyterNotebook == 1) {
+            var code_blocks = document.getElementsByClassName('input');
+            for (var i = 0, len = code_blocks.length; i < len; ++i) {
+              if (
+                  code_blocks[i].innerHTML.indexOf("toggle") !== -1 
+                  || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+                  || code_blocks[i].innerHTML.indexOf("# Hide this cell") !== -1 
+                 ) {
+                code_blocks[i].style.display = "none";
+                code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+              }
+            }
+
+            var text_blocks = document.getElementsByClassName('text_cell');
+            var comment = 0;
+            for (var i = 0, len = text_blocks.length; i < len; ++i) {
+                if (comment == 1) {
+                    text_blocks[i].style.display = "none";
+                }
+
+                if (text_blocks[i].innerHTML.indexOf(">show comment<") != -1) {
+                    comment = 1;
+                    var p_lists = text_blocks[i].getElementsByTagName('p');
+                    p_lists[0].getElementsByTagName('a')[0].onclick = function() { hide_comment(this); return false; };
+                    for (var j = 1, len_p = p_lists.length; j < len_p; ++j) {
+                        p_lists[j].style.display = "none";
+                    }
+                }
+
+                if (text_blocks[i].innerHTML.indexOf("blacksquare<") != -1) {
+                    comment = 0;
+                }
+            }
+        }
+    }
+  });
+  });    
+  </script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> 
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="n">toggle</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -13122,7 +13281,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">warehouse_locations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
@@ -13137,13 +13296,16 @@ $( document ).ready(function(){
                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
-<span class="n">shipcost</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">]),</span> 
-                      <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">],</span> 
-                                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)]</span>
-                                  <span class="p">)</span>
-                     <span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">shipcost</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">shipcost</span><span class="p">[</span><span class="s1">&#39;d0&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">shipcost</span><span class="p">[</span><span class="s1">&#39;d1&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
-<span class="n">shipcost</span>
+<span class="n">orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">]),</span> 
+                    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)]</span> 
+                                                                      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">],</span>
+                                 <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)]</span>
+                                <span class="p">)</span>
+                   <span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">orders</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">orders</span><span class="p">[</span><span class="s1">&#39;d0&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orders</span><span class="p">[</span><span class="s1">&#39;d1&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
+<span class="n">orders</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">orders</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+<span class="n">toggle</span><span class="p">()</span>
+<span class="n">orders</span>
 </pre></div>
 
     </div>
@@ -13156,7 +13318,21 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13171,13 +13347,17 @@ $( document ).ready(function(){
         vertical-align: top;
     }
 
-    .dataframe thead th {
-        text-align: right;
+    .dataframe thead tr th {
+        text-align: left;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left"></th>
+    </tr>
+    <tr>
       <th></th>
       <th>loc</th>
       <th>d0</th>
@@ -13188,73 +13368,73 @@ $( document ).ready(function(){
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.537277</td>
-      <td>1.537277</td>
-      <td>3.462723</td>
-      <td>-1.925446</td>
+      <td>1.54</td>
+      <td>1.54</td>
+      <td>3.46</td>
+      <td>-1.93</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.583306</td>
-      <td>3.583306</td>
-      <td>1.416694</td>
-      <td>2.166612</td>
+      <td>3.58</td>
+      <td>3.58</td>
+      <td>1.42</td>
+      <td>2.17</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.421529</td>
-      <td>1.421529</td>
-      <td>6.421529</td>
-      <td>-5.000000</td>
+      <td>-1.42</td>
+      <td>1.42</td>
+      <td>6.42</td>
+      <td>-5.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.264240</td>
-      <td>0.264240</td>
-      <td>4.735760</td>
-      <td>-4.471519</td>
+      <td>0.26</td>
+      <td>0.26</td>
+      <td>4.74</td>
+      <td>-4.47</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-3.150134</td>
-      <td>3.150134</td>
-      <td>8.150134</td>
-      <td>-5.000000</td>
+      <td>-3.15</td>
+      <td>3.15</td>
+      <td>8.15</td>
+      <td>-5.00</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2.057908</td>
-      <td>2.057908</td>
-      <td>2.942092</td>
-      <td>-0.884184</td>
+      <td>2.06</td>
+      <td>2.06</td>
+      <td>2.94</td>
+      <td>-0.88</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-4.535353</td>
-      <td>4.535353</td>
-      <td>9.535353</td>
-      <td>-5.000000</td>
+      <td>-4.54</td>
+      <td>4.54</td>
+      <td>9.54</td>
+      <td>-5.00</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>4.763325</td>
-      <td>4.763325</td>
-      <td>0.236675</td>
-      <td>4.526650</td>
+      <td>4.76</td>
+      <td>4.76</td>
+      <td>0.24</td>
+      <td>4.53</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>3.162244</td>
-      <td>3.162244</td>
-      <td>1.837756</td>
-      <td>1.324489</td>
+      <td>3.16</td>
+      <td>3.16</td>
+      <td>1.84</td>
+      <td>1.32</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>5.986215</td>
-      <td>5.986215</td>
-      <td>0.986215</td>
-      <td>5.000000</td>
+      <td>5.99</td>
+      <td>5.99</td>
+      <td>0.99</td>
+      <td>5.00</td>
     </tr>
   </tbody>
 </table>
@@ -13278,30 +13458,31 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="First-come-first-serve-(FCFS)-Myopic-Strategy">First-come-first-serve (FCFS) Myopic Strategy<a class="anchor-link" href="#First-come-first-serve-(FCFS)-Myopic-Strategy">&#182;</a></h2><p>The retailer may adopt a myopic strategy that the product is always shipped to a customer from the closer warehouse as long as the warehouse has inventory.</p>
+<h2 id="Myopic-Strategy">Myopic Strategy<a class="anchor-link" href="#Myopic-Strategy">&#182;</a></h2><p>The retailer may adopt a myopic strategy that the product is always shipped to a customer from the closer warehouse as long as the warehouse has inventory.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fcfs_assign</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">assgin</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">stock_level</span> <span class="o">=</span> <span class="n">warehouse_stocks</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
     <span class="n">warehouse_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">if</span> <span class="n">stock_level</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">999</span> 
                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span>
     <span class="n">stock_level</span><span class="p">[</span><span class="n">warehouse_idx</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-    <span class="n">fcfs_assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warehouse_idx</span><span class="p">)</span>
+    <span class="n">assgin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warehouse_idx</span><span class="p">)</span>
     
-<span class="n">fcfs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">shipcost</span><span class="p">[[</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span><span class="s1">&#39;d0&#39;</span><span class="p">,</span><span class="s1">&#39;d1&#39;</span><span class="p">]],</span>
-                  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">fcfs_assign</span><span class="p">)],</span>
-                              <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fcfs_WH&#39;</span><span class="p">,</span> <span class="s1">&#39;fcfs_cost&#39;</span><span class="p">])</span>
+<span class="n">myopic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">orders</span><span class="o">.</span><span class="n">drop</span><span class="p">([(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;diff&#39;</span><span class="p">)],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">assgin</span><span class="p">)],</span>
+                                 <span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;myopic&#39;</span><span class="p">],[</span><span class="s1">&#39;WH&#39;</span><span class="p">,</span><span class="s1">&#39;cost&#39;</span><span class="p">]]))</span>
                  <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">fcfs</span><span class="p">[</span><span class="s1">&#39;fcfs_cum_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fcfs</span><span class="o">.</span><span class="n">fcfs_cost</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
-<span class="n">fcfs</span>
+<span class="n">myopic</span><span class="p">[(</span><span class="s1">&#39;myopic&#39;</span><span class="p">,</span><span class="s1">&#39;cum_cost&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">myopic</span><span class="p">[</span><span class="s1">&#39;myopic&#39;</span><span class="p">][</span><span class="s1">&#39;cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">toggle</span><span class="p">()</span>
+<span class="n">myopic</span>
 </pre></div>
 
     </div>
@@ -13314,7 +13495,21 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[3]:</div>
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -13329,112 +13524,117 @@ $( document ).ready(function(){
         vertical-align: top;
     }
 
-    .dataframe thead th {
-        text-align: right;
+    .dataframe thead tr th {
+        text-align: left;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left"></th>
+      <th colspan="3" halign="left">myopic</th>
+    </tr>
+    <tr>
       <th></th>
       <th>loc</th>
       <th>d0</th>
       <th>d1</th>
-      <th>fcfs_WH</th>
-      <th>fcfs_cost</th>
-      <th>fcfs_cum_cost</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.537277</td>
-      <td>1.537277</td>
-      <td>3.462723</td>
+      <td>1.54</td>
+      <td>1.54</td>
+      <td>3.46</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.583306</td>
-      <td>3.583306</td>
-      <td>1.416694</td>
+      <td>3.58</td>
+      <td>3.58</td>
+      <td>1.42</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.421529</td>
-      <td>1.421529</td>
-      <td>6.421529</td>
+      <td>-1.42</td>
+      <td>1.42</td>
+      <td>6.42</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.264240</td>
-      <td>0.264240</td>
-      <td>4.735760</td>
+      <td>0.26</td>
+      <td>0.26</td>
+      <td>4.74</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-3.150134</td>
-      <td>3.150134</td>
-      <td>8.150134</td>
+      <td>-3.15</td>
+      <td>3.15</td>
+      <td>8.15</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2.057908</td>
-      <td>2.057908</td>
-      <td>2.942092</td>
+      <td>2.06</td>
+      <td>2.06</td>
+      <td>2.94</td>
       <td>0</td>
-      <td>2.057908</td>
-      <td>9.847782</td>
+      <td>2.06</td>
+      <td>9.85</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-4.535353</td>
-      <td>4.535353</td>
-      <td>9.535353</td>
+      <td>-4.54</td>
+      <td>4.54</td>
+      <td>9.54</td>
       <td>1</td>
-      <td>9.535353</td>
-      <td>19.383136</td>
+      <td>9.54</td>
+      <td>19.38</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>4.763325</td>
-      <td>4.763325</td>
-      <td>0.236675</td>
+      <td>4.76</td>
+      <td>4.76</td>
+      <td>0.24</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>19.619811</td>
+      <td>0.24</td>
+      <td>19.62</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>3.162244</td>
-      <td>3.162244</td>
-      <td>1.837756</td>
+      <td>3.16</td>
+      <td>3.16</td>
+      <td>1.84</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>21.457566</td>
+      <td>1.84</td>
+      <td>21.46</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>5.986215</td>
-      <td>5.986215</td>
-      <td>0.986215</td>
+      <td>5.99</td>
+      <td>5.99</td>
+      <td>0.99</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>22.443782</td>
+      <td>0.99</td>
+      <td>22.44</td>
     </tr>
   </tbody>
 </table>
@@ -13450,8 +13650,8 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The column <code>fcfs_WH</code> shows the warehouse where the order is fulfilled. The column <code>fcfs_cost</code> is the cooresponding shipping cost. The column <code>fcfs_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
-<p>For example, the myopic strategy ships product from warehouse 0 for order 5. The shipping cost is <code>2.057908</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>9.847782</code>.</p>
+<p>The column <code>WH</code> shows the warehouse where the order is fulfilled. The column <code>cost</code> is the cooresponding shipping cost. The column <code>cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
+<p>For example, the myopic strategy ships product from warehouse 0 for order 5. The shipping cost is <code>2.06</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>9.85</code>.</p>
 <p>Although the retail is able to fulfill orders $0, \ldots, 5$ with the lower shipping cost, order $6$ has to be fulfilled from warehouse 1 with a much higher cost because warehouse 0 is already out of stock.</p>
 
 </div>
@@ -13473,26 +13673,27 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">m</span><span class="o">=</span><span class="n">Model</span><span class="p">()</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">addVars</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">num_warehouse</span><span class="p">,</span>
-              <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">shipcost</span><span class="p">[[</span><span class="s1">&#39;d0&#39;</span><span class="p">,</span><span class="s1">&#39;d1&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+              <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">orders</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">][[</span><span class="s1">&#39;d0&#39;</span><span class="p">,</span><span class="s1">&#39;d1&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">addConstrs</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">warehouse_stocks</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)),</span> <span class="s1">&#39;capacity&#39;</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">addConstrs</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))),</span> <span class="s1">&#39;assign&#39;</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">modelSense</span> <span class="o">=</span> <span class="n">GRB</span><span class="o">.</span><span class="n">MINIMIZE</span>
 <span class="n">m</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s1">&#39;LogToConsole&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
 
-<span class="n">opt_assign</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">w</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))]</span>
-<span class="n">optimal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fcfs</span><span class="p">,</span>
-                     <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">opt_assign</span><span class="p">)],</span>
-                              <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;opt_WH&#39;</span><span class="p">,</span> <span class="s1">&#39;opt_cost&#39;</span><span class="p">])</span>
-                    <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">optimal</span><span class="p">[</span><span class="s1">&#39;opt_cum_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optimal</span><span class="o">.</span><span class="n">opt_cost</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
-<span class="n">optimal</span>
+<span class="n">assign</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">w</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))]</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">myopic</span><span class="p">,</span>
+                 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">assign</span><span class="p">)],</span>
+                              <span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;opt&#39;</span><span class="p">],[</span><span class="s1">&#39;WH&#39;</span><span class="p">,</span><span class="s1">&#39;cost&#39;</span><span class="p">]]))</span>
+                <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">opt</span><span class="p">[(</span><span class="s1">&#39;opt&#39;</span><span class="p">,</span><span class="s1">&#39;cum_cost&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">opt</span><span class="p">[</span><span class="s1">&#39;opt&#39;</span><span class="p">][</span><span class="s1">&#39;cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">toggle</span><span class="p">()</span>
+<span class="n">opt</span>
 </pre></div>
 
     </div>
@@ -13517,7 +13718,21 @@ Academic license - for non-commercial use only
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -13532,145 +13747,151 @@ Academic license - for non-commercial use only
         vertical-align: top;
     }
 
-    .dataframe thead th {
-        text-align: right;
+    .dataframe thead tr th {
+        text-align: left;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left"></th>
+      <th colspan="3" halign="left">myopic</th>
+      <th colspan="3" halign="left">opt</th>
+    </tr>
+    <tr>
       <th></th>
       <th>loc</th>
       <th>d0</th>
       <th>d1</th>
-      <th>fcfs_WH</th>
-      <th>fcfs_cost</th>
-      <th>fcfs_cum_cost</th>
-      <th>opt_WH</th>
-      <th>opt_cost</th>
-      <th>opt_cum_cost</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.537277</td>
-      <td>1.537277</td>
-      <td>3.462723</td>
+      <td>1.54</td>
+      <td>1.54</td>
+      <td>3.46</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.583306</td>
-      <td>3.583306</td>
-      <td>1.416694</td>
+      <td>3.58</td>
+      <td>3.58</td>
+      <td>1.42</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.421529</td>
-      <td>1.421529</td>
-      <td>6.421529</td>
+      <td>-1.42</td>
+      <td>1.42</td>
+      <td>6.42</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.264240</td>
-      <td>0.264240</td>
-      <td>4.735760</td>
+      <td>0.26</td>
+      <td>0.26</td>
+      <td>4.74</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-3.150134</td>
-      <td>3.150134</td>
-      <td>8.150134</td>
+      <td>-3.15</td>
+      <td>3.15</td>
+      <td>8.15</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2.057908</td>
-      <td>2.057908</td>
-      <td>2.942092</td>
+      <td>2.06</td>
+      <td>2.06</td>
+      <td>2.94</td>
       <td>0</td>
-      <td>2.057908</td>
-      <td>9.847782</td>
+      <td>2.06</td>
+      <td>9.85</td>
       <td>1</td>
-      <td>2.942092</td>
-      <td>10.731967</td>
+      <td>2.94</td>
+      <td>10.73</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-4.535353</td>
-      <td>4.535353</td>
-      <td>9.535353</td>
+      <td>-4.54</td>
+      <td>4.54</td>
+      <td>9.54</td>
       <td>1</td>
-      <td>9.535353</td>
-      <td>19.383136</td>
+      <td>9.54</td>
+      <td>19.38</td>
       <td>0</td>
-      <td>4.535353</td>
-      <td>15.267320</td>
+      <td>4.54</td>
+      <td>15.27</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>4.763325</td>
-      <td>4.763325</td>
-      <td>0.236675</td>
+      <td>4.76</td>
+      <td>4.76</td>
+      <td>0.24</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>19.619811</td>
+      <td>0.24</td>
+      <td>19.62</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>15.503995</td>
+      <td>0.24</td>
+      <td>15.50</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>3.162244</td>
-      <td>3.162244</td>
-      <td>1.837756</td>
+      <td>3.16</td>
+      <td>3.16</td>
+      <td>1.84</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>21.457566</td>
+      <td>1.84</td>
+      <td>21.46</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>17.341751</td>
+      <td>1.84</td>
+      <td>17.34</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>5.986215</td>
-      <td>5.986215</td>
-      <td>0.986215</td>
+      <td>5.99</td>
+      <td>5.99</td>
+      <td>0.99</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>22.443782</td>
+      <td>0.99</td>
+      <td>22.44</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>18.327966</td>
+      <td>0.99</td>
+      <td>18.33</td>
     </tr>
   </tbody>
 </table>
@@ -13686,10 +13907,10 @@ Academic license - for non-commercial use only
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The column <code>opt_WH</code> shows the warehouse where the order is fulfilled. The column <code>opt_cost</code> is the cooresponding shipping cost. The column <code>opt_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
-<p>For example, the optimal solution suggests a shipment from warehouse 1 for order 5. The shipping cost is <code>2.942092</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>10.731967</code>.</p>
+<p>The column <code>WH</code> shows the warehouse where the order is fulfilled. The column <code>cost</code> is the cooresponding shipping cost. The column <code>cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
+<p>For example, the optimal solution suggests a shipment from warehouse 1 for order 5. The shipping cost is <code>2.94</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>10.73</code>.</p>
 <p>Distinct from the myopic strategy, the hindsight suggests fulfilling the order $5$ from warehouse 1. Although it bears with higher shipping cost, the solution intent to save inventory in warehouse 0.</p>
-<p>The hindsight solution is impractical to implement, but it suggests an interesting insight. Based on orders $0, \ldots, 4$, we have learned that there may be a lot of orders closer to warehouse 0 in the future. Hence, shouldn't we grab the chance of saving warehouse 0's inventory when it is not too much more expernsive to ship from warehouse 1 (i.e., $d_{i1} \ge d_{i0}$ but $d_{i1} - d_{i0}$ is small)? Because, in such a scenario, we take a small extra shipping cost, but save the inventory for the future.</p>
+<p>The hindsight solution is impractical to implement, but it suggests an interesting insight. Based on orders $0, \ldots, 4$, we have learned that there may be a lot of orders closer to warehouse 0 in the future. Hence, shouldn't we grab the chance of saving warehouse 0's inventory when it is not much more expernsive to ship from warehouse 1 (i.e., $d_{i1} \ge d_{i0}$ but $d_{i1} - d_{i0}$ is small)? Because, in such a scenario, we just take a small extra shipping cost, but save the inventory for the future.</p>
 
 </div>
 </div>
@@ -13730,7 +13951,7 @@ Academic license - for non-commercial use only
 <ul>
 <li>otherwise the order $i+1$ is fulfilled by warehouse 1.</li>
 </ul>
-<p>Consider the order $5$, we have $d_{50} = 2.057908$ and $d_{51} = 2.942092$. The idea of hidden cost suggests that if the order $5$ is fulfilled from warehouse 0 because $d_{50} &lt; d_{51}$, then we bear with the risk of future orders occuring near warehouse 0 since warehouse 0 is going to be out of stock.</p>
+<p>Consider the order $5$, we have $d_{50} = 2.06$ and $d_{51} = 2.94$. The idea of hidden cost suggests that if the order $5$ is fulfilled from warehouse 0 because $d_{50} &lt; d_{51}$, then we bear with the risk of future orders occuring near warehouse 0 since warehouse 0 is going to be out of stock.</p>
 
 </div>
 </div>
@@ -13873,7 +14094,7 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Gaussian</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -13919,50 +14140,46 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">+</span> <span class="n">precision</span><span class="o">*</span><span class="n">obs</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">+</span><span class="n">precision</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">+</span> <span class="n">precision</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stock_level</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">warehouse_stocks</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-<span class="n">belief</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">heur_assign</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">warehouse_stocks</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">assign</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">hidden_cost</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_stock</span><span class="p">):</span>
-    <span class="n">hidden_cost</span> <span class="o">=</span> <span class="n">shipcost</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">belief</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">shipcost</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">stock_level</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="c1"># if warehouse 0 is out of stock</span>
-        <span class="n">heur_assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">stock_level</span> <span class="o">=</span> <span class="n">stock_level</span> <span class="o">-</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">stock_level</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">cost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="c1"># if warehouse 1 is out of stock</span>
-        <span class="n">heur_assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">stock_level</span> <span class="o">=</span> <span class="n">stock_level</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">cost</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">stock_level</span><span class="p">)):</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stock_level</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
-            <span class="n">outstock0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">([</span><span class="n">j</span><span class="p">,</span> <span class="n">units</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">stock_level</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">outstock1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">([</span><span class="n">j</span><span class="p">,</span> <span class="n">units</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">stock_level</span> <span class="o">-</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">hidden_cost</span> <span class="o">=</span> <span class="n">hidden_cost</span> <span class="o">+</span> <span class="p">[</span>
-                <span class="n">outstock0</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">belief</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">belief</span><span class="o">.</span><span class="n">prob</span><span class="p">),</span>
-                <span class="n">outstock1</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">belief</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">belief</span><span class="o">.</span><span class="n">prob</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">u0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+            <span class="n">outstock0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">([</span><span class="n">u0</span><span class="p">,</span> <span class="n">u</span><span class="o">-</span><span class="n">u0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">outstock1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">([</span><span class="n">u0</span><span class="p">,</span> <span class="n">u</span><span class="o">-</span><span class="n">u0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="p">[</span>
+                <span class="n">outstock0</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">prob</span><span class="p">),</span>
+                <span class="n">outstock1</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">prob</span><span class="p">)</span>
             <span class="p">]</span>
-        <span class="n">heur_assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">hidden_cost</span><span class="p">))</span>
-        <span class="n">stock_level</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">hidden_cost</span><span class="p">)]</span> <span class="o">-=</span> <span class="mi">1</span>
-        
-<span class="n">heur</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">optimal</span><span class="p">,</span>
-                  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">heur_assign</span><span class="p">)],</span>
-                              <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;heur_WH&#39;</span><span class="p">,</span> <span class="s1">&#39;heur_cost&#39;</span><span class="p">])</span>
+        <span class="n">assign</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cost</span><span class="p">))</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cost</span><span class="p">)]</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">hidden_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+
+<span class="n">heur</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">opt</span><span class="p">,</span> 
+                  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">hidden_cost</span><span class="p">,</span> 
+                               <span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;heur&#39;</span><span class="p">],[</span><span class="s1">&#39;H0&#39;</span><span class="p">,</span><span class="s1">&#39;H1&#39;</span><span class="p">]])),</span>
+                  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">assign</span><span class="p">)],</span>
+                               <span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;heur&#39;</span><span class="p">],[</span><span class="s1">&#39;WH&#39;</span><span class="p">,</span><span class="s1">&#39;cost&#39;</span><span class="p">]]))</span>
                  <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">heur</span><span class="p">[</span><span class="s1">&#39;heur_cum_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">heur</span><span class="o">.</span><span class="n">heur_cost</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">heur</span><span class="p">[(</span><span class="s1">&#39;heur&#39;</span><span class="p">,</span><span class="s1">&#39;cum_cost&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">heur</span><span class="p">[</span><span class="s1">&#39;heur&#39;</span><span class="p">][</span><span class="s1">&#39;cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">toggle</span><span class="p">()</span>
 <span class="n">heur</span>
 </pre></div>
 
@@ -13973,6 +14190,20 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -13991,178 +14222,207 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
         vertical-align: top;
     }
 
-    .dataframe thead th {
-        text-align: right;
+    .dataframe thead tr th {
+        text-align: left;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left"></th>
+      <th colspan="3" halign="left">myopic</th>
+      <th colspan="3" halign="left">opt</th>
+      <th colspan="5" halign="left">heur</th>
+    </tr>
+    <tr>
       <th></th>
       <th>loc</th>
       <th>d0</th>
       <th>d1</th>
-      <th>fcfs_WH</th>
-      <th>fcfs_cost</th>
-      <th>fcfs_cum_cost</th>
-      <th>opt_WH</th>
-      <th>opt_cost</th>
-      <th>opt_cum_cost</th>
-      <th>heur_WH</th>
-      <th>heur_cost</th>
-      <th>heur_cum_cost</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
+      <th>H0</th>
+      <th>H1</th>
+      <th>WH</th>
+      <th>cost</th>
+      <th>cum_cost</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.537277</td>
-      <td>1.537277</td>
-      <td>3.462723</td>
+      <td>1.54</td>
+      <td>1.54</td>
+      <td>3.46</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
+      <td>5.64</td>
+      <td>5.93</td>
       <td>0</td>
-      <td>1.537277</td>
-      <td>1.537277</td>
+      <td>1.54</td>
+      <td>1.54</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.583306</td>
-      <td>3.583306</td>
-      <td>1.416694</td>
+      <td>3.58</td>
+      <td>3.58</td>
+      <td>1.42</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
+      <td>4.46</td>
+      <td>2.24</td>
       <td>1</td>
-      <td>1.416694</td>
-      <td>2.953971</td>
+      <td>1.42</td>
+      <td>2.95</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.421529</td>
-      <td>1.421529</td>
-      <td>6.421529</td>
+      <td>-1.42</td>
+      <td>1.42</td>
+      <td>6.42</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
+      <td>6.18</td>
+      <td>9.43</td>
       <td>0</td>
-      <td>1.421529</td>
-      <td>4.375500</td>
+      <td>1.42</td>
+      <td>4.38</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.264240</td>
-      <td>0.264240</td>
-      <td>4.735760</td>
+      <td>0.26</td>
+      <td>0.26</td>
+      <td>4.74</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
+      <td>8.88</td>
+      <td>10.94</td>
       <td>0</td>
-      <td>0.264240</td>
-      <td>4.639740</td>
+      <td>0.26</td>
+      <td>4.64</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-3.150134</td>
-      <td>3.150134</td>
-      <td>8.150134</td>
+      <td>-3.15</td>
+      <td>3.15</td>
+      <td>8.15</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
+      <td>14.43</td>
+      <td>16.54</td>
       <td>0</td>
-      <td>3.150134</td>
-      <td>7.789875</td>
+      <td>3.15</td>
+      <td>7.79</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2.057908</td>
-      <td>2.057908</td>
-      <td>2.942092</td>
+      <td>2.06</td>
+      <td>2.06</td>
+      <td>2.94</td>
       <td>0</td>
-      <td>2.057908</td>
-      <td>9.847782</td>
+      <td>2.06</td>
+      <td>9.85</td>
       <td>1</td>
-      <td>2.942092</td>
-      <td>10.731967</td>
+      <td>2.94</td>
+      <td>10.73</td>
+      <td>12.39</td>
+      <td>10.63</td>
       <td>1</td>
-      <td>2.942092</td>
-      <td>10.731967</td>
+      <td>2.94</td>
+      <td>10.73</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-4.535353</td>
-      <td>4.535353</td>
-      <td>9.535353</td>
+      <td>-4.54</td>
+      <td>4.54</td>
+      <td>9.54</td>
       <td>1</td>
-      <td>9.535353</td>
-      <td>19.383136</td>
+      <td>9.54</td>
+      <td>19.38</td>
       <td>0</td>
-      <td>4.535353</td>
-      <td>15.267320</td>
+      <td>4.54</td>
+      <td>15.27</td>
+      <td>13.38</td>
+      <td>15.41</td>
       <td>0</td>
-      <td>4.535353</td>
-      <td>15.267320</td>
+      <td>4.54</td>
+      <td>15.27</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>4.763325</td>
-      <td>4.763325</td>
-      <td>0.236675</td>
+      <td>4.76</td>
+      <td>4.76</td>
+      <td>0.24</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>19.619811</td>
+      <td>0.24</td>
+      <td>19.62</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>15.503995</td>
+      <td>0.24</td>
+      <td>15.50</td>
+      <td>nan</td>
+      <td>0.24</td>
       <td>1</td>
-      <td>0.236675</td>
-      <td>15.503995</td>
+      <td>0.24</td>
+      <td>15.50</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>3.162244</td>
-      <td>3.162244</td>
-      <td>1.837756</td>
+      <td>3.16</td>
+      <td>3.16</td>
+      <td>1.84</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>21.457566</td>
+      <td>1.84</td>
+      <td>21.46</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>17.341751</td>
+      <td>1.84</td>
+      <td>17.34</td>
+      <td>nan</td>
+      <td>1.84</td>
       <td>1</td>
-      <td>1.837756</td>
-      <td>17.341751</td>
+      <td>1.84</td>
+      <td>17.34</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>5.986215</td>
-      <td>5.986215</td>
-      <td>0.986215</td>
+      <td>5.99</td>
+      <td>5.99</td>
+      <td>0.99</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>22.443782</td>
+      <td>0.99</td>
+      <td>22.44</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>18.327966</td>
+      <td>0.99</td>
+      <td>18.33</td>
+      <td>nan</td>
+      <td>0.99</td>
       <td>1</td>
-      <td>0.986215</td>
-      <td>18.327966</td>
+      <td>0.99</td>
+      <td>18.33</td>
     </tr>
   </tbody>
 </table>
@@ -14178,8 +14438,8 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The column <code>heur_WH</code> shows the warehouse where the order is fulfilled. The column <code>heur_cost</code> is the cooresponding shipping cost. The column <code>heur_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
-<p>Our learning algorithm is also the optimal solution from hindsight.</p>
+<p>The column <code>H0</code> and <code>H1</code> are hidden costs. $H_0$ is <code>nan</code> for the orders $7,8,9$ because warehouse 0 is out of stock. The column <code>WH</code> shows the warehouse where the order is fulfilled. The column <code>cost</code> is the cooresponding shipping cost. The column <code>cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
+<p>Our learning algorithm finds the optimal solution from hindsight.</p>
 
 </div>
 </div>
