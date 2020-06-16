@@ -13115,7 +13115,7 @@ $( document ).ready(function(){
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Problem-Description">Problem Description<a class="anchor-link" href="#Problem-Description">&#182;</a></h1><p>A retailer has two warehouses (WHs) at locations 0 and 5 on a line for a single product. Each warehouse has 5 units of stocks.</p>
-<p>The retailer needs to satisfy demand if there is inventory available because the cost of lost sales or backlog is very high. Therefore, we consider 10 random orders since the total product quantity is 10.</p>
+<p>The retailer needs to satisfy demand as long as there is inventory available because the cost of lost sales or backlog is very high. Therefore, we just consider 10 random orders since the total product quantity is 10.</p>
 
 </div>
 </div>
@@ -13270,7 +13270,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are a sequence of 10 customers and their locations are given in the columns <code>loc_x</code> and <code>loc_y</code>. The shipping cost of each customer is simply the distance from a warehouse to the customer's location. Hence, column <code>d0</code> and <code>d1</code> are shipping cost to the customer if the fulfillment is from warehouse 0 and warehouse 1 respectively. The column <code>diff</code> is the cost difference <code>d0-d1</code>.</p>
+<p>The random sample includes a sequence of 10 orders and their locations are given in the columns <code>loc</code>. The shipping cost of each order is simply the distance from a warehouse to the location. The column <code>d0</code> and <code>d1</code> are shipping cost of all the orders if the fulfillment is from warehouse 0 and warehouse 1, respectively. The column <code>diff</code> is the cost difference which is <code>d0</code> minus <code>d1</code>.</p>
 
 </div>
 </div>
@@ -13278,7 +13278,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="First-come-first-serve-(FCFS)-Myopic-Strategy">First-come-first-serve (FCFS) Myopic Strategy<a class="anchor-link" href="#First-come-first-serve-(FCFS)-Myopic-Strategy">&#182;</a></h2><p>The retailer may adopt a myopic strategy that the product is always shipped to a customer from the closest warehouse as long as the warehouse has inventory.</p>
+<h2 id="First-come-first-serve-(FCFS)-Myopic-Strategy">First-come-first-serve (FCFS) Myopic Strategy<a class="anchor-link" href="#First-come-first-serve-(FCFS)-Myopic-Strategy">&#182;</a></h2><p>The retailer may adopt a myopic strategy that the product is always shipped to a customer from the closer warehouse as long as the warehouse has inventory.</p>
 
 </div>
 </div>
@@ -13452,6 +13452,7 @@ $( document ).ready(function(){
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The column <code>fcfs_WH</code> shows the warehouse where the order is fulfilled. The column <code>fcfs_cost</code> is the cooresponding shipping cost. The column <code>fcfs_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
 <p>For example, the myopic strategy ships product from warehouse 0 for order 5. The shipping cost is <code>2.057908</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>9.847782</code>.</p>
+<p>Although the retail is able to fulfill orders $0, \ldots, 5$ with the lower shipping cost, order $6$ has to be fulfilled from warehouse 1 with a much higher cost because warehouse 0 is already out of stock.</p>
 
 </div>
 </div>
@@ -13459,13 +13460,13 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Optimal-Solution-from-Hindsight">Optimal Solution from Hindsight<a class="anchor-link" href="#Optimal-Solution-from-Hindsight">&#182;</a></h2><p>From hindsight, the fulfillment problem is equivalent to an assignment problem.</p>
-<p>Let $d_{ij}$ be the distance (cost) of fulfilling the order $i \in \{0, \ldots, 9\}$ from warehouse $j$ for $j=0, 1$. We define binary variable $x_{ij}$, which is 1 if the retailer fulfills order $i$ from warehouse $j$, and 0 otherwise. The optimization model is minimizing the total shipping cost</p>
+<h2 id="Optimal-Solution-from-Hindsight">Optimal Solution from Hindsight<a class="anchor-link" href="#Optimal-Solution-from-Hindsight">&#182;</a></h2><p>From hindsight, the fulfillment problem is an assignment problem.</p>
+<p>Let $d_{ij}$ be the distance (cost) of fulfilling the order $i \in \{0, \ldots, 9\}$ from warehouse $j$ for $j=0, 1$. We define binary variables $x_{ij}$ for $i \in \{0, \ldots, 9\}$ and $j = 0, 1$, which is 1 if the order $i$ is fulfilled from warehouse $j$, and 0 otherwise. The optimization model minimizes the total shipping cost as follows.</p>
 \begin{align}
 \min        &amp; ~\sum_{i=0}^{9} \sum_{j=0}^{1} d_{ij} x_{ij} \\
 \text{s.t.} &amp; ~\sum_{i=0}^{9} x_{ij} \le 5 &amp;&amp; \forall j = 0, 1\\
             &amp; ~\sum_{j=0}^{1} x_{ij} = 1 &amp;&amp; \forall i=0,\ldots,9
-\end{align}<p>where the first constraint respects inventory in each warehouse, and the second constraint shows that each order is fulfilled by only one warehouse.</p>
+\end{align}<p>where the first constraint respects inventory in each warehouse, and the second constraint shows that each order is fulfilled from only one warehouse.</p>
 
 </div>
 </div>
@@ -13687,6 +13688,8 @@ Academic license - for non-commercial use only
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The column <code>opt_WH</code> shows the warehouse where the order is fulfilled. The column <code>opt_cost</code> is the cooresponding shipping cost. The column <code>opt_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
 <p>For example, the optimal solution suggests a shipment from warehouse 1 for order 5. The shipping cost is <code>2.942092</code> and the cumulative shipping cost for orders $0, 1, \ldots, 5$ is <code>10.731967</code>.</p>
+<p>Distinct from the myopic strategy, the hindsight suggests fulfilling the order $5$ from warehouse 1. Although it bears with higher shipping cost, the solution intent to save inventory in warehouse 0.</p>
+<p>The hindsight solution is impractical to implement, but it suggests an interesting insight. Based on orders $0, \ldots, 4$, we have learned that there may be a lot of orders closer to warehouse 0 in the future. Hence, shouldn't we grab the chance of saving warehouse 0's inventory when it is not too much more expernsive to ship from warehouse 1 (i.e., $d_{i1} \ge d_{i0}$ but $d_{i1} - d_{i0}$ is small)? Because, in such a scenario, we take a small extra shipping cost, but save the inventory for the future.</p>
 
 </div>
 </div>
@@ -13701,31 +13704,33 @@ Academic license - for non-commercial use only
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Suppose we have observed orders $0, \ldots, i$, and now need to make the fulfillment decision for the order $i+1$. Current information includes:</p>
+<p>Suppose we have observed orders $0, \ldots, i$, and now need to make the fulfillment decision for the order $i+1$. Current information that we know includes:</p>
 <ul>
-<li>after fulfilling the order $i+1$, there are $u = \text{total stock} - (i + 1) = 10 - (i + 1)$ units of product left with the retailer,</li>
+<li>after fulfilling the order $i+1$, there are $u = \text{total stock} - (i + 1) = 10 - (i + 1)$ units of the products left with the retailer,</li>
 </ul>
 <ul>
 <li>the current stock level in warehouse $j$ is $s_j$ for $j=0, 1$.</li>
 </ul>
-<p>Although the shipping costs from two warehouses are known for the order $i+1$, our decision should not soly rely on comparing them directly. We need to calculate the hidden cost $H_j$ for each warehouse $j$ with $j=0, 1$.</p>
+<p>Although the shipping costs from two warehouses are known for the order $i+1$, our decision should not soly rely on comparing them directly. Instead, we need to calculate the hidden cost $H_j$ for each warehouse $j$ with $j=0, 1$. What is the hidden cost?</p>
 <ul>
 <li><p>Suppose the order $i+1$ is fulfilled by warehouse 0.</p>
-<p>$H_0 = d_{(i+1),0} +$ cost if some future order are closer to warehouse 0, but warehouse 0 is out of stock.</p>
+<p>$H_0 = d_{(i+1),0} +$ cost if some future orders are closer to warehouse 0, but warehouse 0 is out of stock.</p>
 </li>
 </ul>
 <ul>
 <li><p>Suppose the order $i+1$ is fulfilled by warehouse 1.</p>
-<p>$H_1 = d_{(i+1),1} +$ cost if some future order are closer to warehouse 1, but warehouse 1 is out of stock.</p>
+<p>$H_1 = d_{(i+1),1} +$ cost if some future orders are closer to warehouse 1, but warehouse 1 is out of stock.</p>
 </li>
 </ul>
-<p>If $H_0$ and $H_1$ are available, then our strategy is simple:</p>
+<p>Therefore, the hidden cost is the current shipping cost plus some <em>additional</em> future costs that we cannot fulfill future orders from the closer warehouse in case it is out of stock.</p>
+<p>If $H_0$ and $H_1$ are available, then our strategy is extremely simple as follows:</p>
 <ul>
 <li>if $H_0 &lt; H_1$, then the order $i+1$ is fulfilled by warehouse 0, </li>
 </ul>
 <ul>
 <li>otherwise the order $i+1$ is fulfilled by warehouse 1.</li>
 </ul>
+<p>Consider the order $5$, we have $d_{50} = 2.057908$ and $d_{51} = 2.942092$. The idea of hidden cost suggests that if the order $5$ is fulfilled from warehouse 0 because $d_{50} &lt; d_{51}$, then we bear with the risk of future orders occuring near warehouse 0 since warehouse 0 is going to be out of stock.</p>
 
 </div>
 </div>
@@ -14174,7 +14179,7 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The column <code>heur_WH</code> shows the warehouse where the order is fulfilled. The column <code>heur_cost</code> is the cooresponding shipping cost. The column <code>heur_cum_cost</code> is the cumulative shipping cost for fulfilling the current order and all previous orders.</p>
-<p>Our learning algorithm replicate the optimal solution from hindsight.</p>
+<p>Our learning algorithm is also the optimal solution from hindsight.</p>
 
 </div>
 </div>
