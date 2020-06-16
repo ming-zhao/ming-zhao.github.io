@@ -13101,8 +13101,7 @@ $( document ).ready(function(){
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hide this cell</span>
-<span class="o">%</span><span class="k">run</span> ./script.py
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">run</span> ./script.py
 </pre></div>
 
     </div>
@@ -13182,6 +13181,7 @@ $( document ).ready(function(){
         is_sphnix = 0;
         is_jupyterNotebook = 1;
         is_jupyterLab = 0;
+        is_debug = 0;
 
         if (is_jupyterNotebook == 1) {
             var code_blocks = document.getElementsByClassName('input');
@@ -13191,8 +13191,14 @@ $( document ).ready(function(){
                   || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
                   || code_blocks[i].innerHTML.indexOf("# Hide this cell") !== -1 
                  ) {
-                code_blocks[i].style.display = "none";
-                code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                if (is_debug == 0) {
+                    code_blocks[i].style.display = "none";
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                }
+                else {
+                    code_blocks[i].style.removeProperty("display");
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+                }
               }
             }
 
@@ -13673,11 +13679,11 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">m</span><span class="o">=</span><span class="n">Model</span><span class="p">()</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">addVars</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">num_warehouse</span><span class="p">,</span>
               <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">orders</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">][[</span><span class="s1">&#39;d0&#39;</span><span class="p">,</span><span class="s1">&#39;d1&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">addConstrs</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">warehouse_stocks</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)),</span> <span class="s1">&#39;capacity&#39;</span><span class="p">)</span>
@@ -13709,18 +13715,6 @@ $( document ).ready(function(){
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Using license file C:\Users\Ming\gurobi.lic
-Academic license - for non-commercial use only
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
 
 <div class="output_html rendered_html output_subarea ">
 
@@ -13732,7 +13726,7 @@ Academic license - for non-commercial use only
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -14140,13 +14134,47 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">+</span> <span class="n">precision</span><span class="o">*</span><span class="n">obs</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">+</span><span class="n">precision</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">+</span> <span class="n">precision</span>
+        
+<span class="n">toggle</span><span class="p">()</span>
+</pre></div>
 
-<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">warehouse_stocks</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">warehouse_stocks</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">assign</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">hidden_cost</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_stock</span><span class="p">):</span>
-    <span class="n">cost</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -14207,7 +14235,7 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
 
