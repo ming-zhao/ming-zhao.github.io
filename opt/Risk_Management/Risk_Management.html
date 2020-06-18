@@ -13084,7 +13084,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13145,29 +13145,19 @@ $( document ).ready(function(){
 
   function hide_comment(e) {
     if (is_jupyterNotebook == 1) {
-        target = e.parentElement.parentElement.getElementsByTagName('p');
-        for (var i = 1, len = target.length; i < len; ++i) {
-            if (target[i].style.display == null || target[i].style.display == "") {
-              target[i].style.display = "none";
-              e.innerHTML = "show comment";
-            }
-            else {
-              target[i].style.removeProperty("display");
-              e.innerHTML = "hide comment";
-            }        
-        }
         var target = e;
         while ((target = target.parentElement) && !target.classList.contains("text_cell"));
-        target = target.nextElementSibling;
         do {
+            target = target.nextElementSibling;
             if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
               target.style.display = "none";
+              e.innerHTML = 'show comment';
             }
             else {
               target.style.removeProperty("display");
+              e.innerHTML = 'hide comment';
             }        
-            target = target.nextElementSibling;
-        } while (target.innerHTML.indexOf("blacksquare<") != -1)
+        } while (target.innerHTML.indexOf("blacksquare") == -1)
     }
   }
 
@@ -13209,16 +13199,19 @@ $( document ).ready(function(){
                     text_blocks[i].style.display = "none";
                 }
 
-                if (text_blocks[i].innerHTML.indexOf(">show comment<") != -1) {
-                    comment = 1;
-                    var p_lists = text_blocks[i].getElementsByTagName('p');
-                    p_lists[0].getElementsByTagName('a')[0].onclick = function() { hide_comment(this); return false; };
-                    for (var j = 1, len_p = p_lists.length; j < len_p; ++j) {
-                        p_lists[j].style.display = "none";
+                if (text_blocks[i].innerHTML.indexOf("show comment") != -1) {
+                    var links = text_blocks[i].getElementsByTagName('a');
+                    var j;
+                    for (j = 0, len_a = links.length; j < len_a; j++) {
+                        if (links[j].innerHTML.indexOf("show comment") != -1) {
+                            comment = 1; 
+                            break;
+                        }
                     }
+                    links[j].onclick = function() { hide_comment(this); return false;};
                 }
 
-                if (text_blocks[i].innerHTML.indexOf("blacksquare<") != -1) {
+                if (text_blocks[i].innerHTML.indexOf("blacksquare") != -1) {
                     comment = 0;
                 }
             }
@@ -14355,6 +14348,13 @@ F^\ast(\xi; x) = \text{argmin}_{F \in \mathscr{F}} ~ \mathbb{E}_{F} \big[p(x, \x
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#" onclick="hide_comment(this); return false;">show comment</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>The retailer solves</p>
 \begin{align}
 \max_{x} \min_{F \in \mathscr{F}} \mathbb{E}_{F} \big[p(x, \xi) \big]
@@ -14366,11 +14366,13 @@ F^\ast(\xi; x) = \text{argmin}_{F \in \mathscr{F}} ~ \mathbb{E}_{F} \big[p(x, \x
 &amp;\int (\xi - \mu)(\xi - \mu)^\intercal dF \preceq \Sigma
 \end{aligned} \right\}
 \end{align}<p>The optimal value of this problem can be found by making use of the duality theory. The retailer's problem is equivalent to the problem</p>
+<p><br></p>
 \begin{align}
-\max_{x, Q, q, r} &amp;~ r + \left( \Sigma + \mu \mu^\intercal \right) \cdot Q + \mu^\intercal q \\
+\max_{x, Q, q, r} &amp;~ r + \left( \mu \mu^\intercal + \Sigma \right) \cdot Q + \mu^\intercal q \\
 \text{s.t.} &amp;~ p(x, \xi) + \xi^\intercal Q \xi + \xi^\intercal q \ge r &amp;&amp; \forall \xi\\
-&amp;~ \hspace{3.38cm} Q \succeq 0
-\end{align}<p>where $\cdot$ refers to the Frobenius inner product between matrices.
+&amp;~ \hspace{3.4cm} Q \succeq 0
+\end{align}<p><br></p>
+<p>where $\cdot$ refers to the Frobenius inner product between matrices.
 <span style="float:right"> $\blacksquare$ </span></p>
 
 </div>
@@ -14538,6 +14540,13 @@ profit increment is 2.94%
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#" onclick="hide_comment(this); return false;">show comment</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>The retailer solves</p>
 \begin{align}
 \max_{x} \min_{F \in \mathscr{F}} \mathbb{E}_{F} \big[p(x, \xi) \big]
@@ -14550,11 +14559,13 @@ profit increment is 2.94%
 \end{aligned} \right\}
 \end{align}<p>where $F_j(\xi_j)$ is the marginal distribution of supplier $j$.</p>
 <p>The optimal value of this problem can be found by making use of the duality theory. The retailer's problem is equivalent to the problem</p>
+<p><br></p>
 \begin{align}
 \max_{x, Q, \gamma_s} &amp;~ \lambda + \sum_{i=1}^{n} \int \gamma_i(\omega_s) dF_{i} + \left( \mu \mu^\intercal - \Sigma \right) \cdot Q \\
 \text{s.t.} &amp;~ p(x, \xi) - \lambda + \sum_{i=1}^{n} \gamma_i(\xi_i)+  \xi^\intercal Q \xi \ge \xi^\intercal Q \mu +  \xi Q \mu^\intercal &amp;&amp; \forall \xi\\
 &amp;~ \hspace{3.5cm} Q \succeq 0, \gamma_i \in C[0,1]^\ast
-\end{align}<p>where $C[0,1]^\ast$ is the set of right continuous functions with bounded variation on [0, 1] normalized by $\gamma_i(1) = 0$.
+\end{align}<p><br></p>
+<p>where $C[0,1]^\ast$ is the set of right continuous functions with bounded variation on [0, 1] normalized by $\gamma_i(1) = 0$.
 <span style="float:right"> $\blacksquare$ </span></p>
 
 </div>
