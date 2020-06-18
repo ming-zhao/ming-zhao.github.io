@@ -13098,7 +13098,7 @@ $( document ).ready(function(){
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">run</span> ./script.py
@@ -14311,7 +14311,7 @@ p(d) &amp; = 100 \times \min \bigg( 2d, 1, -d + 3 \bigg) \\
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The optimal ordering plan is to single source from supplier 0 with 10 units.</p>
-<p>The highest possible profit \$100 is achieved for the observed risk profile. However, it is \\$3.56 short if we implement this ordering plan.</p>
+<p>The highest possible profit \$100 is achieved for the observed risk profile. However, it is $3.56 short if we implement this ordering plan.</p>
 <p>The ordering plan is optimal only if the history will <strong>exactly repeat</strong> itself.</p>
 <p>We should use historical data to learn the true risk profile instead of finding an optimal policy for the historical data.</p>
 
@@ -14346,6 +14346,32 @@ F^\ast(\xi; x) = \text{argmin}_{F \in \mathscr{F}} ~ \mathbb{E}_{F} \big[p(x, \x
 \begin{align}
 \max_{x} \mathbb{E}_{F^\ast(\xi; x)} \big[p(x, \xi) \big]
 \end{align}<p>Because we have the most adversarial situation, our ordering strategy for risk management aims to mitigate the risk for this situation.</p>
+<p>The mathematical formulation of the optimization model is:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#" onclick="hide_comment(this); return false;">show comment</a></p>
+<p>The retailer solves</p>
+\begin{align}
+\max_{x} \min_{F \in \mathscr{F}} \mathbb{E}_{F} \big[p(x, \xi) \big]
+\end{align}<p>where</p>
+\begin{align}
+\mathscr{F} = \left\{ F \text{ is a distribution } \middle| \begin{aligned}
+&amp;\int dF    = 1 \\
+&amp;\int \xi dF = \mu \\
+&amp;\int (\xi - \mu)(\xi - \mu)^\intercal dF \preceq \Sigma
+\end{aligned} \right\}
+\end{align}<p>The optimal value of this problem can be found by making use of the duality theory. The retailer's problem is equivalent to the problem</p>
+\begin{align}
+\max_{x, Q, q, r} &amp;~ r + \left( \Sigma + \mu \mu^\intercal \right) \cdot Q + \mu^\intercal q \\
+\text{s.t.} &amp;~ p(x, \xi) + \xi^\intercal Q \xi + \xi^\intercal q \ge r &amp;&amp; \forall \xi\\
+&amp;~ \hspace{3.38cm} Q \succeq 0
+\end{align}<p>where $\cdot$ refers to the Frobenius inner product between matrices.
+<span style="float:right"> $\blacksquare$ </span></p>
 
 </div>
 </div>
@@ -14493,7 +14519,7 @@ profit increment is 2.94%
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For the observed risks, the DRO model achieves profit \$99.99, which is slightly lower than the highest profit level. However, the expected future profit is \\$99.28, which is 2.94% higher than using the empirical distribution.</p>
+<p>For the observed risks, the DRO model achieves profit \$99.99, which is slightly lower than the highest profit level. However, the expected future profit is \\$99.28, which is 2.94\% higher than using the empirical distribution.</p>
 <p>We are intent to underperform for the observed risks (in sample data) in order to achieve higher future profit on out-of-sample data.</p>
 
 </div>
@@ -14503,6 +14529,33 @@ profit increment is 2.94%
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Marginal-Distributions">Marginal Distributions<a class="anchor-link" href="#Marginal-Distributions">&#182;</a></h2><p>We have used mean and covariance matrix to build a DRO model. Now, we consider the information on marginal distributions (shown in histogram) and covariance matrix.</p>
+<p>The mathematical formulation of the optimization model is:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#" onclick="hide_comment(this); return false;">show comment</a></p>
+<p>The retailer solves</p>
+\begin{align}
+\max_{x} \min_{F \in \mathscr{F}} \mathbb{E}_{F} \big[p(x, \xi) \big]
+\end{align}<p>where</p>
+\begin{align}
+\mathscr{F} = \left\{ F \text{ is a distribution } \middle| \begin{aligned}
+&amp;\int dF    = 1 \\
+&amp;\int \xi_j dF = F_j(\xi_j), \ j = 0, 1, 2\\
+&amp;\int (\xi - \mu)(\xi - \mu)^\intercal dF \preceq \Sigma
+\end{aligned} \right\}
+\end{align}<p>where $F_j(\xi_j)$ is the marginal distribution of supplier $j$.</p>
+<p>The optimal value of this problem can be found by making use of the duality theory. The retailer's problem is equivalent to the problem</p>
+\begin{align}
+\max_{x, Q, \gamma_s} &amp;~ \lambda + \sum_{i=1}^{n} \int \gamma_i(\omega_s) dF_{i} + \left( \mu \mu^\intercal - \Sigma \right) \cdot Q \\
+\text{s.t.} &amp;~ p(x, \xi) - \lambda + \sum_{i=1}^{n} \gamma_i(\xi_i)+  \xi^\intercal Q \xi \ge \xi^\intercal Q \mu +  \xi Q \mu^\intercal &amp;&amp; \forall \xi\\
+&amp;~ \hspace{3.5cm} Q \succeq 0, \gamma_i \in C[0,1]^\ast
+\end{align}<p>where $C[0,1]^\ast$ is the set of right continuous functions with bounded variation on [0, 1] normalized by $\gamma_i(1) = 0$.
+<span style="float:right"> $\blacksquare$ </span></p>
 
 </div>
 </div>
@@ -14645,7 +14698,7 @@ profit increment is 3.05%
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The model achieves an even lower profit \$99.85 for the observed risks, but a higher expected future profit \\$99.38, which is 3.05\% higher than using the empirical distribution.</p>
+<p>The model achieves an even lower profit \$99.85 for the observed risks, but a higher expected future profit $99.38, which is 3.05% higher than using the empirical distribution.</p>
 
 </div>
 </div>
