@@ -13098,16 +13098,12 @@ $( document ).ready(function(){
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">lmtest</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">sandwich</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">IRdisplay</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">multiwayvcov</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">IRdisplay</span><span class="p">)</span>
 <span class="nf">display_html</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">&quot;script.html&quot;</span><span class="p">)</span>
-<span class="n">datapath</span> <span class="o">=</span> <span class="s">&#39;https://raw.githubusercontent.com/ming-zhao/Applied-Regression/master/data/&#39;</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s">&#39;https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/econometrics/&#39;</span>
 <span class="n">toggle</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">()</span> <span class="p">{</span><span class="nf">display_html</span><span class="p">(</span><span class="s">&#39;&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;&#39;</span><span class="p">)}</span>
 </pre></div>
 
@@ -13184,17 +13180,19 @@ $.ajax({
           var code_blocks = document.getElementsByClassName('input');
           for (var i = 0, len = code_blocks.length; i < len; ++i) {
             if (
-                code_blocks[i].innerHTML.indexOf("toggle@") !== -1 
+                code_blocks[i].innerHTML.indexOf("toggle") !== -1 
                 || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
                 || code_blocks[i].innerHTML.indexOf("# Hide this cell") !== -1 
                ) {
               if (is_debug == 0) {
                   code_blocks[i].style.display = "none";
-                  code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                  if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
               }
               else {
                   code_blocks[i].style.removeProperty("display");
-                  code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+                  if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
               }
             }
           }
@@ -13231,6 +13229,22 @@ $.ajax({
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">lmtest</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">sandwich</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">multiwayvcov</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -13442,7 +13456,7 @@ variable (response) is considered in response to some independent or exogenous s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
@@ -13536,7 +13550,7 @@ variable (response) is considered in response to some independent or exogenous s
 
 
 <div class="output_png output_subarea ">
-<img src="output_9_3.png"
+<img src="output_10_3.png"
 >
 </div>
 
@@ -13575,7 +13589,7 @@ variable (response) is considered in response to some independent or exogenous s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
@@ -13757,7 +13771,7 @@ coefficient of infl from normal equation:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">anova</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span>
@@ -13799,7 +13813,7 @@ coefficient of infl from normal equation:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="n">sumsq</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">((</span><span class="nf">lm</span><span class="p">(</span><span class="n">realinv</span> <span class="o">~</span> <span class="n">trend</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span><span class="o">$</span><span class="n">fit</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">invest</span><span class="o">$</span><span class="n">realinv</span><span class="p">))</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
@@ -13894,17 +13908,18 @@ coefficient of infl from normal equation:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The multicollinearity can be reduced by using a small number of principal components constructed as linear combinations of the $k$ original variables. Example 4.12 in Greene (2003).</p>
+<p>The multicollinearity can be reduced by using a small number of principal components constructed as linear combinations of the $k$ original variables. Example 4.11 in Greene (2003).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">longley</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-2.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">longley</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-2.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
 <span class="nf">head</span><span class="p">(</span><span class="n">longley</span><span class="p">)</span>
 <span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">employ</span> <span class="o">~</span> <span class="n">year</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span> <span class="n">gnp</span> <span class="o">+</span> <span class="n">armed</span><span class="p">,</span> <span class="n">longley</span><span class="p">[</span><span class="n">longley</span><span class="o">$</span><span class="n">year</span><span class="o">&lt;</span><span class="m">1962</span><span class="p">,])</span>
 <span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">employ</span> <span class="o">~</span> <span class="n">year</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span> <span class="n">gnp</span> <span class="o">+</span> <span class="n">armed</span><span class="p">,</span> <span class="n">longley</span><span class="p">)</span>
@@ -13923,6 +13938,18 @@ coefficient of infl from normal equation:
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -13983,12 +14010,21 @@ coefficient of infl from normal equation:
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example 4.12 in Greene (2003).</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">movie</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-3.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">movie</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-3.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
 <span class="n">movie</span> <span class="o">&lt;-</span> <span class="nf">within</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="n">mprating</span> <span class="o">&lt;-</span> <span class="nf">relevel</span><span class="p">(</span><span class="nf">as.factor</span><span class="p">(</span><span class="n">mprating</span><span class="p">),</span> <span class="n">ref</span><span class="o">=</span><span class="m">4</span><span class="p">))</span>
 <span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> <span class="o">~</span> <span class="n">action</span><span class="o">+</span><span class="n">comedy</span><span class="o">+</span><span class="n">animated</span><span class="o">+</span><span class="n">horror</span><span class="o">+</span><span class="n">mprating</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">budget</span><span class="p">)</span><span class="o">+</span><span class="n">sequel</span><span class="o">+</span><span class="n">starpowr</span><span class="p">,</span> <span class="n">movie</span><span class="p">)</span>
 
@@ -14011,6 +14047,18 @@ coefficient of infl from normal equation:
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
 
 <div class="output_area">
 
