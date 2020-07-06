@@ -13255,21 +13255,13 @@ $.ajax({
 <p>We define</p>
 <ul>
 <li>the <strong>null hypothesis</strong> as the statement that narrows the model with $H_0: R \beta - q =0$ and </li>
-</ul>
-<ul>
 <li>the <strong>alternative hypothesis</strong> as the broader one with $H_1: R \beta -q \neq 0$.</li>
 </ul>
 <p>Without loss of generality, we assume $\text{rank}(R)=r$ and $r&lt;k$. Recall that $k$ is the number of variables plus 1 for the constant term.</p>
 <ul>
 <li>Type I error: the null hypothesis is correct but incorrectly rejected,</li>
-</ul>
-<ul>
 <li>Type II error: the null hypothesis is incorrect but incorrectly retained.</li>
-</ul>
-<ul>
 <li>The size of the test is Prob(Type I error),</li>
-</ul>
-<ul>
 <li>the power of a test is $1-$Prob(Type II error). A test procedure is consistent if its power goes to 1.0 as the sample size grows to infinity.</li>
 </ul>
 <p>Not rejecting the null hypothesis is not equivalent to accepting it.</p>
@@ -13297,8 +13289,6 @@ F[r, n-k|X] = \frac{W}{r} \frac{\sigma^2}{s^2}
 \end{align*}<p>with $r$ and $n-k$ degree of freedom. We have</p>
 <ul>
 <li>$\chi^2(r) = \sum_{i=1}^{r} Z^2_i$, where $Z_i$ are independent, standard normal random variables.</li>
-</ul>
-<ul>
 <li>$F[1,n-k] = t^2[n-k]$, however $F[r, n-k] \neq \sum_{i=1}^{r} t^2_i[n-k]$ where $t_i$ are independent t-distribution variables with $n-k$ d.f., because the mean of $F[r, n-k]$ is $(n-k)/(n-k-2)$ and the mean of $\sum_{i=1}^{r} t^2_i[n-k]$ is $r \times (n-k)/(n-k-2)$.</li>
 </ul>
 <p>The Example 5.1 in Greene (2003):</p>
@@ -13660,8 +13650,6 @@ F-statistic: 4.521 on 4 and 423 DF,  p-value: 0.001382
 <p>For testing the restriction $\beta_2 = 0$ in the model $y = \beta_1 \mathbf{x}_1 + \beta_2 \mathbf{x}_2$:</p>
 <ol>
 <li>regress $y$ on $\mathbf{x}_1$ and obtain the residual $e_*$,</li>
-</ol>
-<ol>
 <li>regress $e_*$ on $\mathbf{x}_1$ and $\mathbf{x}_2$ and compute $n R^2$.</li>
 </ol>
 
@@ -14198,8 +14186,6 @@ y = \beta (\mathbf{x} \setminus \mathbf{z}) + \gamma (\mathbf{z} \setminus \math
 \end{align*}<p>Then, $H_0$ ($H_1$) is rejected if it is found that $\beta = 0$ ($\gamma=0$) by a conventional F test. However, there are two problems with this approach.</p>
 <ul>
 <li>This test does not really distinguish between $H_0$ and $H_1$ because $\sigma$ remains a mixture of parts of $\beta$ and $\gamma$. F test cannot tell either of these parts is zero.</li>
-</ul>
-<ul>
 <li>this compound model may have an extremely large number of regressors. In a time-series setting, the problem of collinearity may be severe.</li>
 </ul>
 <hr>
@@ -14225,7 +14211,8 @@ y = \beta \mathbf{x} + \gamma_1 (\mathbf{z} \setminus \mathbf{x})
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span> <span class="o">~</span> <span class="n">conslag</span> <span class="o">+</span> <span class="n">realdpi</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span> <span class="o">~</span> <span class="n">conslag</span> <span class="o">+</span> <span class="n">realdpi</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
 <span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span> <span class="o">~</span> <span class="n">realdpi</span> <span class="o">+</span> <span class="n">dpilag</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
 <span class="n">consume</span><span class="o">$</span><span class="n">fit0</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">mdl0</span><span class="o">$</span><span class="n">fit</span><span class="p">)</span>
 <span class="n">consume</span><span class="o">$</span><span class="n">fit1</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">mdl1</span><span class="o">$</span><span class="n">fit</span><span class="p">)</span>
@@ -14242,6 +14229,18 @@ y = \beta \mathbf{x} + \gamma_1 (\mathbf{z} \setminus \mathbf{x})
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -14318,10 +14317,11 @@ F-statistic: 3.866e+05 on 3 and 199 DF,  p-value: &lt; 2.2e-16
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Regression-Specification-Error-Test">Regression Specification Error Test<a class="anchor-link" href="#Regression-Specification-Error-Test">&#182;</a></h2><p>The test seeks to uncover nonlinearities in the functional form. Consider the artificial model</p>
+<h2 id="Regression-Specification-Error-Test">Regression Specification Error Test<a class="anchor-link" href="#Regression-Specification-Error-Test">&#182;</a></h2><p>The test seeks to uncover nonlinearities in the functional form. Consider the artificial model
 \begin{align*}
 y = \beta \mathbf{x} + \gamma \hat{y}^2
-\end{align*}<p>and $H_0: \gamma = 0$.</p>
+\end{align*}</p>
+<p>and $H_0: \gamma = 0$.</p>
 <p>The idea behind the test is that $\hat{y}^2$ is power 2 polynomial functions of $\mathbf{x}$. Since polynomials can approximate many different kinds of functional forms, if the original functional form is not correct, the polynomial approximation that includes ̂$\hat{y}^2$ may significantly improve the fit of the model. Hence, the original model must have been inadequate.</p>
 
 </div>
@@ -14332,7 +14332,8 @@ y = \beta \mathbf{x} + \gamma \hat{y}^2
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">mroz</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">mroz</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
 <span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">faminc</span> <span class="o">~</span> <span class="n">he</span> <span class="o">+</span> <span class="n">we</span> <span class="o">+</span> <span class="n">kl6</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mroz</span><span class="p">)</span>
 <span class="nf">resettest</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;fitted&quot;</span><span class="p">)</span>
 <span class="n">mroz</span><span class="o">$</span><span class="n">fit</span> <span class="o">&lt;-</span> <span class="n">mdl</span><span class="o">$</span><span class="n">fit</span>
@@ -14347,6 +14348,18 @@ y = \beta \mathbf{x} + \gamma \hat{y}^2
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
 
 <div class="output_area">
 
