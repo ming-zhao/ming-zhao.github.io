@@ -13283,25 +13283,15 @@ b &amp; = (X^\intercal X)^{-1} X^\intercal \mathbf{y} \label{normal_eq} \tag{Nor
 <h2 id="Model-Assumptions">Model Assumptions<a class="anchor-link" href="#Model-Assumptions">&#182;</a></h2><p>The assumptions of the classical linear regression model are:</p>
 <ol>
 <li>Linearity: the population satisfy the linear relationship $y = \beta^\top \mathbf{x} + \epsilon$;</li>
-</ol>
-<ol>
 <li>$X$ has full rank;</li>
-</ol>
-<ol>
 <li>Exogeneity: E$[\epsilon_i|X] = 0$;</li>
-</ol>
-<ol>
 <li>Homoskedasticity: Var$[\epsilon_i|X] = \sigma^2$ and Cov$(\epsilon_i,\epsilon_j | X) = 0$ for $i \ne j$;</li>
-</ol>
-<ol>
 <li>Noramlity (optional): $\epsilon \sim N(0, \sigma^2 I)$.</li>
 </ol>
 <h3 id="Linearity">Linearity<a class="anchor-link" href="#Linearity">&#182;</a></h3><p>The mechanism (or distribution) that descripes the population $(y, \mathbf{x})$ is unknown. When we decide to fit the observations into a linear equation, we already assume that the population $(y, \mathbf{x})$ satifies a linear relationship $y = \beta^\intercal \mathbf{x} + \epsilon$ where $\epsilon$ is the error term that disturbs an otherwise stable relationship. It arises because we cannot hope to capture every influence on an economic variable in a model, no matter how elaborate.</p>
 <p>This linearity assumption is not so limited for two reasons:</p>
 <ol>
 <li>We can always take nonlinear transforms on the data before fitting the linear equation; </li>
-</ol>
-<ol>
 <li>Linear function is always a good approximation for nonlinearity locally.</li>
 </ol>
 <p>With the linearity assumption, the paramter $b$ can be obtained by minimizing the residuals $e_i = y_i - \hat{y}_i$ $\forall i \in N$. Hence, our interest is the response with given $\mathbf{x}$, which is characterized by the distribution $f(y|\mathbf{x})$. In particular, we are interested in the conditional mean function E$(y|\mathbf{x}) = \beta \mathbf{x}$.</p>
@@ -13316,33 +13306,31 @@ variable (response) is considered in response to some independent or exogenous s
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Least-Squares">Least Squares<a class="anchor-link" href="#Least-Squares">&#182;</a></h3><p>The parameter $\beta$ can be estimated in several approaches. For example, the least square estimator solves</p>
+<h3 id="Least-Squares">Least Squares<a class="anchor-link" href="#Least-Squares">&#182;</a></h3><p>The parameter $\beta$ can be estimated in several approaches. For example, the least square estimator solves 
 \begin{align*}
 \min_{b} e^\intercal W e
-\end{align*}<p>where</p>
+\end{align*}</p>
+<p>where</p>
 <ul>
-<li><p>$W = I$ for ordinary least square (OLS)</p>
-</li>
-<li><p>$W$ is a diagonal matrix for Weighted least squares</p>
-</li>
-<li><p>$W$ is the conditional variance of the error term given $\mathbf{x}$ for generalized least squares</p>
-</li>
+<li>$W = I$ for ordinary least square (OLS)</li>
+<li>$W$ is a diagonal matrix for Weighted least squares</li>
+<li>$W$ is the conditional variance of the error term given $\mathbf{x}$ for generalized least squares</li>
 </ul>
-<p>Least absolute deviations (LAD) is an alternative to least squares and solves</p>
+<p>Least absolute deviations (LAD) is an alternative to least squares and solves
 \begin{align*}
 \min_{b} \sum_{i \in N} |e_i|
-\end{align*}<p>Note that</p>
+\end{align*}</p>
+<p>Note that</p>
 <ul>
-<li><p>Generalized (weighted) least squares is a generalization on OLS for heteroscedasticity.</p>
-</li>
-<li><p>LAD estimator is often found robust in samll sample size and samples with the more likely outlying values in response $y$.</p>
-</li>
+<li>Generalized (weighted) least squares is a generalization on OLS for heteroscedasticity.</li>
+<li>LAD estimator is often found robust in samll sample size and samples with the more likely outlying values in response $y$.</li>
 </ul>
-<p>The OLS estimator gives the minimum mean squared error (MSE) linear predictor where</p>
+<p>The OLS estimator gives the minimum mean squared error (MSE) linear predictor where
 \begin{align*}
 \text{MSE} 
 &amp; = \text{E}(y - \gamma^\top \mathbf{x})^2
-\end{align*}
+\end{align*}</p>
+
 </div>
 </div>
 </div>
@@ -13352,18 +13340,12 @@ variable (response) is considered in response to some independent or exogenous s
 <h3 id="Sampling-Properties">Sampling Properties<a class="anchor-link" href="#Sampling-Properties">&#182;</a></h3><p>Because the estimation is based on a random sample, $b$ is a random variable. Before conducting any estimator procedure, we expect certain properties of $b$:</p>
 <ul>
 <li>Unbiasedness: E$(b|X) = \beta$.</li>
-</ul>
-<ul>
 <li>Consistency: $\text{plim}_{n \to \infty} b = \beta$, where <code>plim</code> is convergence in probability that $\lim_{n \to \infty} \text{Prob}(|b-\beta| &gt; \delta) = 0$ for any positive $\delta$.</li>
-</ul>
-<ul>
 <li>Efficiency: $b$ has the minimal variance among a set of consistent estimators.</li>
 </ul>
 <p>The estimation procedure is to obtain ONE $b$ from ONE random sample. If we can perform the procedure many times with a different sample each time, we expect that the average of all estimated $b$ is $\beta$, i.e., unbiasedness. The expectation of unbiasedness is logically reasonable, but impractical for two reasons:</p>
 <ul>
 <li>If we could perform the procedure many times, we would rather to use all samples as one large sample so that the estimator has less variance.</li>
-</ul>
-<ul>
 <li>Unbiasedness is probably important for interpreting $\beta$ but not for prediction models because Var$(b|X)$ may be large. In fact, unbiased estimator usually has large variance due to the bias-variance trade off.</li>
 </ul>
 <p>We expect that the estimator $b$ is getting close to the true parameter $\beta$ as the sample size $n$ increases. This property is more important than the unbiasedness because it requires the reduction in variance as sample size $n$ increases.</p>
@@ -13389,19 +13371,16 @@ variable (response) is considered in response to some independent or exogenous s
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exogeneity">Exogeneity<a class="anchor-link" href="#Exogeneity">&#182;</a></h3><p><strong>Exogeneity</strong> $\text{E}(\epsilon|X) = 0$ <strong>implies unbiasedness</strong>:</p>
+<h3 id="Exogeneity">Exogeneity<a class="anchor-link" href="#Exogeneity">&#182;</a></h3><p><strong>Exogeneity</strong> $\text{E}(\epsilon|X) = 0$ <strong>implies unbiasedness</strong>:
 \begin{align*}
 \text{E}(b|X) &amp;= (X^\intercal X)^{-1} X^\intercal \text{E}(\mathbf{y}|X)  \\
 &amp; = (X^\intercal X)^{-1} X^\intercal (X \beta + \text{E}(\epsilon|X)) \\
 &amp; = \beta + (X^\intercal X)^{-1} X^\intercal \text{E}(\epsilon|X) = \beta.
-\end{align*}<p>Note that</p>
+\end{align*}</p>
+<p>Note that</p>
 <ul>
 <li>$\text{E}(\epsilon|X) = 0 \Rightarrow \text{E}(\epsilon) = 0 \text{ and } \text{Cov}(\epsilon, X) = 0$, but</li>
-</ul>
-<ul>
 <li>$\text{E}(\epsilon) = 0 \text{ and } \text{Cov}(\epsilon X) = 0 \nRightarrow \text{E}(\epsilon|X) = 0$. For example, consider $(\epsilon, x) = (-1, 1) \text{ or } (1, -1)$ with 50% chance. We have $\text{E}(\epsilon|x) = -x \neq 0$.</li>
-</ul>
-<ul>
 <li>$\text{E}(\epsilon|X) = 0 \Rightarrow \text{E}(\epsilon X) = \text{Cov}(\epsilon, X) + \text{E}(\epsilon)\text{E}(X) = 0$</li>
 </ul>
 <p>The condition $\text{E}(\epsilon) = 0$ can be assumed without loss of generality because we can always scale the response $y$.</p>
@@ -13576,11 +13555,7 @@ variable (response) is considered in response to some independent or exogenous s
 <p>because $b_2$ can be derived as follows:</p>
 <ol>
 <li>regress $y$ on $\mathbf{x}^1$: $y \sim \mathbf{x}^1 + e^0$</li>
-</ol>
-<ol>
 <li>regress $\mathbf{x}^2_j$ on $\mathbf{x}^1$: $\mathbf{x}^2_j \sim \mathbf{x}^1 + e^j$ $\forall j = 1, \ldots J$</li>
-</ol>
-<ol>
 <li>regress $e^0$ on $e^1, \ldots, e^J$: then $e^0 = b^\top_2 (e^1 , \cdots , e^J) + \tilde{e}$</li>
 </ol>
 
@@ -13701,8 +13676,6 @@ coefficient of infl from normal equation:
 <h3 id="Omitted-Variable-Bias">Omitted Variable Bias<a class="anchor-link" href="#Omitted-Variable-Bias">&#182;</a></h3><p>Suppose that</p>
 <ul>
 <li>the correct regression model is $y = \beta \mathbf{x} + \gamma z + \epsilon$, but </li>
-</ul>
-<ul>
 <li>the performed regression model is $y = \beta \mathbf{x} + \epsilon$.</li>
 </ul>
 <p>So, we regress $y$ on $\mathbf{x}$ without including the relevant variable, $z$, then the estimator is</p>
@@ -13721,8 +13694,6 @@ coefficient of infl from normal equation:
 <p>However, suppose that</p>
 <ul>
 <li>the correct regression model is $y = \beta \mathbf{x} + \epsilon$, but </li>
-</ul>
-<ul>
 <li>the performed regression model is $y = \beta \mathbf{x} + \gamma z + \epsilon$.</li>
 </ul>
 <p>We have $\text{E}(b^{\prime \prime}|X) = \text{E}\big((b_x, b_z)|X\big) = (\beta, \gamma)$. So, including irrelevant variables in the estimation equation does not lead to bias in the estimation.</p>
@@ -14110,11 +14081,7 @@ R-squared: 0.5888322</pre>
 <h3 id="Missing-Values">Missing Values<a class="anchor-link" href="#Missing-Values">&#182;</a></h3><p>There are a variety of data imputation methods to fill gaps in data sets:</p>
 <ul>
 <li>replacing each missing $x$ with $\bar{x}$ based on the observed data. It is equivalent to dropping the incomplete data, but has a lower $R^2$.</li>
-</ul>
-<ul>
 <li>adding a dummy column with 1 for missing observations and 0 otherwise.</li>
-</ul>
-<ul>
 <li>estimating its value by regressing on other dependent variables plus a random noise.</li>
 </ul>
 
