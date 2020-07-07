@@ -13084,7 +13084,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13098,7 +13098,7 @@ $( document ).ready(function(){
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">run</span> ./script.py
@@ -13183,11 +13183,13 @@ $( document ).ready(function(){
                  ) {
                 if (is_debug == 0) {
                     code_blocks[i].style.display = "none";
-                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
                 }
                 else {
                     code_blocks[i].style.removeProperty("display");
-                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
                 }
               }
             }
@@ -14597,6 +14599,9 @@ profit increment is 2.94%
                 <span class="n">Expr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Expr</span><span class="o">.</span><span class="n">mulElm</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">sigma</span><span class="p">))))</span>
 <span class="n">obj2</span> <span class="o">=</span> <span class="n">Expr</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">Expr</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">margin</span><span class="p">]))</span>
 <span class="n">M</span><span class="o">.</span><span class="n">objective</span><span class="p">(</span><span class="n">ObjectiveSense</span><span class="o">.</span><span class="n">Maximize</span><span class="p">,</span> <span class="n">obj2</span><span class="p">)</span>
+<span class="n">M</span><span class="o">.</span><span class="n">constraint</span><span class="p">(</span><span class="n">Expr</span><span class="o">.</span><span class="n">dot</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="n">Domain</span><span class="o">.</span><span class="n">equalsTo</span><span class="p">(</span><span class="mf">4.21</span><span class="p">))</span>
+<span class="n">M</span><span class="o">.</span><span class="n">constraint</span><span class="p">(</span><span class="n">Expr</span><span class="o">.</span><span class="n">dot</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="n">Domain</span><span class="o">.</span><span class="n">equalsTo</span><span class="p">(</span><span class="mf">1.42</span><span class="p">))</span>
+<span class="n">M</span><span class="o">.</span><span class="n">constraint</span><span class="p">(</span><span class="n">Expr</span><span class="o">.</span><span class="n">dot</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="n">Domain</span><span class="o">.</span><span class="n">equalsTo</span><span class="p">(</span><span class="mf">5.87</span><span class="p">))</span>
 <span class="n">M</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
 
 <span class="n">toggle</span><span class="p">()</span>
@@ -14679,9 +14684,9 @@ profit increment is 2.94%
   <tbody>
     <tr>
       <th>order quantity</th>
-      <td>3.72</td>
-      <td>1.66</td>
-      <td>6.60</td>
+      <td>4.21</td>
+      <td>1.42</td>
+      <td>5.87</td>
     </tr>
   </tbody>
 </table>
@@ -14696,8 +14701,8 @@ profit increment is 2.94%
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>expected future profit = $99.38
-profit increment is 3.05%
+<pre>expected future profit = $99.28
+profit increment is 2.94%
 </pre>
 </div>
 </div>
@@ -14710,6 +14715,31 @@ profit increment is 3.05%
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The model achieves an even lower profit \$99.85 for the observed risks, but a higher expected future profit $99.38, which is 3.05% higher than using the empirical distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Should the mean model always has a lower expected observable profit than the marginal model?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#" onclick="hide_comment(this); return false;">show comment</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It happens only if the distributions with given marginal information is a subset of the distributions with given mean. However, this is not the case. For example, consider a sample $\{2,2,4,4\}$ on the support $\{1,2,3,4\}$. The sample mean is $3$ and sample marginal distributions are $F(2) = 0.5$ and $F(4) = 1$. With given marginal distributions, $f(1,2,3,4) = (0.25,0.25,0.25,0.25)$ is a feasible distribution with mean $2.5$.
+<span style="float:right"> $\blacksquare$ </span></p>
 
 </div>
 </div>
