@@ -13145,29 +13145,19 @@ $( document ).ready(function(){
 
   function hide_comment(e) {
     if (is_jupyterNotebook == 1) {
-        target = e.parentElement.parentElement.getElementsByTagName('p');
-        for (var i = 1, len = target.length; i < len; ++i) {
-            if (target[i].style.display == null || target[i].style.display == "") {
-              target[i].style.display = "none";
-              e.innerHTML = "show comment";
-            }
-            else {
-              target[i].style.removeProperty("display");
-              e.innerHTML = "hide comment";
-            }        
-        }
         var target = e;
         while ((target = target.parentElement) && !target.classList.contains("text_cell"));
-        target = target.nextElementSibling;
         do {
+            target = target.nextElementSibling;
             if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
               target.style.display = "none";
+              e.innerHTML = 'show comment';
             }
             else {
               target.style.removeProperty("display");
+              e.innerHTML = 'hide comment';
             }        
-            target = target.nextElementSibling;
-        } while (target.innerHTML.indexOf("blacksquare<") != -1)
+        } while (target.innerHTML.indexOf("blacksquare") == -1)
     }
   }
 
@@ -13193,11 +13183,13 @@ $( document ).ready(function(){
                  ) {
                 if (is_debug == 0) {
                     code_blocks[i].style.display = "none";
-                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
                 }
                 else {
                     code_blocks[i].style.removeProperty("display");
-                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
                 }
               }
             }
@@ -13209,16 +13201,19 @@ $( document ).ready(function(){
                     text_blocks[i].style.display = "none";
                 }
 
-                if (text_blocks[i].innerHTML.indexOf(">show comment<") != -1) {
-                    comment = 1;
-                    var p_lists = text_blocks[i].getElementsByTagName('p');
-                    p_lists[0].getElementsByTagName('a')[0].onclick = function() { hide_comment(this); return false; };
-                    for (var j = 1, len_p = p_lists.length; j < len_p; ++j) {
-                        p_lists[j].style.display = "none";
+                if (text_blocks[i].innerHTML.indexOf("show comment") != -1) {
+                    var links = text_blocks[i].getElementsByTagName('a');
+                    var j;
+                    for (j = 0, len_a = links.length; j < len_a; j++) {
+                        if (links[j].innerHTML.indexOf("show comment") != -1) {
+                            comment = 1; 
+                            break;
+                        }
                     }
+                    links[j].onclick = function() { hide_comment(this); return false;};
                 }
 
-                if (text_blocks[i].innerHTML.indexOf("blacksquare<") != -1) {
+                if (text_blocks[i].innerHTML.indexOf("blacksquare") != -1) {
                     comment = 0;
                 }
             }
@@ -13310,6 +13305,7 @@ $( document ).ready(function(){
                    <span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">orders</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">orders</span><span class="p">[</span><span class="s1">&#39;d0&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orders</span><span class="p">[</span><span class="s1">&#39;d1&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
 <span class="n">orders</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">orders</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+
 <span class="n">toggle</span><span class="p">()</span>
 <span class="n">orders</span>
 </pre></div>
@@ -13481,12 +13477,13 @@ $( document ).ready(function(){
                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span>
     <span class="n">stock_level</span><span class="p">[</span><span class="n">warehouse_idx</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="n">assgin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warehouse_idx</span><span class="p">)</span>
-    
+
 <span class="n">myopic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">orders</span><span class="o">.</span><span class="n">drop</span><span class="p">([(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;diff&#39;</span><span class="p">)],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
                     <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">assgin</span><span class="p">)],</span>
                                  <span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;myopic&#39;</span><span class="p">],[</span><span class="s1">&#39;WH&#39;</span><span class="p">,</span><span class="s1">&#39;cost&#39;</span><span class="p">]]))</span>
                  <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">myopic</span><span class="p">[(</span><span class="s1">&#39;myopic&#39;</span><span class="p">,</span><span class="s1">&#39;cum_cost&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">myopic</span><span class="p">[</span><span class="s1">&#39;myopic&#39;</span><span class="p">][</span><span class="s1">&#39;cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
 <span class="n">toggle</span><span class="p">()</span>
 <span class="n">myopic</span>
 </pre></div>
