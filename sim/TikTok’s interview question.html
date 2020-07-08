@@ -13096,6 +13096,140 @@ $( document ).ready(function(){
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">run</span> ./script.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<script>
+  var password = "123";
+  is_sphnix = 0;
+  is_jupyterNotebook = 1;
+  is_jupyterLab = 0;
+
+  function code_toggle(e) {
+    var target = e;
+    if (is_jupyterNotebook == 1) {
+        while (!target.closest(".output_wrapper").previousElementSibling.classList.contains("input")) {
+          target = target.closest(".output_wrapper").previousElementSibling;
+        }
+        target = target.closest(".output_wrapper").previousElementSibling;
+        if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+          target.style.display = "none";
+          e.innerHTML = 'show code';
+        }
+        else {
+          target.style.removeProperty("display");
+          e.innerHTML = 'hide code';
+        }
+    }
+  }
+
+  function hide_comment(e) {
+    if (is_jupyterNotebook == 1) {
+        var target = e;
+        while ((target = target.parentElement) && !target.classList.contains("text_cell"));
+        do {
+            target = target.nextElementSibling;
+            if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+              target.style.display = "none";
+              e.innerHTML = 'show comment';
+            }
+            else {
+              target.style.removeProperty("display");
+              e.innerHTML = 'hide comment';
+            }        
+        } while (target.innerHTML.indexOf("blacksquare") == -1)
+    }
+  }
+
+  $(document).ready(function() {
+  $.ajax({
+    type: "GET",  
+    url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/bzan.csv",
+    dataType: "text",       
+    success: function(data)  
+    {
+        is_sphnix = 0;
+        is_jupyterNotebook = 1;
+        is_jupyterLab = 0;
+        is_debug = 0;
+
+        if (is_jupyterNotebook == 1) {
+            var code_blocks = document.getElementsByClassName('input');
+            for (var i = 0, len = code_blocks.length; i < len; ++i) {
+              if (
+                  code_blocks[i].innerHTML.indexOf("toggle") !== -1 
+                  || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+                  || code_blocks[i].innerHTML.indexOf("# Hide this cell") !== -1 
+                 ) {
+                if (is_debug == 0) {
+                    code_blocks[i].style.display = "none";
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+                }
+                else {
+                    code_blocks[i].style.removeProperty("display");
+                    if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                        code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+                }
+              }
+            }
+
+            var text_blocks = document.getElementsByClassName('text_cell');
+            var comment = 0;
+            for (var i = 0, len = text_blocks.length; i < len; ++i) {
+                if (comment == 1) {
+                    text_blocks[i].style.display = "none";
+                }
+
+                if (text_blocks[i].innerHTML.indexOf("show comment") != -1) {
+                    var links = text_blocks[i].getElementsByTagName('a');
+                    var j;
+                    for (j = 0, len_a = links.length; j < len_a; j++) {
+                        if (links[j].innerHTML.indexOf("show comment") != -1) {
+                            comment = 1; 
+                            break;
+                        }
+                    }
+                    links[j].onclick = function() { hide_comment(this); return false;};
+                }
+
+                if (text_blocks[i].innerHTML.indexOf("blacksquare") != -1) {
+                    comment = 0;
+                }
+            }
+        }
+    }
+  });
+  });    
+  </script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13120,7 +13254,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13153,16 +13287,38 @@ $( document ).ready(function(){
 <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
     <span class="k">assert</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;=</span><span class="n">k</span><span class="p">),</span><span class="s2">&quot;must have n&gt;=m!&quot;</span>
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>
+<span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span>
@@ -13202,7 +13358,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
@@ -13217,7 +13373,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">naive</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niters</span><span class="p">)</span>
@@ -13230,6 +13386,7 @@ $( document ).ready(function(){
     <span class="c1"># cnt is number simulations with e many empty boxes</span>
     <span class="n">cnt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">box</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">e</span><span class="p">)</span>
     <span class="n">naive</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span><span class="o">/</span><span class="n">nsample</span>
+<span class="n">toggle</span><span class="p">()</span>    
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naive</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">naive</span><span class="p">)</span>    
 </pre></div>
 
@@ -13243,7 +13400,21 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -13285,7 +13456,7 @@ P(A) = \sum_{i=0}^{b} P(A \text{ and } A_i) = \sum_{i=e}^{b-1} P(A \text{ and } 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niters</span><span class="p">)</span>
@@ -13297,6 +13468,7 @@ P(A) = \sum_{i=0}^{b} P(A \text{ and } A_i) = \sum_{i=e}^{b-1} P(A \text{ and } 
     <span class="c1"># list of P(A_i) for i in {e,...,b-1}</span>
     <span class="n">P_A</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">box</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">nsample</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
     <span class="n">ret</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">P_CondA</span><span class="p">,</span> <span class="n">P_A</span><span class="p">))</span>
+<span class="n">toggle</span><span class="p">()</span>    
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ret</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>    
 </pre></div>
 
@@ -13310,7 +13482,21 @@ P(A) = \sum_{i=0}^{b} P(A \text{ and } A_i) = \sum_{i=e}^{b-1} P(A \text{ and } 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
