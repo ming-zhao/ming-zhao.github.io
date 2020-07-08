@@ -13235,7 +13235,7 @@ $.ajax({
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
@@ -13245,6 +13245,34 @@ $.ajax({
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning message:
+&#34;package &#39;car&#39; was built under R version 3.6.3&#34;Loading required package: carData
+Warning message:
+&#34;package &#39;carData&#39; was built under R version 3.6.3&#34;Loading required package: zoo
+
+Attaching package: &#39;zoo&#39;
+
+The following objects are masked from &#39;package:base&#39;:
+
+    as.Date, as.Date.numeric
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13428,7 +13456,7 @@ variable (response) is considered in response to some independent or exogenous s
 &amp;= (X^\top X)^{-1} \text{E}\left(\sum_{i} \epsilon_i^2 \mathbf{x}_i \mathbf{x}_i^\top \bigg|X\right) (X^\top X)^{-1} \\
 \text{Asy. Var}(b) 
 &amp;= Q^{-1} Q^* Q^{-1}
-\end{align*}<p>for some matrix $Q^*$ need to be estimated based on residuals. Example 4.4 in Greene (2003).</p>
+\end{align*}<p>for some matrix $Q^*$ which can be estimated based on residuals. Example 4.4 in Greene (2003).</p>
 
 </div>
 </div>
@@ -13714,7 +13742,7 @@ coefficient of infl from normal equation:
 <table>
 <thead><tr>
 <th style="text-align:left">Source</th>
-<th>Sum of Squares</th>
+<th><div style="width:180px">Sum of Squares</div></th>
 <th>Degrees of Freedom</th>
 </tr>
 </thead>
@@ -13790,7 +13818,7 @@ coefficient of infl from normal equation:
 <div class=" highlight hl-r"><pre><span></span><span class="n">sumsq</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">((</span><span class="nf">lm</span><span class="p">(</span><span class="n">realinv</span> <span class="o">~</span> <span class="n">trend</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span><span class="o">$</span><span class="n">fit</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">invest</span><span class="o">$</span><span class="n">realinv</span><span class="p">))</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
 <span class="nf">data.frame</span><span class="p">(</span><span class="s">&quot;sum sq for trend&quot;</span> <span class="o">=</span> <span class="n">sumsq</span><span class="p">,</span>
            <span class="s">&#39;sum sq for residuals&#39;</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span>
-           <span class="s">&#39;F value&#39;</span> <span class="o">=</span> <span class="n">sumsq</span><span class="o">/</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">10</span><span class="p">))</span>
+           <span class="s">&#39;F value&#39;</span> <span class="o">=</span> <span class="n">sumsq</span><span class="o">/</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">10</span><span class="p">),</span> <span class="n">check.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13809,7 +13837,7 @@ coefficient of infl from normal equation:
 
 <div class="output_html rendered_html output_subarea ">
 <table>
-<thead><tr><th scope=col>sum.sq.for.trend</th><th scope=col>sum.sq.for.residuals</th><th scope=col>F.value</th></tr></thead>
+<thead><tr><th scope=col>sum sq for trend</th><th scope=col>sum sq for residuals</th><th scope=col>F value</th></tr></thead>
 <tbody>
 	<tr><td>0.01030929</td><td>0.2036798 </td><td>0.5061519 </td></tr>
 </tbody>
