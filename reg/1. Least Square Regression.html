@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>2. Hypothesis Testing</title>
+<title>1. Least Square Regression</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13235,12 +13235,14 @@ $.ajax({
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">lmtest</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">sandwich</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">kableExtra</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">multiwayvcov</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13251,21 +13253,27 @@ $.ajax({
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h1><p>The linear regression model is used for three major purposes: estimation, prediction and <em>hypothesis testing</em>.</p>
-<p>The hypothesis characterizes the population. If the hypothesis is correct, then the sample statistics should mimic that description. The general linear hypothesis is a set of $r$ restrictions $R \beta = q$ on the linear regression model $y = \beta^\top \mathbf{x} + \epsilon$. Each row of $R$ is the coefficients in one of the restrictions.</p>
-<p>We define</p>
-<ul>
-<li>the <strong>null hypothesis</strong> as the statement that narrows the model with $H_0: R \beta - q =0$ and </li>
-<li>the <strong>alternative hypothesis</strong> as the broader one with $H_1: R \beta -q \neq 0$.</li>
-</ul>
-<p>Without loss of generality, we assume $\text{rank}(R)=r$ and $r&lt;k$. Recall that $k$ is the number of variables plus 1 for the constant term.</p>
-<ul>
-<li>Type I error: the null hypothesis is correct but incorrectly rejected,</li>
-<li>Type II error: the null hypothesis is incorrect but incorrectly retained.</li>
-<li>The size of the test is Prob(Type I error),</li>
-<li>the power of a test is $1-$Prob(Type II error). A test procedure is consistent if its power goes to 1.0 as the sample size grows to infinity.</li>
-</ul>
-<p>Not rejecting the null hypothesis is not equivalent to accepting it.</p>
+<h1 id="Least-Square-Regression">Least Square Regression<a class="anchor-link" href="#Least-Square-Regression">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have a set of observations $(y_i, \mathbf{x}_i)$, $i \in N = 1, \ldots, n$, where $\mathbf{x}_i = (x_{i1} = 1, x_{i2}, \ldots, x_{ik})^\top$.</p>
+<div class="alert alert-block alert-success">
+<b>Note:</b> We include the constant term into $\mathbf{x}$ to simplify the notation of linear regression model. There are $n$ observations and each observation has $k-1$ variables.
+</div><p>The least square regression fits the observations into a linear equation</p>
+\begin{align*}
+y = b^\top \mathbf{x} = b_1 + b_2 x_2 + \ldots + b_k x_{k}
+\end{align*}<p>The parameter $b$ is identified by minimizing the sum of squares of</p>
+\begin{align}
+\min_{b} \sum_{i \in N} e_i^2 = e^\top e \label{ols} \tag{OLS}
+\end{align}<p>where the residuals $e_i = y_i - \hat{y}_i = y_i - b^\top \mathbf{x}_{i}$, $\forall i \in N$.</p>
+<p>The minimization problem \eqref{ols} gives the solution</p>
+\begin{align}
+b &amp; = (X^\intercal X)^{-1} X^\intercal \mathbf{y} \label{normal_eq} \tag{Normal Equation}
+\end{align}<p>where $X = (\mathbf{x}_1, \ldots, \mathbf{x}_n)$ (the $i$th row of $X$ is the observation $\mathbf{x}_i^\top$) and $\mathbf{y} = (y_1,\ldots,y_n)^\top$.</p>
 
 </div>
 </div>
@@ -13273,25 +13281,25 @@ $.ajax({
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Test-Statistics">Test Statistics<a class="anchor-link" href="#Test-Statistics">&#182;</a></h2><h3 id="Wald-Tests">Wald Tests<a class="anchor-link" href="#Wald-Tests">&#182;</a></h3><p>The Wald test is based on estimation of the unrestricted model. The test measures how close the estimated unrestricted model is to the hypothesized restrictions $R \beta = q$. Our interest centers on the discrepancy vector $m = R b - q$.</p>
-<p>If the null hypothesis is true,</p>
-\begin{align*}
-\text{E}(m|X) 
-&amp;= R \text{E}(b|X) - q = R \beta - q = 0 \\
-\text{Var}(m|X) 
-&amp;= \text{Var}(Rb-q|X) = R \text{Var}(b|X) R^\top = R (\sigma^2 (X^\top X)^{-1}) R^\top
-\end{align*}<p>The Wald statistics $W$</p>
-\begin{align*}
-W = m^\top \big( \text{Var}(m|X) \big)^{-1} m \sim \chi^2(r)
-\end{align*}<p>has a chi-squared distribution with $r$ degrees of freedom if the hypothesis is correct. The chi-squared statistic is not usable because of the unknown $\sigma^2$. The F statistic for testing the general linear hypothesis is simply the feasible Wald
-statistic divided by $r$:</p>
-\begin{align*}
-F[r, n-k|X] = \frac{W}{r} \frac{\sigma^2}{s^2}
-\end{align*}<p>with $r$ and $n-k$ degree of freedom. We have</p>
-<ul>
-<li>$\chi^2(r) = \sum_{i=1}^{r} Z^2_i$, where $Z_i$ are independent, standard normal random variables.</li>
-<li>$F[1,n-k] = t^2[n-k]$, however $F[r, n-k] \neq \sum_{i=1}^{r} t^2_i[n-k]$ where $t_i$ are independent t-distribution variables with $n-k$ d.f., because the mean of $F[r, n-k]$ is $(n-k)/(n-k-2)$ and the mean of $\sum_{i=1}^{r} t^2_i[n-k]$ is $r \times (n-k)/(n-k-2)$.</li>
-</ul>
+<h2 id="Model-Assumptions">Model Assumptions<a class="anchor-link" href="#Model-Assumptions">&#182;</a></h2><p>The assumptions of the classical linear regression model are:</p>
+<ol>
+<li>Linearity: the population satisfy the linear relationship $y = \beta^\top \mathbf{x} + \epsilon$;</li>
+<li>$X$ has full rank;</li>
+<li>Exogeneity: E$[\epsilon_i|X] = 0$;</li>
+<li>Homoskedasticity: Var$[\epsilon_i|X] = \sigma^2$ and Cov$(\epsilon_i,\epsilon_j | X) = 0$ for $i \ne j$;</li>
+<li>Noramlity (optional): $\epsilon \sim N(0, \sigma^2 I)$.</li>
+</ol>
+<h3 id="Linearity">Linearity<a class="anchor-link" href="#Linearity">&#182;</a></h3><p>The mechanism (or distribution) that descripes the population $(y, \mathbf{x})$ is unknown. When we decide to fit the observations into a linear equation, we already assume that the population $(y, \mathbf{x})$ satifies a linear relationship $y = \beta^\intercal \mathbf{x} + \epsilon$ where $\epsilon$ is the error term that disturbs an otherwise stable relationship. It arises because we cannot hope to capture every influence on an economic variable in a model, no matter how elaborate.</p>
+<p>This linearity assumption is not so limited for two reasons:</p>
+<ol>
+<li>We can always take nonlinear transforms on the data before fitting the linear equation; </li>
+<li>Linear function is always a good approximation for nonlinearity locally.</li>
+</ol>
+<p>With the linearity assumption, the paramter $b$ can be obtained by minimizing the residuals $e_i = y_i - \hat{y}_i$ $\forall i \in N$. Hence, our interest is the response with given $\mathbf{x}$, which is characterized by the distribution $f(y|\mathbf{x})$. In particular, we are interested in the conditional mean function E$(y|\mathbf{x}) = \beta \mathbf{x}$.</p>
+<div class="alert alert-block alert-success">
+<b>Note:</b> We may be interested in the conditional median (or percentile) function if the distributiono of response is skewed.
+</div><p>In the model, the independent variables are outside the relationships defined by the model while movement of the dependent
+variable (response) is considered in response to some independent or exogenous stimulus.</p>
 
 </div>
 </div>
@@ -13299,17 +13307,147 @@ F[r, n-k|X] = \frac{W}{r} \frac{\sigma^2}{s^2}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Table F4.1: Data on Sales of Monet Paintings (430 observations)<br>
-Source: <a href="">Example 5.1 in Greene</a></p>
+<h3 id="Least-Squares">Least Squares<a class="anchor-link" href="#Least-Squares">&#182;</a></h3><p>The parameter $\beta$ can be estimated in several approaches. For example, the least square estimator solves 
+\begin{align*}
+\min_{b} e^\intercal W e
+\end{align*}</p>
+<p>where</p>
 <ul>
-<li>Price = Sale Price in \$ (million),</li>
+<li>$W = I$ for ordinary least square (OLS)</li>
+<li>$W$ is a diagonal matrix for Weighted least squares</li>
+<li>$W$ is the conditional variance of the error term given $\mathbf{x}$ for generalized least squares</li>
+</ul>
+<p>Least absolute deviations (LAD) is an alternative to least squares and solves
+\begin{align*}
+\min_{b} \sum_{i \in N} |e_i|
+\end{align*}</p>
+<p>Note that</p>
+<ul>
+<li>Generalized (weighted) least squares is a generalization on OLS for heteroscedasticity.</li>
+<li>LAD estimator is often found robust in samll sample size and samples with the more likely outlying values in response $y$.</li>
+</ul>
+<p>The OLS estimator gives the minimum mean squared error (MSE) linear predictor where
+\begin{align*}
+\text{MSE} 
+&amp; = \text{E}(y - \gamma^\top \mathbf{x})^2
+\end{align*}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sampling-Properties">Sampling Properties<a class="anchor-link" href="#Sampling-Properties">&#182;</a></h3><p>Because the estimation is based on a random sample, $b$ is a random variable. Before conducting any estimator procedure, we expect certain properties of $b$:</p>
+<ul>
+<li>Unbiasedness: E$(b|X) = \beta$.</li>
+<li>Consistency: $\text{plim}_{n \to \infty} b = \beta$, where <code>plim</code> is convergence in probability that $\lim_{n \to \infty} \text{Prob}(|b-\beta| &gt; \delta) = 0$ for any positive $\delta$.</li>
+<li>Efficiency: $b$ has the minimal variance among a set of consistent estimators.</li>
+</ul>
+<p>The estimation procedure is to obtain ONE $b$ from ONE random sample. If we can perform the procedure many times with a different sample each time, we expect that the average of all estimated $b$ is $\beta$, i.e., unbiasedness. The expectation of unbiasedness is logically reasonable, but impractical for two reasons:</p>
+<ul>
+<li>If we could perform the procedure many times, we would rather to use all samples as one large sample so that the estimator has less variance.</li>
+<li>Unbiasedness is probably important for interpreting $\beta$ but not for prediction models because Var$(b|X)$ may be large. In fact, unbiased estimator usually has large variance due to the bias-variance trade off.</li>
+</ul>
+<p>We expect that the estimator $b$ is getting close to the true parameter $\beta$ as the sample size $n$ increases. This property is more important than the unbiasedness because it requires the reduction in variance as sample size $n$ increases.</p>
+<p>The consistency validates the evaluation process for the estimator since information (data size) improves accuracy. However, it does not suggest an estimator with a given sample size, if consistency is satisfied by multiple estimators (for example, OLS vs LAD estimators).</p>
+<p>Gauss–Markov theorem establishes finite sample conditions under which the OLS estimator is optimal and states that</p>
+<blockquote><p>The least squares estimator $b$ has the minimum variance among all <strong>linear unbiased</strong> estimator.</p>
+</blockquote>
+<p>The proof of the theorem requires all assumptions except the normality.</p>
+<p>The finite sample properties requires the normality assumption (because central limit theory cannot be applied). The unbiasedness does not appreciate the value of information. So, we need to introduce asymptotic properties based on large sample (<code>plim</code> with $n \to \infty$), which require fewer assumptions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Data-Generation">Data Generation<a class="anchor-link" href="#Data-Generation">&#182;</a></h3><p>The full rank assumption ensures the existance of the inverse $X^{-1}$.</p>
+<p>$X$ can be any mixture of constants and random variables. If $X$ is not random, model assumptions become unconditional. Nothing is lost by assuming that the $n$ observations in hand are a random sample of independent, identically distributed (i.i.d.) draws from a joint distribution of $(y,\mathbf{x})$. In some treatments, such as panel data, some observations will be correlated by construction. It will be necessary to revisit the assumption of Homoskedasticity.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exogeneity">Exogeneity<a class="anchor-link" href="#Exogeneity">&#182;</a></h3><p><strong>Exogeneity</strong> $\text{E}(\epsilon|X) = 0$ <strong>implies unbiasedness</strong>:
+\begin{align*}
+\text{E}(b|X) &amp;= (X^\intercal X)^{-1} X^\intercal \text{E}(\mathbf{y}|X)  \\
+&amp; = (X^\intercal X)^{-1} X^\intercal (X \beta + \text{E}(\epsilon|X)) \\
+&amp; = \beta + (X^\intercal X)^{-1} X^\intercal \text{E}(\epsilon|X) = \beta.
+\end{align*}</p>
+<p>Note that</p>
+<ul>
+<li>$\text{E}(\epsilon|X) = 0 \Rightarrow \text{E}(\epsilon) = 0 \text{ and } \text{Cov}(\epsilon, X) = 0$, but</li>
+<li>$\text{E}(\epsilon) = 0 \text{ and } \text{Cov}(\epsilon X) = 0 \nRightarrow \text{E}(\epsilon|X) = 0$. For example, consider $(\epsilon, x) = (-1, 1) \text{ or } (1, -1)$ with 50% chance. We have $\text{E}(\epsilon|x) = -x \neq 0$.</li>
+<li>$\text{E}(\epsilon|X) = 0 \Rightarrow \text{E}(\epsilon X) = \text{Cov}(\epsilon, X) + \text{E}(\epsilon)\text{E}(X) = 0$</li>
+</ul>
+<p>The condition $\text{E}(\epsilon) = 0$ can be assumed without loss of generality because we can always scale the response $y$.</p>
+<p>$\text{E}(\epsilon X) = 0$ <strong>implies consistency</strong>:</p>
+<p>We define $\text{E}(\mathbf{x}_i \mathbf{x}^\top_i) = Q$. The law of large number suggests</p>
+\begin{align}
+\text{plim} \frac{X^\top X}{n} = \text{plim} \frac{1}{n} \sum_{i} \mathbf{x}_i \mathbf{x}^\top_i = \text{E} \text{E}(\mathbf{x}_i \mathbf{x}^\top_i) = Q \nonumber
+\end{align}<p>$Q$ is positive definite since $X$ is full-dimensional. Then,</p>
+\begin{align}
+\text{plim}\ b &amp; = \text{plim}\ (X^\top X)^{-1} X^\top \mathbf{y} \nonumber \\
+&amp; = \beta + \text{plim}\ (X^\top X)^{-1} X^\intercal \epsilon  \nonumber \\
+&amp; = \beta + \text{plim}\ \left( \frac{X^\top X}{n} \right)^{-1} \left( \frac{X^\top \epsilon}{n} \right) \nonumber \\
+&amp; = \beta + Q^{-1} \text{plim}\left( \frac{X^\top \epsilon}{n} \right) = \beta \nonumber
+\end{align}<p>The last equation holds because</p>
+\begin{align}
+\text{plim} \frac{X^\top \epsilon}{n}  = \frac{1}{n}\sum_{i} \epsilon_i \mathbf{x}_i = \text{E}(\epsilon X) = 0. \nonumber
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Homoskedasticity">Homoskedasticity<a class="anchor-link" href="#Homoskedasticity">&#182;</a></h3><p>The homoskedasticity assumption implies $\text{E}(\epsilon \epsilon^\top|X) = \text{Var}(\epsilon|X) = \sigma^2 I$. Since $b = (X^\top X)^{-1} X^\top \mathbf{y} = (X^\top X)^{-1} X^\top (X \beta + \epsilon) = \beta + A \epsilon$ with $A = (X^\top X)^{-1} X^\top$.</p>
+<p>The conditional covariance matrix of $b$ is</p>
+\begin{align*}
+\text{Var}(b|X) 
+&amp;= \text{E}\big((b-\beta)(b-\beta)^\top|X\big) \\
+&amp;= \text{E}(A\epsilon \epsilon^\top A^\top|X) \\
+&amp;= A\text{E}(\epsilon \epsilon^\top|X)A^\top \\
+&amp;= \sigma^2(X^\top X)^{-1}
+\end{align*}<p>Since $\sigma^2$ is unknown, an unbiased estimator of $\sigma^2$ is $s^2 = e^\intercal e / (n-k)$. Hence, the sample estimate of the sampling variance of $b$ is $\text{Est. Var}(b|X)=s^2 (X^\top X)^{-1}$.</p>
+<p>The asymptotic variance of $b$</p>
+\begin{align*}
+\text{Asy. Var}(b) 
+&amp;= \text{plim } \sigma^2(X^\top X)^{-1} \\
+&amp;= \text{plim } \frac{\sigma^2}{n} \left(\frac{X^\top X}{n}\right)^{-1} \\
+&amp;= \frac{\sigma^2}{n} Q^{-1}
+\end{align*}<p>Note that both $\sigma^2$ and $Q$ are unknown. If we have $\text{plim } s^2 = \sigma^2$ (see proof in [Greene]), then $\text{plim } s^2 \big( X^\top X /n \big)^{-1} = \sigma^2 Q^{-1}$, and hence $\text{Est. Asy. Var}(b) = s^2(X^\top X)^{-1}$.</p>
+<p>Suppose the homoskedasticity assumption is violated. Then, $\text{E}(\epsilon \epsilon^\top|X) = \text{Var}(\epsilon|X) \neq \sigma^2 I$. For example, $\text{E}(\epsilon \epsilon^\top|X) = \text{diag}(\sigma^2_i)$ or there are correlation among clusters.</p>
+\begin{align*}
+\text{Var}(b|X) 
+&amp;= A\text{E}(\epsilon \epsilon^\top|X)A^\top \\
+&amp;= (X^\top X)^{-1} \text{E}(X^\top \epsilon \epsilon^\top X|X) (X^\top X)^{-1} \\
+&amp;= (X^\top X)^{-1} \text{E}\left(\sum_{i} \epsilon_i^2 \mathbf{x}_i \mathbf{x}_i^\top \bigg|X\right) (X^\top X)^{-1} \\
+\text{Asy. Var}(b) 
+&amp;= Q^{-1} Q^* Q^{-1}
+\end{align*}<p>for some matrix $Q^*$ which can be estimated based on residuals.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Table F4.1: Data on Sales of Monet Paintings (430 observations) <br>
+Source: <a href="http://pages.stern.nyu.edu/~wgreene/Text/Edition7/tablelist8new.htm">Example 4.5 in Greene (2003)</a></p>
+<ul>
+<li>Price = Sale Price in $ (million),</li>
 <li>Height = Height (inches),</li>
 <li>Width = Width (inches),</li>
 <li>Signed = Dummy variable = 1 if signed, 0 if not,</li>
 <li>Picture = ID number (identifies repeat sales),</li>
 <li>House = Code for auction house where sale took place.</li>
 </ul>
-<p>The model is: log(price) = $\beta_1$ + $\beta_2$ log(height*width) + $\beta_3$ (width/height). The table shows F-statistics $F(1,427)$ for $H_0: \beta_2 = 0$</p>
+<p>The model is <code>log(price) ~ log(height*width) + width/height</code>. As shown in the figure, the error terms for paintings that sold more than once would naturally be correlated. Since heteroskedasticity presents, we provide robust standard errors.</p>
 
 </div>
 </div>
@@ -13322,9 +13460,216 @@ Source: <a href="">Example 5.1 in Greene</a></p>
 <div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
 <span class="n">monet</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
 <span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> <span class="o">~</span> <span class="nf">log</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="nf">I</span><span class="p">(</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">monet</span><span class="p">)</span>
-<span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">hypothesis.matrix</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">mdl</span><span class="p">)[</span><span class="m">2</span><span class="p">]))</span>
-<span class="n">t_value</span> <span class="o">=</span> <span class="nf">coef</span><span class="p">(</span><span class="n">mdl</span><span class="p">)[[</span><span class="m">2</span><span class="p">]]</span> <span class="o">/</span> <span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">))[,</span><span class="s">&quot;Std. Error&quot;</span><span class="p">][[</span><span class="m">2</span><span class="p">]]</span>
-<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;t value for log(height * width) is&#39;</span><span class="p">,</span> <span class="n">t_value</span><span class="p">,</span> <span class="s">&#39;whose square is F value&#39;</span><span class="p">,</span> <span class="n">t_value</span><span class="o">**</span><span class="m">2</span><span class="p">)</span>
+
+<span class="n">vcv</span> <span class="o">&lt;-</span> <span class="nf">vcovHC</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;HC1&quot;</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="n">vcv</span><span class="p">,</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Heteroskedasticity-Consistent Estimation of Covariance Matrix&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span> <span class="o">%&gt;%</span>
+    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
+    <span class="nf">display_html</span><span class="p">()</span>
+
+<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">10</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3.5</span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">monet</span><span class="o">$</span><span class="n">picture</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&quot;Repeat Sales of Monet Paintings&quot;</span><span class="p">)</span>
+
+<span class="n">report</span> <span class="o">&lt;-</span> <span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">))[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">,</span> <span class="s">&#39;Std. Error&#39;</span><span class="p">)]</span>
+<span class="c1"># include heteroscedasticity robust std. errors</span>
+<span class="n">heteroscedasticity</span> <span class="o">&lt;-</span> <span class="nf">coeftest</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">vcv</span><span class="p">)[,</span><span class="s">&quot;Std. Error&quot;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">]</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">heteroscedasticity</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;Heteroscedasticity (Std. Error)&#39;</span><span class="p">)</span>
+<span class="n">report</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">heteroscedasticity</span><span class="p">)</span>
+<span class="c1"># include cluster robust std. errors with cluster on monet$picture</span>
+<span class="n">cluster</span> <span class="o">&lt;-</span> <span class="nf">coeftest</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="nf">cluster.vcov</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">monet</span><span class="o">$</span><span class="n">picture</span><span class="p">))[,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;Std. Error&#39;</span><span class="p">),</span> <span class="n">drop</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">]</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;Cluster (Std. Error)&#39;</span><span class="p">)</span>
+<span class="n">report</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Robust Standard Errors&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span> <span class="o">%&gt;%</span>
+    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
+    <span class="nf">display_html</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>Heteroskedasticity-Consistent Estimation of Covariance Matrix</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> (Intercept) </th>
+   <th style="text-align:right;"> log(height * width) </th>
+   <th style="text-align:right;"> I(width/height) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 0.5416777 </td>
+   <td style="text-align:right;"> -0.0748774 </td>
+   <td style="text-align:right;"> -0.0281418 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(height * width) </td>
+   <td style="text-align:right;"> -0.0748774 </td>
+   <td style="text-align:right;"> 0.0113106 </td>
+   <td style="text-align:right;"> -0.0010028 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> I(width/height) </td>
+   <td style="text-align:right;"> -0.0281418 </td>
+   <td style="text-align:right;"> -0.0010028 </td>
+   <td style="text-align:right;"> 0.0281053 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>Robust Standard Errors</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Estimate </th>
+   <th style="text-align:right;"> Std. Error </th>
+   <th style="text-align:right;"> Heteroscedasticity (Std. Error) </th>
+   <th style="text-align:right;"> Cluster (Std. Error) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> -8.3423608 </td>
+   <td style="text-align:right;"> 0.6782026 </td>
+   <td style="text-align:right;"> 0.7359876 </td>
+   <td style="text-align:right;"> 0.7587251 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(height * width) </td>
+   <td style="text-align:right;"> 1.3163837 </td>
+   <td style="text-align:right;"> 0.0920493 </td>
+   <td style="text-align:right;"> 0.1063515 </td>
+   <td style="text-align:right;"> 0.1093243 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> I(width/height) </td>
+   <td style="text-align:right;"> -0.0962332 </td>
+   <td style="text-align:right;"> 0.1578398 </td>
+   <td style="text-align:right;"> 0.1676463 </td>
+   <td style="text-align:right;"> 0.1777574 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="1. Least Square Regression_files/1. Least Square Regression_11_3.png"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Model-Estimation">Model Estimation<a class="anchor-link" href="#Model-Estimation">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frisch&#8211;Waugh&#8211;Lovell-Theorem">Frisch&#8211;Waugh&#8211;Lovell Theorem<a class="anchor-link" href="#Frisch&#8211;Waugh&#8211;Lovell-Theorem">&#182;</a></h3><p>Suppose that the regression involves two sets of variables $\mathbf{x} = (\mathbf{x}^1, \mathbf{x}^2)$. For example, $\mathbf{x}^1$ includes all variables (such as age, gender of individuals) that we want to control, and $\mathbf{x}^2$ are some key variables that we want to see their effects on the response $y$. Frisch–Waugh–Lovell Theorem suggests that</p>
+<blockquote><p>$b_2$ is partial regression coefficients that partialing out the effect of $\mathbf{x}^1$</p>
+</blockquote>
+<p>because $b_2$ can be derived as follows:</p>
+<ol>
+<li>regress $y$ on $\mathbf{x}^1$: $y \sim \mathbf{x}^1 + e^0$</li>
+<li>regress $\mathbf{x}^2_j$ on $\mathbf{x}^1$: $\mathbf{x}^2_j \sim \mathbf{x}^1 + e^j$ $\forall j = 1, \ldots J$</li>
+<li>regress $e^0$ on $e^1, \ldots, e^J$: then $e^0 = b^\top_2 (e^1 , \cdots , e^J) + \tilde{e}$</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Table F3.1: U.S. Investment Data, 15 Yearly Observations, 2000-2014 <br>
+Source: <a href="http://pages.stern.nyu.edu/~wgreene/Text/Edition7/tablelist8new.htm">Greene (2003)</a></p>
+<ul>
+<li>Year = Date,</li>
+<li>RealGNP = GNP Quantity Index,</li>
+<li>Invest = Nominal Investment in \$T,</li>
+<li>GNPDefl = GNP Deflator,</li>
+<li>Interest = Interest rate = Prime rate.</li>
+<li>Infl = Yearly change in consumer price index.</li>
+<li>Trend = row index</li>
+<li>RealInv = Nominal investment/(.01*GNP Deflator)</li>
+</ul>
+<p>The model is <code>realinv ~ trend + realgnp + interest + infl</code>. The example demonstrates Frisch–Waugh–Lovell Theorem and partitioned regression.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">invest</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF3-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realinv</span> <span class="o">~</span> <span class="n">trend</span> <span class="o">+</span> <span class="n">realgnp</span> <span class="o">+</span> <span class="n">interest</span> <span class="o">+</span> <span class="n">infl</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span>
+<span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">))</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;coefficient of infl:&#39;</span><span class="p">,</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">coef</span><span class="p">[</span><span class="s">&#39;infl&#39;</span><span class="p">]),</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span>
+<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realinv</span> <span class="o">~</span> <span class="n">trend</span> <span class="o">+</span> <span class="n">realgnp</span> <span class="o">+</span> <span class="n">interest</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span>
+<span class="n">mdl2</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">infl</span> <span class="o">~</span> <span class="n">trend</span> <span class="o">+</span> <span class="n">realgnp</span> <span class="o">+</span> <span class="n">interest</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span>
+<span class="n">mdl3</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span> <span class="o">~</span> <span class="nf">resid</span><span class="p">(</span><span class="n">mdl2</span><span class="p">))</span>
+<span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl3</span><span class="p">))</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;coefficient of infl from Frisch–Waugh–Lovell Theorem:\n&#39;</span><span class="p">,</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">mdl3</span><span class="o">$</span><span class="n">coef</span><span class="p">[</span><span class="m">2</span><span class="p">]),</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span> 
+<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;coefficient of infl from normal equation:\n&#39;</span><span class="p">,</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">*</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl2</span><span class="p">))</span><span class="o">/</span><span class="nf">sum</span><span class="p">(</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl2</span><span class="p">)</span><span class="o">*</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl2</span><span class="p">)),</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13355,10 +13700,13 @@ Source: <a href="">Example 5.1 in Greene</a></p>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
-<thead><tr><th scope=col>Res.Df</th><th scope=col>RSS</th><th scope=col>Df</th><th scope=col>Sum of Sq</th><th scope=col>F</th><th scope=col>Pr(&gt;F)</th></tr></thead>
+<thead><tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr></thead>
 <tbody>
-	<tr><td>428         </td><td>770.1870    </td><td>NA          </td><td>      NA    </td><td>      NA    </td><td>          NA</td></tr>
-	<tr><td>427         </td><td>520.7638    </td><td> 1          </td><td>249.4232    </td><td>204.5144    </td><td>3.497341e-38</td></tr>
+	<tr><th scope=row>(Intercept)</th><td>-6.21967209</td><td>1.93044718 </td><td>-3.2218815 </td><td>0.009145929</td></tr>
+	<tr><th scope=row>trend</th><td>-0.16088526</td><td>0.04723546 </td><td>-3.4060269 </td><td>0.006702860</td></tr>
+	<tr><th scope=row>realgnp</th><td> 0.09908417</td><td>0.02413202 </td><td> 4.1059206 </td><td>0.002124363</td></tr>
+	<tr><th scope=row>interest</th><td> 0.02017157</td><td>0.03369151 </td><td> 0.5987137 </td><td>0.562679619</td></tr>
+	<tr><th scope=row>infl</th><td>-0.01165919</td><td>0.03976816 </td><td>-0.2931789 </td><td>0.775379223</td></tr>
 </tbody>
 </table>
 
@@ -13372,37 +13720,29 @@ Source: <a href="">Example 5.1 in Greene</a></p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>t value for log(height * width) is 14.30085 whose square is F value 204.5144</pre>
+<pre>coefficient of infl: -0.01165919 
+</pre>
 </div>
 </div>
 
-</div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr></thead>
+<tbody>
+	<tr><th scope=row>(Intercept)</th><td>-1.125102e-17</td><td>0.03231890   </td><td>-3.481250e-16</td><td>1.0000000    </td></tr>
+	<tr><th scope=row>resid(mdl2)</th><td>-1.165919e-02</td><td>0.03487898   </td><td>-3.342754e-01</td><td>0.7435031    </td></tr>
+</tbody>
+</table>
+
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The one-sided t-test for $H_0: \beta_2 \le 1$ is greater than the critical value.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">cat</span><span class="p">((</span><span class="nf">coef</span><span class="p">(</span><span class="n">mdl</span><span class="p">)[[</span><span class="m">2</span><span class="p">]]</span> <span class="m">-1</span><span class="p">)</span><span class="o">/</span> <span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">))[,</span><span class="s">&quot;Std. Error&quot;</span><span class="p">][[</span><span class="m">2</span><span class="p">]],</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="nf">qt</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">.</span><span class="m">95</span><span class="p">),</span> <span class="n">df</span><span class="o">=</span><span class="m">427</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
 
 <div class="output_area">
 
@@ -13410,7 +13750,11 @@ Source: <a href="">Example 5.1 in Greene</a></p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3.437111 &gt; 1.64843</pre>
+<pre>coefficient of infl from Frisch–Waugh–Lovell Theorem:
+ -0.01165919 
+coefficient of infl from normal equation:
+ -0.01165919 
+</pre>
 </div>
 </div>
 
@@ -13421,69 +13765,69 @@ Source: <a href="">Example 5.1 in Greene</a></p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fit-of-the-Regression">Fit of the Regression<a class="anchor-link" href="#Fit-of-the-Regression">&#182;</a></h3><p>The approach focuses on the fit of the regression $R^2$ and is interested in whether assuming the hypothesis leads to a substantially worse fit than leaving the model unrestricted.</p>
-<p>The restricted least squares estimator $b_*$ is</p>
-\begin{align*}
-\min_b \ (\mathbf{y} - Xb)^\top (\mathbf{y} - Xb) ~~ \text{s.t. } Rb=q 
-\end{align*}<p>The optimization problem finds $b_*$ and a Lagrangean multiplier $\lambda_*$. We obtain the same F-statistics</p>
-\begin{align}
-F[r, n-k] = \frac{(e^\top_* e_* - e^\top e)/r}{(e^\top e)/(n-k)} = \frac{(R^2 - R^2_*)/r}{(1-R^2)/(n-k)} \label{hyp_fit} \tag{1}
-\end{align}<p>where $e_*$ and $R^2_*$ are residuals and $R$-squared for the restiricted model, respectively.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Lagrange-Multiplier">Lagrange Multiplier<a class="anchor-link" href="#Lagrange-Multiplier">&#182;</a></h3><p>A test of the hypothesis that $\lambda_* = 0$ is equivalent to a test of the null hypothesis; $\lambda_*$ differs from zero because the restrictions do not hold in the data, i.e., because $Rb \neq q$. The Wald test of the hypothesis that $\lambda_* = 0$ can be performed as follows:</p>
-<p>For testing the restriction $\beta_2 = 0$ in the model $y = \beta_1 \mathbf{x}_1 + \beta_2 \mathbf{x}_2$:</p>
-<ol>
-<li>regress $y$ on $\mathbf{x}_1$ and obtain the residual $e_*$,</li>
-<li>regress $e_*$ on $\mathbf{x}_1$ and $\mathbf{x}_2$ and compute $n R^2$.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Large-Sample">Large Sample<a class="anchor-link" href="#Large-Sample">&#182;</a></h3><p>The finite sample distributions of the test statistics follow from the normality assumption for $\epsilon$. The large sample approximation to the F statistic is $(1/r)$ times a chi-squared (Wald statistics) with $r$ degrees of freedom.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Example-1">Example 1<a class="anchor-link" href="#Example-1">&#182;</a></h3><p>Table F5.1: Labor Supply Data From Mroz (1987), 753 Observations <br>
-Source: <a href="">Example 5.2 and 5.4F in Greene</a></p>
+<h3 id="Omitted-Variable-Bias">Omitted Variable Bias<a class="anchor-link" href="#Omitted-Variable-Bias">&#182;</a></h3><p>Suppose that</p>
 <ul>
-<li>LFP = A dummy variable = 1 if woman worked in 1975, else 0</li>
-<li>WHRS = Wife's hours of work in 1975</li>
-<li>KL6 = Number of children less than 6 years old in household</li>
-<li>K618 = Number of children between ages 6 and 18 in household</li>
-<li>WA = Wife's age</li>
-<li>WE = Wife's educational attainment, in years</li>
-<li>WW = Wife's average hourly earnings, in 1975 dollars</li>
-<li>RPWG = Wife's wage reported at the time of the 1976 interview (not = 1975 estimated wage)</li>
-<li>HHRS = Husband's hours worked in 1975</li>
-<li>HA = Husband's age</li>
-<li>HE = Husband's educational attainment, in years</li>
-<li>HW = Husband's wage, in 1975 dollars</li>
-<li>FAMINC = Family income, in 1975 dollars</li>
-<li>WMED = Wife's mother's educational attainment, in years</li>
-<li>WFED = Wife's father's educational attainment, in years</li>
-<li>UN = Unemployment rate in county of residence, in percentage points.</li>
-<li>CIT = Dummy variable = 1 if live in large city (SMSA), else 0</li>
-<li>AX = Actual years of wife's previous labor market experience</li>
+<li>the correct regression model is $y = \beta \mathbf{x} + \gamma z + \epsilon$, but </li>
+<li>the performed regression model is $y = \beta \mathbf{x} + \epsilon$.</li>
 </ul>
-<p>The semilog earnings equation has form <br>
-\begin{align}
-\text{log(earnings) ~ $\beta_1$ + $\beta_2$ age + $\beta_3$ age$^2$ + $\beta_4$ education + $\beta_5$ kids} \nonumber
-\end{align}</p>
-<p>We show the model estimate, estimation of covariance matrix and F ratio of $H_0: \beta_2=\cdots=\beta_5=0$.</p>
+<p>So, we regress $y$ on $\mathbf{x}$ without including the relevant variable, $z$, then the estimator is</p>
+\begin{align*}
+\text{E}(b^\prime|X) &amp; = (X^\top X)^{-1} X^\top \text{E}(\mathbf{y}|X) \\
+&amp; = (X^\top X)^{-1} X^\top (\beta X + \mathbf{z} \gamma) \\
+&amp; = \beta + (X^\top X)^{-1} X^\top \mathbf{z} \gamma
+\end{align*}<p>where $\mathbf{z} = \{z_1,\ldots,z_n\}$. The estimator $b^\prime$ is biased unless $X^\top \mathbf{z} = 0$. The variance is $\text{Var}(b^\prime|X) = \sigma^2 (X^\intercal X)^{-1}$. Note that this variance is around $\text{E}(b^\prime|X)$, not $\beta$. If we regress $y$ on $\mathbf{x}, z$ and use the correct regression model, the variance of $b_{X,\mathbf{z}}$ is</p>
+\begin{align*}
+\text{Var}(b_{X,\mathbf{z}} | X, \mathbf{z}) = \sigma^2\left( X^\top X - X^\top \mathbf{z} (\mathbf{z}^\intercal \mathbf{z})^{-1}\mathbf{z}^\top X \right)^{-1}
+\end{align*}<p>Hence,
+\begin{align*}
+\big(\text{Var}(b^\prime|X)\big)^{-1} - \big(\text{Var}(b_{X,\mathbf{z}} | X, \mathbf{z})\big)^{-1} = \frac{1}{\sigma^2} X^\top \mathbf{z} (\mathbf{z}^\top \mathbf{z})^{-1}\mathbf{z}^\top X \succeq 0
+\end{align*}</p>
+<p>Although $b^\prime$ is biased, its variance is never larger than the variance of the unbiased estimator.</p>
+<p>However, suppose that</p>
+<ul>
+<li>the correct regression model is $y = \beta \mathbf{x} + \epsilon$, but </li>
+<li>the performed regression model is $y = \beta \mathbf{x} + \gamma z + \epsilon$.</li>
+</ul>
+<p>We have $\text{E}(b^{\prime \prime}|X) = \text{E}\big((b_x, b_z)|X\big) = (\beta, \gamma)$. So, including irrelevant variables in the estimation equation does not lead to bias in the estimation.</p>
+<p>The cost of including irrelevant variables is larger variances (less precision) of the estimators.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Goodness-of-Fit">Goodness of Fit<a class="anchor-link" href="#Goodness-of-Fit">&#182;</a></h3><p>The goodness of fit
+\begin{align*}
+\text{R}^2 = 1 - \frac{e^\intercal e}{\sum_{i \in N} (y_i - \bar{y})^2}
+\end{align*}</p>
+<p>where $\bar{y}$ is the average of $y_i$ $\forall i \in N$. The proof that $0\le R^2 \le 1$ requires $X$ to contain a column of 1s, i.e., the constant term is in the model.</p>
+<p>The ANOVA Table for a regression with constant term is</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Source</th>
+<th><div style="width:180px">Sum of Squares</div></th>
+<th>Degrees of Freedom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Regression (SSR)</td>
+<td>$\sum_{i \in N} (\hat{y}_i - \bar{y})^2$</td>
+<td>$k-1$</td>
+</tr>
+<tr>
+<td style="text-align:left">Residual (SSE)</td>
+<td>$e^\top e$</td>
+<td>$n-k$</td>
+</tr>
+<tr>
+<td style="text-align:left">Total (SST)</td>
+<td>$\sum_{i \in N} (y_i - \bar{y})^2$</td>
+<td>$n-1$</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -13493,31 +13837,180 @@ Source: <a href="">Example 5.2 and 5.4F in Greene</a></p>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">anova</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr></thead>
+<tbody>
+	<tr><th scope=row>trend</th><td> 1          </td><td>0.010309289 </td><td>0.010309289 </td><td> 0.50615187 </td><td>0.4930710459</td></tr>
+	<tr><th scope=row>realgnp</th><td> 1          </td><td>0.737973153 </td><td>0.737973153 </td><td>36.23203121 </td><td>0.0001287546</td></tr>
+	<tr><th scope=row>interest</th><td> 1          </td><td>0.006172822 </td><td>0.006172822 </td><td> 0.30306504 </td><td>0.5940507297</td></tr>
+	<tr><th scope=row>infl</th><td> 1          </td><td>0.001750707 </td><td>0.001750707 </td><td> 0.08595389 </td><td>0.7753792228</td></tr>
+	<tr><th scope=row>Residuals</th><td>10          </td><td>0.203679763 </td><td>0.020367976 </td><td>         NA </td><td>          NA</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The anova  table can also be obtained by direct calculations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">sumsq</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">((</span><span class="nf">lm</span><span class="p">(</span><span class="n">realinv</span> <span class="o">~</span> <span class="n">trend</span><span class="p">,</span> <span class="n">invest</span><span class="p">)</span><span class="o">$</span><span class="n">fit</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="n">invest</span><span class="o">$</span><span class="n">realinv</span><span class="p">))</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">data.frame</span><span class="p">(</span><span class="s">&quot;sum sq for trend&quot;</span> <span class="o">=</span> <span class="n">sumsq</span><span class="p">,</span>
+           <span class="s">&#39;sum sq for residuals&#39;</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span>
+           <span class="s">&#39;F value&#39;</span> <span class="o">=</span> <span class="n">sumsq</span><span class="o">/</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">10</span><span class="p">),</span> <span class="n">check.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th scope=col>sum sq for trend</th><th scope=col>sum sq for residuals</th><th scope=col>F value</th></tr></thead>
+<tbody>
+	<tr><td>0.01030929</td><td>0.2036798 </td><td>0.5061519 </td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prediction">Prediction<a class="anchor-link" href="#Prediction">&#182;</a></h3><p>A common use of regression modeling is for prediction of the dependent variable.</p>
+<ul>
+<li>ex post prediction (or ex post forecast): the data used in the regression equation to make the prediction are either observed or constructed experimentally by the analyst. </li>
+</ul>
+<ul>
+<li>ex ante forecast (in the time-series context): it requires the analyst to forecast the independent variables first before it is possible to forecast the dependent variable.</li>
+</ul>
+<p>The prediction $\hat{y}^0 = b^\top \mathbf{x}^0$ where the actual value is $y^0 = \beta^\top \mathbf{x}^0 + \epsilon^0$. The prediction error is $e^0 = \hat{y}^0 - y^0 = (b-\beta)^\top \mathbf{x}^0 - \epsilon^0$.</p>
+<p>The <strong>prediction interval</strong> is constructed based on the variance</p>
+\begin{align*}
+\text{Var}(e^0|X, \mathbf{x}^0) = \sigma^2 + \text{Var}\big((b-\beta)^\top \mathbf{x}^0|X, \mathbf{x}^0\big) = \sigma^2 + (\mathbf{x}^0)^\top \big( \sigma^2 (X^\top X)^{-1} \big) \mathbf{x}^0
+\end{align*}<p>The <strong>confidence interval</strong> is constructed based on the variance</p>
+\begin{align*}
+\text{Var}(\hat{y}^0 - \text{E}(y^0)|X, \mathbf{x}^0) = \text{Var}\big((b-\beta)^\top \mathbf{x}^0|X, \mathbf{x}^0\big) = (\mathbf{x}^0)^\top \big( \sigma^2 (X^\top X)^{-1} \big) \mathbf{x}^0
+\end{align*}<hr>
+<p>Suppose the regression model describes $\ln y$. The natural approach for a predictor is $\ln y^0 = b^\top \mathbf{x}^0$ and $y^0 = \exp(b^\top \mathbf{x}^0)$. The problem is that $\text{E}(y^0|\mathbf{x}^0) \neq \exp \big(\text{E}(\ln y^0|\mathbf{x}^0) \big)$ and</p>
+\begin{align*}
+\text{E}(y^0|\mathbf{x}^0) = \text{E}(\exp(\beta^\top \mathbf{x}^0 + \epsilon^0)|\mathbf{x}^0) = \exp(\beta^\top \mathbf{x}^0)  \text{E}(\exp(\epsilon^0)|\mathbf{x}^0)
+\end{align*}<p>The implication for normally distributed error terms would be that an appropriate predictor for the conditional mean would be</p>
+\begin{align*}
+\hat{y}^0 = \exp(b^\top \mathbf{x}^0 + s^2/2) &gt; \exp(b^\top \mathbf{x}^0)
+\end{align*}<hr>
+<p>The prediction interval can be $[b^\top \mathbf{x}^0 \pm \text{t-value } \times se(e^0)]$. However, this may not be the narrowest interval with given confidence level. The narrowest interval can be found by solving an optimization problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Problems">Data Problems<a class="anchor-link" href="#Data-Problems">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Multicollinearity">Multicollinearity<a class="anchor-link" href="#Multicollinearity">&#182;</a></h3><p>Multicollinearity exists when two or more of the predictors in a regression model are moderately or highly correlated with one another. The exact linear relationship is fairly simple to spot because regression packages will typically respond with an error message. A more common and serious problem is multicollinearity, where explanatory variables are highly, but not exactly, correlated.</p>
+<p>There are two types of multicollinearity:</p>
+<ul>
+<li><p>Structural multicollinearity is a mathematical artifact caused by creating new predictors from other predictors — such as, creating the predictor X2 from the predictor X.</p>
+</li>
+<li><p>Data-based multicollinearity, on the other hand, is a result of a poorly designed experiment, reliance on purely observational data, or the inability to manipulate the system on which the data are collected.</p>
+</li>
+</ul>
+<p>Variance inflation factor (VIF) can be used to identify multicollinearity. The VIF for $x_i$ is defined as 1/(1 - R-square for $x_i$), where R-square for $x_i$ is the usual R-square value from regressing $x_i$ on all other explanatory variables. Example 4.11 in Greene (2003).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The multicollinearity can be reduced by using a small number of principal components constructed as linear combinations of the $k$ original variables.</p>
+<p>Table F4.2: The Longley Data, 15 Yearly Observations, 1947-1962 <br>
+Source: <a href="http://pages.stern.nyu.edu/~wgreene/Text/Edition7/tablelist8new.htm">Example 4.11 in Greene (2003)</a></p>
+<ul>
+<li>Employ = Employment (1000s),</li>
+<li>Price = GNP deflator,</li>
+<li>GNP = Nominal GNP (millions),</li>
+<li>Armed = Armed forces,</li>
+<li>Year = Date.</li>
+</ul>
+<p>The model is <code>employ ~ year + price + gnp + armed</code>. The data is notorious for severe multicollinearity. The results show the dramatic effect of dropping the last observation where year is 1962.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">mroz</span> <span class="o">&lt;-</span> <span class="n">prod</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
-<span class="n">mroz</span><span class="o">$</span><span class="n">kid</span> <span class="o">=</span> <span class="nf">as.integer</span><span class="p">((</span><span class="n">mroz</span><span class="o">$</span><span class="n">kl6</span><span class="o">+</span><span class="n">mroz</span><span class="o">$</span><span class="n">k618</span><span class="p">)</span><span class="o">&gt;</span><span class="m">0</span><span class="p">)</span>
-<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;num of total obs:&#39;</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">mroz</span><span class="p">),</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span>
-<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;num of obs in labor market:&#39;</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">mroz</span><span class="p">[</span><span class="n">mroz</span><span class="o">$</span><span class="n">lfp</span><span class="o">==</span><span class="m">1</span><span class="p">,]))</span>
-<span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">whrs</span><span class="o">*</span><span class="n">ww</span><span class="p">)</span><span class="o">~</span><span class="n">wa</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="n">wa</span><span class="o">*</span><span class="n">wa</span><span class="p">)</span><span class="o">+</span><span class="n">we</span><span class="o">+</span><span class="n">kid</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mroz</span><span class="p">[</span><span class="n">mroz</span><span class="o">$</span><span class="n">lfp</span><span class="o">==</span><span class="m">1</span><span class="p">,])</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">rbind</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">)),</span>
-      <span class="s">&#39;R-squared&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">,</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span> 
-      <span class="s">&#39;Sum of squared residuals&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">mdl</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">))),</span>
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Model Estimate&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">vcov</span><span class="p">(</span><span class="n">mdl</span><span class="p">),</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Estimated Covariance Matrix for parameters $b$&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">anova</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">whrs</span><span class="o">*</span><span class="n">ww</span><span class="p">)</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mroz</span><span class="p">[</span><span class="n">mroz</span><span class="o">$</span><span class="n">lfp</span><span class="o">==</span><span class="m">1</span><span class="p">,]),</span><span class="n">mdl</span><span class="p">),</span> 
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;The F ratio for testing the hypothesis that all coefficients are 0&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
+<span class="n">longley</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-2.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">longley</span><span class="p">)</span>
+<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">employ</span> <span class="o">~</span> <span class="n">year</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span> <span class="n">gnp</span> <span class="o">+</span> <span class="n">armed</span><span class="p">,</span> <span class="n">longley</span><span class="p">[</span><span class="n">longley</span><span class="o">$</span><span class="n">year</span><span class="o">&lt;</span><span class="m">1962</span><span class="p">,])</span>
+<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">employ</span> <span class="o">~</span> <span class="n">year</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span> <span class="n">gnp</span> <span class="o">+</span> <span class="n">armed</span><span class="p">,</span> <span class="n">longley</span><span class="p">)</span>
+<span class="n">report</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="s">&#39;1947-1961&#39;</span><span class="o">=</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">))[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">)],</span> 
+                <span class="s">&#39;VIF(1947-1961)&#39;</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">vif</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)),</span> 
+                <span class="s">&#39;1947-1962&#39;</span><span class="o">=</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">))[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">)],</span>
+                <span class="s">&#39;VIF(1947-1962)&#39;</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">vif</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)))</span>
+<span class="n">report</span>
+<span class="n">mdl2</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">year</span> <span class="o">~</span> <span class="n">price</span> <span class="o">+</span> <span class="n">gnp</span> <span class="o">+</span> <span class="n">armed</span><span class="p">,</span> <span class="n">longley</span><span class="p">)</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;VIF for year:&#39;</span><span class="p">,</span> <span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl2</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13536,6 +14029,51 @@ Source: <a href="">Example 5.2 and 5.4F in Greene</a></p>
 
 <div class="output_html rendered_html output_subarea ">
 <a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th scope=col>employ</th><th scope=col>price</th><th scope=col>gnp</th><th scope=col>armed</th><th scope=col>year</th></tr></thead>
+<tbody>
+	<tr><td>60323 </td><td>83.0  </td><td>234289</td><td>1590  </td><td>1947  </td></tr>
+	<tr><td>61122 </td><td>88.5  </td><td>259426</td><td>1456  </td><td>1948  </td></tr>
+	<tr><td>60171 </td><td>88.2  </td><td>258054</td><td>1616  </td><td>1949  </td></tr>
+	<tr><td>61187 </td><td>89.5  </td><td>284599</td><td>1650  </td><td>1950  </td></tr>
+	<tr><td>63221 </td><td>96.2  </td><td>328975</td><td>3099  </td><td>1951  </td></tr>
+	<tr><td>63639 </td><td>98.1  </td><td>346999</td><td>3594  </td><td>1952  </td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th></th><th scope=col>1947-1961</th><th scope=col>VIF(1947-1961)</th><th scope=col>1947-1962</th><th scope=col>VIF(1947-1962)</th></tr></thead>
+<tbody>
+	<tr><th scope=row>(Intercept)</th><td> 1.459415e+06</td><td>        NA   </td><td> 1.169088e+06</td><td>        NA   </td></tr>
+	<tr><th scope=row>year</th><td>-7.217561e+02</td><td>121.533754   </td><td>-5.764643e+02</td><td>143.463545   </td></tr>
+	<tr><th scope=row>price</th><td>-1.811230e+02</td><td> 87.346665   </td><td>-1.976807e+01</td><td> 75.670734   </td></tr>
+	<tr><th scope=row>gnp</th><td> 9.106778e-02</td><td>154.075397   </td><td> 6.439397e-02</td><td>132.463801   </td></tr>
+	<tr><th scope=row>armed</th><td>-7.493705e-02</td><td>  1.559474   </td><td>-1.014525e-02</td><td>  1.553191   </td></tr>
+</tbody>
+</table>
+
 </div>
 
 </div>
@@ -13546,191 +14084,8 @@ Source: <a href="">Example 5.2 and 5.4F in Greene</a></p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>num of total obs: 753 
-num of obs in labor market: 428</pre>
+<pre>VIF for year: 143.4635</pre>
 </div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption>Model Estimate</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> t value </th>
-   <th style="text-align:right;"> Pr(&gt;|t|) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 3.2400965 </td>
-   <td style="text-align:right;"> 1.7674296 </td>
-   <td style="text-align:right;"> 1.833225 </td>
-   <td style="text-align:right;"> 0.0674717 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> wa </td>
-   <td style="text-align:right;"> 0.2005573 </td>
-   <td style="text-align:right;"> 0.0838603 </td>
-   <td style="text-align:right;"> 2.391565 </td>
-   <td style="text-align:right;"> 0.0172127 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> I(wa * wa) </td>
-   <td style="text-align:right;"> -0.0023147 </td>
-   <td style="text-align:right;"> 0.0009869 </td>
-   <td style="text-align:right;"> -2.345435 </td>
-   <td style="text-align:right;"> 0.0194661 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> we </td>
-   <td style="text-align:right;"> 0.0674727 </td>
-   <td style="text-align:right;"> 0.0252486 </td>
-   <td style="text-align:right;"> 2.672336 </td>
-   <td style="text-align:right;"> 0.0078236 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> kid </td>
-   <td style="text-align:right;"> -0.3511952 </td>
-   <td style="text-align:right;"> 0.1475326 </td>
-   <td style="text-align:right;"> -2.380459 </td>
-   <td style="text-align:right;"> 0.0177331 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> R-squared </td>
-   <td style="text-align:right;"> 0.0409953 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sum of squared residuals </td>
-   <td style="text-align:right;"> 599.4581651 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption>Estimated Covariance Matrix for parameters $b$</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> (Intercept) </th>
-   <th style="text-align:right;"> wa </th>
-   <th style="text-align:right;"> I(wa * wa) </th>
-   <th style="text-align:right;"> we </th>
-   <th style="text-align:right;"> kid </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 3.1238076 </td>
-   <td style="text-align:right;"> -0.1440901 </td>
-   <td style="text-align:right;"> 0.0016617 </td>
-   <td style="text-align:right;"> -0.0092609 </td>
-   <td style="text-align:right;"> 0.0267487 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> wa </td>
-   <td style="text-align:right;"> -0.1440901 </td>
-   <td style="text-align:right;"> 0.0070325 </td>
-   <td style="text-align:right;"> -0.0000823 </td>
-   <td style="text-align:right;"> 0.0000509 </td>
-   <td style="text-align:right;"> -0.0026412 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> I(wa * wa) </td>
-   <td style="text-align:right;"> 0.0016617 </td>
-   <td style="text-align:right;"> -0.0000823 </td>
-   <td style="text-align:right;"> 0.0000010 </td>
-   <td style="text-align:right;"> -0.0000005 </td>
-   <td style="text-align:right;"> 0.0000384 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> we </td>
-   <td style="text-align:right;"> -0.0092609 </td>
-   <td style="text-align:right;"> 0.0000509 </td>
-   <td style="text-align:right;"> -0.0000005 </td>
-   <td style="text-align:right;"> 0.0006375 </td>
-   <td style="text-align:right;"> -0.0000546 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> kid </td>
-   <td style="text-align:right;"> 0.0267487 </td>
-   <td style="text-align:right;"> -0.0026412 </td>
-   <td style="text-align:right;"> 0.0000384 </td>
-   <td style="text-align:right;"> -0.0000546 </td>
-   <td style="text-align:right;"> 0.0217659 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption>The F ratio for testing the hypothesis that all coefficients are 0</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 427 </td>
-   <td style="text-align:right;"> 625.0836 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 423 </td>
-   <td style="text-align:right;"> 599.4582 </td>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:right;"> 25.62546 </td>
-   <td style="text-align:right;"> 4.52057 </td>
-   <td style="text-align:right;"> 0.0013821 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
 </div>
 
 </div>
@@ -13740,529 +14095,25 @@ num of obs in labor market: 428</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Example-2">Example 2<a class="anchor-link" href="#Example-2">&#182;</a></h3><p>Table F5.3: Production Data for Primary Metals, 27 Statewide Observations<br>
-Source: <a href="">Example 5.5 in Greene</a></p>
+<p>Table F4.3: Movie Buzz Data (62 Observations) <br>
+Source: <a href="http://pages.stern.nyu.edu/~wgreene/Text/Edition7/tablelist8new.htm">Example 4.12 in Greene (2003)</a></p>
 <ul>
-<li>Obs = Observation number</li>
-<li>Valueadd = Value added,</li>
-<li>Labor = Labor input,</li>
-<li>Capital = Capital stock.</li>
+<li>Box = First run U.S. box office (\$),</li>
+<li>MPRating = MPAA Rating code, 1=G, 2=PG, 3=PG13, 4=R,</li>
+<li>Budget = Production budget (\$Mil),</li>
+<li>Starpowr = Index of star poser,</li>
+<li>Sequel = 1 if movie is a sequel, 0 if not,</li>
+<li>Action = 1 if action film, 0 if not,</li>
+<li>Comedy = 1 if comedy film, 0 if not,</li>
+<li>Animated = 1 if animated film, 0 if not,</li>
+<li>Horror = 1 if horror film, 0 if not,</li>
+<li>Addict = Trailer views at traileraddict.com,</li>
+<li>Cmngsoon = Message board comments at comingsoon.net,</li>
+<li>Fandango = Attention at fandango.com (see Example 4.12),</li>
+<li>Cntwait3 = Percentage of Fandango votes that can't wait to see.</li>
 </ul>
-<p>We consider two models:
-\begin{align}
-\text{mdl0: } &amp;&amp;\text{log(valueadd) ~ $\beta_1$} &amp;\text{+ $\beta_2$ log(labor) + $\beta_3$ log(capital) + $\beta_4$ $\frac{1}{2}$log$^2$(labor)} \nonumber\\
-&amp;&amp;&amp;\text{+ $\beta_5$ $\frac{1}{2}$log$^2$(capital) + $\beta_6$ (log(labor) $\times$ log(capital))} \nonumber\\
-\text{mdl1: } &amp;&amp;\text{log(valueadd) ~ $\theta_1$} &amp; \text{+ $\theta_2$ log(labor) + $\theta_3$ log(capital)} \nonumber 
-\end{align}</p>
-<p>We perform hypothesis tests:</p>
-<ul>
-<li>$H_0: \beta_4=\beta_5=\beta_6=0$</li>
-<li>The lagrange multiplier tests for $H_0$</li>
-<li>$H_0: \beta_2 + \beta_3 = 1$ and $\beta_4 + \beta_5 + 2\beta_6 = 0$</li>
-<li>$H_0: \theta_2 + \theta_3=1$</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">prod</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-3.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
-<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">valueadd</span><span class="p">)</span><span class="o">~</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="m">2</span><span class="p">)</span>
-           <span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">*</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)),</span> <span class="n">data</span><span class="o">=</span><span class="n">prod</span><span class="p">)</span>
-<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">valueadd</span><span class="p">)</span><span class="o">~</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">prod</span><span class="p">)</span>
-<span class="n">ret0</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)),</span>
-              <span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">))[</span><span class="nf">match</span><span class="p">(</span><span class="nf">rownames</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">))),</span>
-                                        <span class="nf">rownames</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)))),])</span>
-<span class="n">ret</span>  <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="s">&#39;resid&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">mdl0</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> 
-                        <span class="nf">sum</span><span class="p">(</span><span class="n">mdl1</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span>
-              <span class="s">&#39;sigma&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">sigma</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> 
-                        <span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">sigma</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span>            
-              <span class="s">&#39;F&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">fstatistic</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> 
-                    <span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">fstatistic</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span>
-              <span class="s">&#39;$R^2$&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
-                        <span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span>
-              <span class="s">&#39;adj. $R^2$&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">adj.r.squared</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> 
-                             <span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">adj.r.squared</span><span class="p">,</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)),</span>
-              <span class="n">ret0</span><span class="p">)</span>
-<span class="nf">colnames</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">colnames</span><span class="p">(</span><span class="n">ret0</span><span class="p">)</span>
-<span class="nf">kable</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Model Estimate&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;l&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<a href="#" onclick="code_toggle(this); return false;">show code</a>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption>Model Estimate</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> t value </th>
-   <th style="text-align:right;"> Pr(&gt;|t|) </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> t value </th>
-   <th style="text-align:right;"> Pr(&gt;|t|) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> resid </td>
-   <td style="text-align:right;"> 0.6799272 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.8516337 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> sigma </td>
-   <td style="text-align:right;"> 0.1799375 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.1883739 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> F </td>
-   <td style="text-align:right;"> 88.8473387 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 200.2489449 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $R^2$ </td>
-   <td style="text-align:right;"> 0.9548617 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.9434626 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> adj. $R^2$ </td>
-   <td style="text-align:right;"> 0.9441145 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.9387512 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 0.9441969 </td>
-   <td style="text-align:right;"> 2.9107537 </td>
-   <td style="text-align:right;"> 0.3243823 </td>
-   <td style="text-align:right;"> 0.7488576 </td>
-   <td style="text-align:right;"> 1.1706440 </td>
-   <td style="text-align:right;"> 0.3267820 </td>
-   <td style="text-align:right;"> 3.582339 </td>
-   <td style="text-align:right;"> 0.0015021 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(labor) </td>
-   <td style="text-align:right;"> 3.6136389 </td>
-   <td style="text-align:right;"> 1.5480727 </td>
-   <td style="text-align:right;"> 2.3342825 </td>
-   <td style="text-align:right;"> 0.0295929 </td>
-   <td style="text-align:right;"> 0.6029992 </td>
-   <td style="text-align:right;"> 0.1259540 </td>
-   <td style="text-align:right;"> 4.787457 </td>
-   <td style="text-align:right;"> 0.0000713 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(capital) </td>
-   <td style="text-align:right;"> -1.8931129 </td>
-   <td style="text-align:right;"> 1.0162611 </td>
-   <td style="text-align:right;"> -1.8628215 </td>
-   <td style="text-align:right;"> 0.0765362 </td>
-   <td style="text-align:right;"> 0.3757103 </td>
-   <td style="text-align:right;"> 0.0853459 </td>
-   <td style="text-align:right;"> 4.402204 </td>
-   <td style="text-align:right;"> 0.0001899 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> I(log(labor)^2/2) </td>
-   <td style="text-align:right;"> -0.9640522 </td>
-   <td style="text-align:right;"> 0.7073848 </td>
-   <td style="text-align:right;"> -1.3628398 </td>
-   <td style="text-align:right;"> 0.1873696 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> I(log(capital)^2/2) </td>
-   <td style="text-align:right;"> 0.0852947 </td>
-   <td style="text-align:right;"> 0.2926090 </td>
-   <td style="text-align:right;"> 0.2914971 </td>
-   <td style="text-align:right;"> 0.7735311 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> I(log(labor) * log(capital)) </td>
-   <td style="text-align:right;"> 0.3123870 </td>
-   <td style="text-align:right;"> 0.4389272 </td>
-   <td style="text-align:right;"> 0.7117058 </td>
-   <td style="text-align:right;"> 0.4844789 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="nf">anova</span><span class="p">(</span><span class="n">mdl1</span><span class="p">,</span> <span class="n">mdl0</span><span class="p">),</span> <span class="s">&#39;=&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="m">2</span><span class="p">)),</span>
-             <span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl0</span><span class="p">,</span> <span class="n">hypothesis.matrix</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)[</span><span class="m">4</span><span class="o">:</span><span class="m">6</span><span class="p">])))</span>
-<span class="nf">kable</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;$H_0: \\beta_4=\\beta_5=\\beta_6=0$&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="n">lag</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">resid</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">~</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span><span class="o">*</span><span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">)),</span> <span class="n">data</span><span class="o">=</span><span class="n">prod</span><span class="p">)</span>
-<span class="n">chi</span> <span class="o">=</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">prod</span><span class="p">)</span><span class="o">*</span><span class="nf">summary</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span>
-<span class="nf">kable</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="s">&#39;chi-squared stat&#39;</span> <span class="o">=</span> <span class="n">chi</span><span class="p">,</span> <span class="s">&#39;F stat large sample approx&#39;</span> <span class="o">=</span> <span class="n">chi</span><span class="o">/</span><span class="m">3</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="bp">F</span><span class="p">),</span>
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;The Lagrange Multiplier Tests for $H_0$&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="n">M</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> 
-              <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
-<span class="nf">kable</span><span class="p">(</span><span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl0</span><span class="p">,</span> <span class="n">hypothesis.matrix</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">)),</span>
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;$H_0: \\beta_2 + \\beta_3 = 1$ </span>
-<span class="s">                    and $\\beta_4 + \\beta_5 + 2\\beta_6 = 0$&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl1</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;log(labor) + log(capital) = 1&quot;</span><span class="p">),</span> <span class="n">test</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">),</span>
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;$H_0: \\theta_2 + \\theta_3 = 1$&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl1</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;log(labor) = 1&quot;</span><span class="p">),</span> <span class="n">test</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">),</span>
-      <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;$H_0: \\theta_3 = 1$&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<a href="#" onclick="code_toggle(this); return false;">show code</a>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption>$H_0: \beta_4=\beta_5=\beta_6=0$</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-   <th style="text-align:left;"> = </th>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 0.8516337 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 0.8516337 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 0.6799272 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 0.1717064 </td>
-   <td style="text-align:right;"> 1.767755 </td>
-   <td style="text-align:right;"> 0.1841388 </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 0.6799272 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 0.1717064 </td>
-   <td style="text-align:right;"> 1.767755 </td>
-   <td style="text-align:right;"> 0.1841388 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">The Lagrange Multiplier Tests for $H_0$</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> chi-squared stat </th>
-   <th style="text-align:right;"> F stat large sample approx </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 5.443741 </td>
-   <td style="text-align:right;"> 1.81458 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">$H_0: \beta_2 + \beta_3 = 1$ 
-                    and $\beta_4 + \beta_5 + 2\beta_6 = 0$</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:right;"> 0.8051791 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 0.6799272 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.1252519 </td>
-   <td style="text-align:right;"> 1.934243 </td>
-   <td style="text-align:right;"> 0.1694277 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">$H_0: \theta_2 + \theta_3 = 1$</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 0.8557412 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 0.8516337 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.0041075 </td>
-   <td style="text-align:right;"> 0.1157542 </td>
-   <td style="text-align:right;"> 0.7366458 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">$H_0: \theta_3 = 1$</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 1.2041674 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 0.8516337 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.3525337 </td>
-   <td style="text-align:right;"> 9.934799 </td>
-   <td style="text-align:right;"> 0.0043134 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>If the hypothesis $H_0: \theta_3=1$ is imposed to <code>mdl1</code>, we have the restricted model <code>mdl2</code>
-\begin{align}
-\text{log(valueadd) $-$ log(labor) ~ $\theta_1$}&amp; \text{+ $\theta_3$ log(capital)} \nonumber
-\end{align}</p>
-<div class="alert alert-block alert-danger">
-    <b>Danger:</b> anova(mdl1, mdl2) gives an error message because models <code>mdl1</code> and <code>mdl2</code> have different dependent variable
-</div><p>The residual formulation in (1) is still correct to calculate the F value. If we would like to use the $R^2$ formulation in (1), the $R^2$ of the restricted model <code>mdl2</code> could not be used as $R^2_*$. We need to calculate the correct sum of total squares and have the correct $R^2_*$.</p>
+<p>The dependent variable is $\log(\text{box})$. We show that principal component variable <code>buzz</code> is a highly significant predictor of success.</p>
+<p>Let $Z = \text{colums of }(log(\text{Addict}), log(\text{Cmngsoon}), log(\text{Fandango}), \text{Cntwait3})$. Then the sample correlation matrix is $V$, and $c_1$ is the eigenvector associated with the largest eigenvalue. The variable <code>buzz</code> is defined as $Z c_1$.</p>
 
 </div>
 </div>
@@ -14273,354 +14124,21 @@ Source: <a href="">Example 5.5 in Greene</a></p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">mdl2</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">valueadd</span><span class="p">)</span> <span class="o">-</span> <span class="nf">log</span><span class="p">(</span><span class="n">labor</span><span class="p">)</span> <span class="o">~</span> <span class="nf">log</span><span class="p">(</span><span class="n">capital</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">prod</span><span class="p">)</span>
-<span class="n">sse</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">mdl2</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<span class="n">sst</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(((</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">valueadd</span><span class="p">)</span><span class="o">-</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">labor</span><span class="p">))</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">valueadd</span><span class="p">)</span><span class="o">-</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">labor</span><span class="p">)))</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<span class="n">sst_star</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(((</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">valueadd</span><span class="p">))</span> <span class="o">-</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">prod</span><span class="o">$</span><span class="n">valueadd</span><span class="p">)))</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<span class="n">rsquared_star</span> <span class="o">=</span> <span class="m">1</span><span class="o">-</span><span class="n">sse</span><span class="o">/</span><span class="n">sst_star</span>
-<span class="bp">F</span> <span class="o">=</span> <span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="o">-</span><span class="n">rsquared_star</span><span class="p">)</span> <span class="o">/</span><span class="m">1</span> <span class="o">/</span> <span class="p">((</span><span class="m">1</span><span class="o">-</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">df</span><span class="p">[</span><span class="m">2</span><span class="p">]))</span>
-<span class="nf">data.frame</span><span class="p">(</span><span class="s">&#39;Incorrect $R^2_*$&#39;</span><span class="o">=</span><span class="m">1</span><span class="o">-</span><span class="n">sse</span><span class="o">/</span><span class="n">sst</span><span class="p">,</span> 
-           <span class="s">&#39;$R^2_*$&#39;</span><span class="o">=</span><span class="n">rsquared_star</span><span class="p">,</span> <span class="s">&#39;F value&#39;</span><span class="o">=</span><span class="bp">F</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-</pre></div>
+<span class="n">movie</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF4-3.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<span class="n">movie</span> <span class="o">&lt;-</span> <span class="nf">within</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="n">mprating</span> <span class="o">&lt;-</span> <span class="nf">relevel</span><span class="p">(</span><span class="nf">as.factor</span><span class="p">(</span><span class="n">mprating</span><span class="p">),</span> <span class="n">ref</span><span class="o">=</span><span class="m">4</span><span class="p">))</span>
+<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">box</span><span class="p">)</span><span class="o">~</span><span class="n">action</span><span class="o">+</span><span class="n">comedy</span><span class="o">+</span><span class="n">animated</span><span class="o">+</span><span class="n">horror</span><span class="o">+</span><span class="n">mprating</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">budget</span><span class="p">)</span><span class="o">+</span><span class="n">sequel</span><span class="o">+</span><span class="n">starpowr</span><span class="p">,</span> <span class="n">movie</span><span class="p">)</span>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<a href="#" onclick="code_toggle(this); return false;">show code</a>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<thead><tr><th scope=col>Incorrect $R^2_*$</th><th scope=col>$R^2_*$</th><th scope=col>F value</th></tr></thead>
-<tbody>
-	<tr><td>0.2697896</td><td>0.920059 </td><td>9.934799 </td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Nonlinear-Restrictions">Nonlinear Restrictions<a class="anchor-link" href="#Nonlinear-Restrictions">&#182;</a></h2><p>Consider testing a hypothesis that involves a nonlinear function of the regression coefficients:
-\begin{align*}
-H_0: f(\beta) = q. \nonumber
-\end{align*}</p>
-<p>We must rely on consistency rather than unbiasedness here, because, in general, the expected value of a nonlinear function is not equal to the function of the expected value. If $\text{plim} b = \beta$, then we are justified in using $f(b)$ as an estimate of $f(\beta)$, and</p>
-\begin{align*}
-\text{Var}(f(b)) = \left( \frac{\partial f(\beta)}{\partial \beta} \right)^\top \text{Asy. Var}(b) \left( \frac{\partial f(\beta)}{\partial \beta} \right)
-\end{align*}<p>Because we are using a large-sample approximation, we can use Z value $(f(b)-q)\big/\text{Var}(f(b))$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Table F5.2: Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
-Source: <a href="">Example 5.6 in Greene</a></p>
-<ul>
-<li>Year = Date</li>
-<li>Qtr = Quarter</li>
-<li>Realgdp = Real GDP ($bil)</li>
-<li>Realcons = Real consumption expenditures</li>
-<li>Realinvs = Real investment by private sector</li>
-<li>Realgovt = Real government expenditures</li>
-<li>Realdpi = Real disposable personal income</li>
-<li>CPI_U = Consumer price index</li>
-<li>M1 = Nominal money stock</li>
-<li>Tbilrate = Quarterly average of month end 90 day t bill rate</li>
-<li>Unemp = Unemployment rate</li>
-<li>Pop = Population, mil. interpolate of year end figures using constant growth rate per quarter</li>
-<li>Infl = Rate of inflation (first observation is missing)</li>
-<li>Realint = Ex post real interest rate = Tbilrate - Infl. (First observation missing)</li>
-</ul>
-<p>The model is
-\begin{align}
-\text{log(realcons$_t$) ~ $\beta_1$ + $\beta_2$ log(realdpi$_t$) + $\beta_3$ log(realcons$_{t-1}$)} \nonumber
-\end{align}</p>
-<p>The nonlinear restriction is: $H_0: \delta = \beta_2 \big/(1-\beta_3)=1$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">consume</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-2.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
-<span class="n">consume</span><span class="o">$</span><span class="n">conslag</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="n">consume</span><span class="o">$</span><span class="n">realcons</span><span class="p">[</span><span class="o">-</span><span class="nf">nrow</span><span class="p">(</span><span class="n">consume</span><span class="p">)])</span>
-<span class="n">consume</span><span class="o">$</span><span class="n">dpilag</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="n">consume</span><span class="o">$</span><span class="n">realdpi</span><span class="p">[</span><span class="o">-</span><span class="nf">nrow</span><span class="p">(</span><span class="n">consume</span><span class="p">)])</span>
-<span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">realcons</span><span class="p">)</span><span class="o">~</span><span class="nf">log</span><span class="p">(</span><span class="n">realdpi</span><span class="p">)</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">conslag</span><span class="p">),</span> <span class="n">consume</span><span class="p">)</span>
-<span class="nf">kable</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl</span><span class="p">)),</span> <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;Model Estimate&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="n">b</span> <span class="o">&lt;-</span> <span class="n">mdl</span><span class="o">$</span><span class="n">coef</span>
-<span class="n">d</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="m">3</span><span class="p">]),</span> <span class="n">b</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="m">3</span><span class="p">])</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<span class="n">z</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="m">3</span><span class="p">])</span><span class="m">-1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">d</span> <span class="o">%*%</span> <span class="nf">vcov</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">d</span><span class="p">)[</span><span class="m">1</span><span class="p">])</span>
-<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="m">3</span><span class="p">]),</span>
-             <span class="s">&#39;Est. Asy Var&#39;</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">d</span> <span class="o">%*%</span> <span class="nf">vcov</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">d</span><span class="p">)[</span><span class="m">1</span><span class="p">],</span>
-             <span class="s">&#39;Z value&#39;</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> 
-             <span class="s">&#39;Pr(&gt;|z|)&#39;</span><span class="o">=</span><span class="m">2</span><span class="o">*</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="nf">pnorm</span><span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))))</span>
-<span class="nf">rownames</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;$\\delta$&#39;</span><span class="p">)</span>
-<span class="nf">kable</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;NonLinear Restriction&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-
-<span class="nf">kable</span><span class="p">(</span><span class="nf">linearHypothesis</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;log(conslag)+log(realdpi)=1&quot;</span><span class="p">),</span> <span class="n">test</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">),</span> 
-      <span class="n">caption</span><span class="o">=</span><span class="s">&quot;&lt;p style=&#39;font-size:13px&#39;&gt;Equivalent Linear Restriction&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">kable_styling</span><span class="p">(</span><span class="n">bootstrap_options</span><span class="o">=</span><span class="s">&quot;striped&quot;</span><span class="p">,</span> <span class="n">full_width</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s">&quot;left&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-    <span class="nf">as.character</span><span class="p">()</span> <span class="o">%&gt;%</span>
-    <span class="nf">display_html</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<a href="#" onclick="code_toggle(this); return false;">show code</a>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">Model Estimate</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> t value </th>
-   <th style="text-align:right;"> Pr(&gt;|t|) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 0.0031416 </td>
-   <td style="text-align:right;"> 0.0105525 </td>
-   <td style="text-align:right;"> 0.297708 </td>
-   <td style="text-align:right;"> 0.7662350 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(realdpi) </td>
-   <td style="text-align:right;"> 0.0749579 </td>
-   <td style="text-align:right;"> 0.0287267 </td>
-   <td style="text-align:right;"> 2.609348 </td>
-   <td style="text-align:right;"> 0.0097572 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(conslag) </td>
-   <td style="text-align:right;"> 0.9246246 </td>
-   <td style="text-align:right;"> 0.0285937 </td>
-   <td style="text-align:right;"> 32.336632 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">NonLinear Restriction</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Est. Asy Var </th>
-   <th style="text-align:right;"> Z value </th>
-   <th style="text-align:right;"> Pr(&gt;|z|) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> $\delta$ </td>
-   <td style="text-align:right;"> 0.9944606 </td>
-   <td style="text-align:right;"> 0.016358 </td>
-   <td style="text-align:right;"> -0.3386337 </td>
-   <td style="text-align:right;"> 0.7348857 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table class="table table-striped" style="width: auto !important; ">
-<caption><p style="font-size:13px">Equivalent Linear Restriction</p></caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Res.Df </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> F </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 201 </td>
-   <td style="text-align:right;"> 0.0152953 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 200 </td>
-   <td style="text-align:right;"> 0.0152862 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 9.1e-06 </td>
-   <td style="text-align:right;"> 0.1193198 </td>
-   <td style="text-align:right;"> 0.7301364 </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Nonnested-Models">Nonnested Models<a class="anchor-link" href="#Nonnested-Models">&#182;</a></h2><p>The classical testing procedures require us to express the hypotheses in the form of <strong>restrictions</strong> on the model</p>
-\begin{align*}
-H_0: &amp; R \beta = q \\
-H_1: &amp; R \beta \neq q
-\end{align*}<p>Hence, the two compared models are nested. Two common exceptions are the general problem of determining which of two possible sets of regressors is more appropriate and whether a linear or loglinear model is more appropriate for a given analysis.</p>
-<p>In this section, we are interested in comparing two competing linear models:</p>
-\begin{align*}
-H_0: y = \beta \mathbf{x} + \epsilon \text{ and } H_1: y = \gamma \mathbf{z} + \epsilon
-\end{align*}<p>The $H_0$ and $H_1$ may be combined in a supermodel</p>
-\begin{align*}
-y = \beta (\mathbf{x} \setminus \mathbf{z}) + \gamma (\mathbf{z} \setminus \mathbf{x}) + \sigma (\mathbf{z} \cap \mathbf{x}) + \epsilon
-\end{align*}<p>Then, $H_0$ ($H_1$) is rejected if it is found that $\beta = 0$ ($\gamma=0$) by a conventional F test. However, there are two problems with this approach.</p>
-<ul>
-<li>This test does not really distinguish between $H_0$ and $H_1$ because $\sigma$ remains a mixture of parts of $\beta$ and $\gamma$. F test cannot tell either of these parts is zero.</li>
-<li>this compound model may have an extremely large number of regressors. In a time-series setting, the problem of collinearity may be severe.</li>
-</ul>
-<hr>
-<p>Consider an alternative approach:</p>
-<p>If $H_0$ is correct, then $y$ will, apart from the random error $\epsilon$ , be fully explained by $\mathbf{x}$. Let</p>
-<ul>
-<li>$c$ be the estimator by regressing $y$ on $\mathbf{z}$ where $y = c\mathbf{z}$ and </li>
-<li>$c_0$ be the estimator by regressing $X\beta$ on $\mathbf{z}$ where $X \beta = c_0\mathbf{z}$. </li>
-</ul>
-<p>We should have</p>
-$$\text{E}(c - c_0) = \gamma - \gamma = 0$$<p>The test can be carried out by using a standard F test to test the hypothesis that $\gamma_1= 0$ in the augmented regression</p>
-\begin{align*}
-y = \beta \mathbf{x} + \gamma_1 (\mathbf{z} \setminus \mathbf{x})
-\end{align*}<p>A test against $H_0$:</p>
-<ol>
-<li>regress $y \sim \mathbf{x}$ where $\hat{y}$ is fitted value</li>
-<li>regress $y \sim \mathbf{z} + \lambda \hat{y}$</li>
-<li>test $H_0: \lambda=0$</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Table F5.2: Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
-Source: <a href="">Example 5.7 in Greene</a></p>
-<p>We compare two models
-\begin{align}
-H_0:\ &amp;\text{log(realcons$_t$) ~ $\beta_1$ + $\beta_2$ log(realdpi$_t$) + $\beta_3$ log(realcons$_{t-1}$)} \nonumber \\
-H_1:\ &amp;\text{log(realcons$_t$) ~ $\gamma_1$ + $\gamma_2$ log(realdpi$_t$) + $\gamma_3$ log(realdpi$_{t-1}$)} \nonumber
-\end{align}</p>
-<p>Both $H_0$ and $H_1$ are rejected.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span><span class="o">~</span><span class="n">realdpi</span><span class="o">+</span><span class="n">conslag</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
-<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span><span class="o">~</span><span class="n">realdpi</span><span class="o">+</span><span class="n">dpilag</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
-<span class="n">consume</span><span class="o">$</span><span class="n">fit0</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">mdl0</span><span class="o">$</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">consume</span><span class="o">$</span><span class="n">fit1</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">mdl1</span><span class="o">$</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">mdl0</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span> <span class="o">~</span> <span class="n">realdpi</span> <span class="o">+</span> <span class="n">dpilag</span> <span class="o">+</span> <span class="n">fit0</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
-<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">realcons</span> <span class="o">~</span> <span class="n">conslag</span> <span class="o">+</span> <span class="n">realdpi</span> <span class="o">+</span> <span class="n">fit1</span><span class="p">,</span> <span class="n">consume</span><span class="p">)</span>
-<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="nf">rbind</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">coef</span><span class="p">[</span><span class="s">&#39;fit0&#39;</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">,</span><span class="s">&#39;Std. Error&#39;</span><span class="p">)],</span>
-                        <span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">coef</span><span class="p">[</span><span class="s">&#39;fit1&#39;</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">,</span><span class="s">&#39;Std. Error&#39;</span><span class="p">)]),</span> <span class="n">check.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-<span class="n">ret</span><span class="p">[</span><span class="s">&#39;t value&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">ret</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span><span class="o">/</span><span class="n">ret</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span>
-<span class="n">ret</span><span class="p">[</span><span class="s">&#39;Pr&gt;|t|&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="nf">formatC</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="nf">pt</span><span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="n">ret</span><span class="p">[,</span><span class="m">3</span><span class="p">]),</span><span class="m">199</span><span class="p">)),</span><span class="m">5</span><span class="p">),</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
-<span class="nf">rownames</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;$H_0$ is null hypothesis&#39;</span><span class="p">,</span> <span class="s">&#39;$H_1$ is null hypothesis&#39;</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">&lt;-</span> <span class="nf">data.matrix</span><span class="p">(</span><span class="nf">scale</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">movie</span><span class="p">[,</span><span class="m">10</span><span class="o">:</span><span class="m">12</span><span class="p">]),</span><span class="s">&#39;cntwait3&#39;</span><span class="o">=</span><span class="n">movie</span><span class="p">[,</span><span class="m">13</span><span class="p">])))</span>
+<span class="n">V</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="nf">t</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">Z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">&lt;-</span> <span class="nf">eigen</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">$</span><span class="n">vectors</span><span class="p">[,</span><span class="nf">which.max</span><span class="p">(</span><span class="nf">eigen</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">$</span><span class="n">values</span><span class="p">)]</span>
+<span class="n">movie</span><span class="o">$</span><span class="n">buzz</span> <span class="o">&lt;-</span> <span class="n">Z</span> <span class="o">%*%</span> <span class="n">c1</span>
+<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">box</span><span class="p">)</span><span class="o">~</span><span class="n">action</span><span class="o">+</span><span class="n">comedy</span><span class="o">+</span><span class="n">animated</span><span class="o">+</span><span class="n">horror</span><span class="o">+</span><span class="n">mprating</span><span class="o">+</span><span class="nf">log</span><span class="p">(</span><span class="n">budget</span><span class="p">)</span><span class="o">+</span><span class="n">sequel</span><span class="o">+</span><span class="n">starpowr</span><span class="o">+</span><span class="n">buzz</span><span class="p">,</span> <span class="n">movie</span><span class="p">)</span>
+<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">))[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">,</span><span class="s">&#39;Std. Error&#39;</span><span class="p">,</span><span class="s">&#39;t value&#39;</span><span class="p">)],</span>
+             <span class="nf">rbind</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">))[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Estimate&#39;</span><span class="p">,</span><span class="s">&#39;Std. Error&#39;</span><span class="p">,</span><span class="s">&#39;t value&#39;</span><span class="p">)],</span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">3</span><span class="p">)))</span>
+<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="s">&#39;R-squared&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">,</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> 
+                                <span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">r.squared</span><span class="p">,</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">2</span><span class="p">)))</span>
+<span class="n">ret</span> <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="s">&#39;resid&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl1</span><span class="p">)</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> 
+                            <span class="nf">sum</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">mdl0</span><span class="p">)</span><span class="o">$</span><span class="n">resid</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="m">2</span><span class="p">)))</span>
 <span class="n">ret</span>
 </pre></div>
 
@@ -14652,10 +14170,22 @@ H_1:\ &amp;\text{log(realcons$_t$) ~ $\gamma_1$ + $\gamma_2$ log(realdpi$_t$) + 
 
 <div class="output_html rendered_html output_subarea ">
 <table>
-<thead><tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr&gt;|t|</th></tr></thead>
+<thead><tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th></tr></thead>
 <tbody>
-	<tr><th scope=row>$H_0$ is null hypothesis</th><td>  1.014506</td><td>0.01613899</td><td>62.860543 </td><td>0.000e+00 </td></tr>
-	<tr><th scope=row>$H_1$ is null hypothesis</th><td>-10.676558</td><td>1.48541853</td><td>-7.187575 </td><td>0.000e+00 </td></tr>
+	<tr><th scope=row>(Intercept)</th><td>15.400213468</td><td>0.64273405  </td><td>23.96047558 </td><td>13.576811966</td><td>0.68824743  </td><td>19.7266439  </td></tr>
+	<tr><th scope=row>action</th><td>-0.869315939</td><td>0.29333401  </td><td>-2.96357019 </td><td>-0.306818320</td><td>0.34401299  </td><td>-0.8918800  </td></tr>
+	<tr><th scope=row>comedy</th><td>-0.016217801</td><td>0.25608384  </td><td>-0.06333004 </td><td>-0.038453159</td><td>0.32060923  </td><td>-0.1199378  </td></tr>
+	<tr><th scope=row>animated</th><td>-0.833237280</td><td>0.43022317  </td><td>-1.93675595 </td><td>-0.820317586</td><td>0.53868609  </td><td>-1.5228119  </td></tr>
+	<tr><th scope=row>horror</th><td> 0.374599916</td><td>0.37109194  </td><td> 1.00945311 </td><td> 1.026439228</td><td>0.44007723  </td><td> 2.3324070  </td></tr>
+	<tr><th scope=row>mprating1</th><td> 0.384402032</td><td>0.55315049  </td><td> 0.69493210 </td><td> 0.252418678</td><td>0.69195645  </td><td> 0.3647898  </td></tr>
+	<tr><th scope=row>mprating2</th><td> 0.533586045</td><td>0.29976318  </td><td> 1.78002529 </td><td> 0.329695048</td><td>0.37243233  </td><td> 0.8852482  </td></tr>
+	<tr><th scope=row>mprating3</th><td> 0.215047402</td><td>0.21884853  </td><td> 0.98263122 </td><td> 0.071762221</td><td>0.27205875  </td><td> 0.2637747  </td></tr>
+	<tr><th scope=row>log(budget)</th><td> 0.260878316</td><td>0.18529391  </td><td> 1.40791633 </td><td> 0.709142449</td><td>0.20811936  </td><td> 3.4073833  </td></tr>
+	<tr><th scope=row>sequel</th><td> 0.275054967</td><td>0.27312801  </td><td> 1.00705513 </td><td> 0.643679087</td><td>0.33143140  </td><td> 1.9421186  </td></tr>
+	<tr><th scope=row>starpowr</th><td> 0.004326367</td><td>0.01284860  </td><td> 0.33671885 </td><td> 0.006481083</td><td>0.01608054  </td><td> 0.4030390  </td></tr>
+	<tr><th scope=row>buzz</th><td>-0.429063689</td><td>0.07838958  </td><td>-5.47347874 </td><td>          NA</td><td>        NA  </td><td>        NA  </td></tr>
+	<tr><th scope=row>R-squared</th><td> 0.588832187</td><td>        NA  </td><td>         NA </td><td> 0.342468907</td><td>        NA  </td><td>        NA  </td></tr>
+	<tr><th scope=row>resid</th><td>22.302150634</td><td>        NA  </td><td>         NA </td><td>35.665139658</td><td>        NA  </td><td>        NA  </td></tr>
 </tbody>
 </table>
 
@@ -14670,90 +14200,24 @@ H_1:\ &amp;\text{log(realcons$_t$) ~ $\gamma_1$ + $\gamma_2$ log(realdpi$_t$) + 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Regression-Specification-Error-Test">Regression Specification Error Test<a class="anchor-link" href="#Regression-Specification-Error-Test">&#182;</a></h2><p>The test seeks to uncover nonlinearities in the functional form. Consider the artificial model
-\begin{align*}
-y = \beta \mathbf{x} + \gamma \hat{y}^2
-\end{align*}</p>
-<p>The analysis is $H_0: \gamma = 0$.</p>
-<p>The idea behind the test is that $\hat{y}^2$ is power 2 polynomial functions of $\mathbf{x}$. Since polynomials can approximate many different kinds of functional forms, if the original functional form is not correct, the polynomial approximation that includes ̂$\hat{y}^2$ may significantly improve the fit of the model. Hence, the original model must have been inadequate.</p>
+<h3 id="Missing-Values">Missing Values<a class="anchor-link" href="#Missing-Values">&#182;</a></h3><p>There are a variety of data imputation methods to fill gaps in data sets:</p>
+<ul>
+<li>replacing each missing $x$ with $\bar{x}$ based on the observed data. It is equivalent to dropping the incomplete data, but has a lower $R^2$.</li>
+<li>adding a dummy column with 1 for missing observations and 0 otherwise.</li>
+<li>estimating its value by regressing on other dependent variables plus a random noise.</li>
+</ul>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
-<span class="n">mroz</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&#39;TableF5-1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
-<span class="n">mdl</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">faminc</span> <span class="o">~</span> <span class="n">he</span> <span class="o">+</span> <span class="n">we</span> <span class="o">+</span> <span class="n">kl6</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mroz</span><span class="p">)</span>
-<span class="nf">resettest</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;fitted&quot;</span><span class="p">)</span>
-<span class="n">mroz</span><span class="o">$</span><span class="n">fit</span> <span class="o">&lt;-</span> <span class="n">mdl</span><span class="o">$</span><span class="n">fit</span>
-<span class="n">mdl1</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">faminc</span> <span class="o">~</span> <span class="n">he</span> <span class="o">+</span> <span class="n">we</span> <span class="o">+</span> <span class="n">kl6</span> <span class="o">+</span> <span class="nf">I</span><span class="p">(</span><span class="n">fit</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">mroz</span><span class="p">)</span>
-<span class="nf">anova</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">mdl1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<a href="#" onclick="code_toggle(this); return false;">show code</a>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-	RESET test
-
-data:  mdl
-RESET = 10.771, df1 = 1, df2 = 748, p-value = 0.001079
-</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<thead><tr><th scope=col>Res.Df</th><th scope=col>RSS</th><th scope=col>Df</th><th scope=col>Sum of Sq</th><th scope=col>F</th><th scope=col>Pr(&gt;F)</th></tr></thead>
-<tbody>
-	<tr><td>749        </td><td>92027594551</td><td>NA         </td><td>        NA </td><td>      NA   </td><td>         NA</td></tr>
-	<tr><td>748        </td><td>90721188427</td><td> 1         </td><td>1306406124 </td><td>10.77137   </td><td>0.001078667</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Influential-Observations">Influential Observations<a class="anchor-link" href="#Influential-Observations">&#182;</a></h3><p>An influential observation is one that is likely to have a substantial impact on the least squares regression coefficient(s).</p>
+<p>Since OLS minimizes sum of squared residuals, an observation with $x$ value far from the $\text{avg}(x)$ may have huge influence on the estimation of $\beta$.  If we run regression, we may find the residual of this observation is not large (not an outlier).</p>
 
 </div>
 </div>
-
 </div>
     </div>
   </div>
