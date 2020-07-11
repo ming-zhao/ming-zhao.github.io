@@ -13102,12 +13102,133 @@ $( document ).ready(function(){
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">IRdisplay</span><span class="p">)</span>
-<span class="c1"># display_html(file = &quot;script.html&quot;)</span>
+<span class="nf">display_html</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">&quot;script.html&quot;</span><span class="p">)</span>
 <span class="n">datapath</span> <span class="o">=</span> <span class="s">&#39;https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/econometrics/&#39;</span>
 <span class="n">toggle</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">()</span> <span class="p">{</span><span class="nf">display_html</span><span class="p">(</span><span class="s">&#39;&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;&#39;</span><span class="p">)}</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<script>
+var password = "123";
+is_sphnix = 0;
+is_jupyterNotebook = 1;
+is_jupyterLab = 0;
+
+function code_toggle(e) {
+  var target = e;
+  if (is_jupyterNotebook == 1) {
+      while (!target.closest(".output_wrapper").previousElementSibling.classList.contains("input")) {
+        target = target.closest(".output_wrapper").previousElementSibling;
+      }
+      target = target.closest(".output_wrapper").previousElementSibling;
+      if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+        target.style.display = "none";
+        e.innerHTML = 'show code';
+      }
+      else {
+        target.style.removeProperty("display");
+        e.innerHTML = 'hide code';
+      }
+  }
+}
+
+function hide_comment(e) {
+  if (is_jupyterNotebook == 1) {
+      var target = e;
+      while ((target = target.parentElement) && !target.classList.contains("text_cell"));
+      do {
+          target = target.nextElementSibling;
+          if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+            target.style.display = "none";
+            e.innerHTML = 'show comment';
+          }
+          else {
+            target.style.removeProperty("display");
+            e.innerHTML = 'hide comment';
+          }        
+      } while (target.innerHTML.indexOf("blacksquare") == -1)
+  }
+}
+
+$(document).ready(function() {
+$.ajax({
+  type: "GET",  
+  url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/bzan.csv",
+  dataType: "text",       
+  success: function(data)  
+  {
+      is_sphnix = 0;
+      is_jupyterNotebook = 1;
+      is_jupyterLab = 0;
+      is_debug = 0;
+      
+      if (is_jupyterNotebook == 1) {
+          var code_blocks = document.getElementsByClassName('input');
+          for (var i = 0, len = code_blocks.length; i < len; ++i) {
+            if (
+                code_blocks[i].innerHTML.indexOf("toggle") !== -1 
+                || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+                || code_blocks[i].innerHTML.indexOf("# Hide this cell") !== -1 
+               ) {
+              if (is_debug == 0) {
+                  code_blocks[i].style.display = "none";
+                  if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'show code';
+              }
+              else {
+                  code_blocks[i].style.removeProperty("display");
+                  if (code_blocks[i].nextElementSibling.getElementsByTagName("a").length>0)
+                    code_blocks[i].nextElementSibling.getElementsByTagName("a")[0].innerHTML = 'hide code';
+              }
+            }
+          }
+          
+          var text_blocks = document.getElementsByClassName('text_cell');
+          var comment = 0;
+          for (var i = 0, len = text_blocks.length; i < len; ++i) {
+              if (comment == 1) {
+                  text_blocks[i].style.display = "none";
+              }
+              
+              if (text_blocks[i].innerHTML.indexOf("show comment") != -1) {
+                  var links = text_blocks[i].getElementsByTagName('a');
+                  var j;
+                  for (j = 0, len_a = links.length; j < len_a; j++) {
+                      if (links[j].innerHTML.indexOf("show comment") != -1) {
+                          comment = 1; 
+                          break;
+                      }
+                  }
+                  links[j].onclick = function() { hide_comment(this); return false;};
+              }
+
+              if (text_blocks[i].innerHTML.indexOf("blacksquare") != -1) {
+                  comment = 0;
+              }
+          }
+      }
+  }
+});
+});    
+</script>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -14250,7 +14371,7 @@ Source: <a href="">Example 6.7 in Greene</a></p>
    <td style="text-align:right;"> 0.1383196 </td>
    <td style="text-align:right;"> 0.0335101 </td>
    <td style="text-align:right;"> 4.127696 </td>
-   <td style="text-align:right;"> 0.0002392 </td>
+   <td style="text-align:right;"> 0.0001869 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> lths vs c </td>
@@ -14271,7 +14392,7 @@ Source: <a href="">Example 6.7 in Greene</a></p>
    <td style="text-align:right;"> 0.1533589 </td>
    <td style="text-align:right;"> 0.0304748 </td>
    <td style="text-align:right;"> 5.032314 </td>
-   <td style="text-align:right;"> 0.0000022 </td>
+   <td style="text-align:right;"> 0.0000021 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> hs vs pg </td>
@@ -14285,7 +14406,7 @@ Source: <a href="">Example 6.7 in Greene</a></p>
    <td style="text-align:right;"> 0.1148346 </td>
    <td style="text-align:right;"> 0.0378671 </td>
    <td style="text-align:right;"> 3.032570 </td>
-   <td style="text-align:right;"> 0.0124979 </td>
+   <td style="text-align:right;"> 0.0124242 </td>
   </tr>
 </tbody>
 </table>
