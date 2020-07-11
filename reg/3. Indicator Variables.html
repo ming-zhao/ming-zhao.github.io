@@ -13331,6 +13331,7 @@ source: <a href="">Example 6.2 in Greene</a></p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The effect of a signature on an otherwise similar painting is to incease the price by 252%,</p>
 \begin{align}
+\nonumber \\
 \frac{\Delta \text{E(Price)}}{\text{Price}} 
 &amp;= \frac{\text{E}(y|\mathbf{x}, \text{signed}=1) - \text{E}(y|\mathbf{x}, \text{signed}=0)}{\text{E}(y|\mathbf{x}, \text{signed}=0)} \nonumber \\
 &amp;= \frac{\exp(\beta \mathbf{x} + \gamma)\text{E}(\exp(\epsilon)) - \exp(\beta \mathbf{x})\text{E}(\exp(\epsilon))}{\exp(\beta \mathbf{x}) \text{E}(\exp(\epsilon))} \nonumber \\
@@ -14214,19 +14215,6 @@ Source: <a href="">Example 6.6 in Greene</a></p>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14288,7 +14276,7 @@ Source: <a href="">Example 6.7 in Greene</a></p>
 
 
 <div class="output_png output_subarea ">
-<img src="3. Indicator Variables_files/3. Indicator Variables_20_1.png"
+<img src="3. Indicator Variables_files/3. Indicator Variables_19_1.png"
 >
 </div>
 
@@ -14436,10 +14424,10 @@ y_{0i} &amp; \text{ if } d_i=0
 \begin{align}
 \nonumber\\
 \text{E}(y_i|d_i=1) - \text{E}(y_i|d_i=0) 
-&amp;= \text{E}(y_{1i}|d_i=1) - \text{E}(y_{0i}|d_i=0) \label{eq:treat1} \\
-&amp;= \text{E}(y_{1i}) - \text{E}(y_{0i}) \label{eq:treat2} \\
+&amp;= \text{E}(y_{1i}|d_i=1) - \text{E}(y_{0i}|d_i=0) \label{eq:treat1} \tag{1}\\
+&amp;= \text{E}(y_{1i}) - \text{E}(y_{0i}) \label{eq:treat2} \tag{2}\\
 &amp;= \text{E}(y_{1i} - y_{0i}) \nonumber
-\end{align}<p>where \eqref{eq:treat1} holds because of the definition of $y_i$ and \eqref{eq:treat2} holds because $y_{1i}$ ($y_{0i}$) and $d_i$ are independent in randomized controlled experiments.</p>
+\end{align}<p>where (1) holds because of the definition of $y_i$ and (2) holds because $y_{1i}$ ($y_{0i}$) and $d_i$ are independent in randomized controlled experiments.</p>
 <p>We can decompose
 \begin{align}
 \text{E}(y_i|d_i=1) - \text{E}(y_i|d_i=0) 
@@ -14582,7 +14570,7 @@ Source: <a href="">Example 6.16 in Greene</a></p>
 
 
 <div class="output_png output_subarea ">
-<img src="3. Indicator Variables_files/3. Indicator Variables_24_3.png"
+<img src="3. Indicator Variables_files/3. Indicator Variables_23_3.png"
 >
 </div>
 
@@ -14753,7 +14741,7 @@ Source: <a href="">Example 6.16 in Greene</a></p>
 
 
 <div class="output_png output_subarea ">
-<img src="3. Indicator Variables_files/3. Indicator Variables_26_2.png"
+<img src="3. Indicator Variables_files/3. Indicator Variables_25_2.png"
 >
 </div>
 
@@ -15112,7 +15100,7 @@ Source: <a href="">Example 6.20 in Greene</a></p>
 
 
 <div class="output_png output_subarea ">
-<img src="3. Indicator Variables_files/3. Indicator Variables_31_3.png"
+<img src="3. Indicator Variables_files/3. Indicator Variables_30_3.png"
 >
 </div>
 
@@ -15166,7 +15154,7 @@ S = 2.036, p-value = 1.243e-07
 
 
 <div class="output_png output_subarea ">
-<img src="3. Indicator Variables_files/3. Indicator Variables_32_1.png"
+<img src="3. Indicator Variables_files/3. Indicator Variables_31_1.png"
 >
 </div>
 
