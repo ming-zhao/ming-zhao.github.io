@@ -13263,17 +13263,22 @@ $.ajax({
 <p>We have a set of observations $(y_i, \mathbf{x}_i)$, $i \in N = 1, \ldots, n$, where $\mathbf{x}_i = (x_{i1} = 1, x_{i2}, \ldots, x_{ik})^\top$.</p>
 <div class="alert alert-block alert-success">
 <b>Note:</b> We include the constant term into $\mathbf{x}$ to simplify the notation of linear regression model. There are $n$ observations and each observation has $k-1$ variables.
-</div><p>The least square regression fits the observations into a linear equation</p>
+</div><p>The least square regression fits the observations into a linear equation
 \begin{align*}
+\\
 y = b^\top \mathbf{x} = b_1 + b_2 x_2 + \ldots + b_k x_{k}
-\end{align*}<p>The parameter $b$ is identified by minimizing the sum of squares of</p>
+\end{align*}</p>
+<p>The parameter $b$ is identified by minimizing the sum of squares of
 \begin{align}
+\\
 \min_{b} \sum_{i \in N} e_i^2 = e^\top e \label{ols} \tag{OLS}
-\end{align}<p>where the residuals $e_i = y_i - \hat{y}_i = y_i - b^\top \mathbf{x}_{i}$, $\forall i \in N$.</p>
-<p>The minimization problem \eqref{ols} gives the solution</p>
+\end{align}</p>
+<p>where the residuals $e_i = y_i - \hat{y}_i = y_i - b^\top \mathbf{x}_{i}$, $\forall i \in N$.</p>
+<p>The minimization problem \eqref{ols} gives the solution
 \begin{align}
 b &amp; = (X^\intercal X)^{-1} X^\intercal \mathbf{y} \label{normal_eq} \tag{Normal Equation}
-\end{align}<p>where $X = (\mathbf{x}_1, \ldots, \mathbf{x}_n)$ (the $i$th row of $X$ is the observation $\mathbf{x}_i^\top$) and $\mathbf{y} = (y_1,\ldots,y_n)^\top$.</p>
+\end{align}</p>
+<p>where $X = (\mathbf{x}_1, \ldots, \mathbf{x}_n)$ (the $i$th row of $X$ is the observation $\mathbf{x}_i^\top$) and $\mathbf{y} = (y_1,\ldots,y_n)^\top$.</p>
 
 </div>
 </div>
@@ -13372,7 +13377,7 @@ variable (response) is considered in response to some independent or exogenous s
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exogeneity">Exogeneity<a class="anchor-link" href="#Exogeneity">&#182;</a></h3><p><strong>Exogeneity</strong> $\text{E}(\epsilon|X) = 0$ <strong>implies unbiasedness</strong>:
+<h3 id="Exogeneity">Exogeneity<a class="anchor-link" href="#Exogeneity">&#182;</a></h3><p>Exogeneity $\text{E}(\epsilon|X) = 0$ and <strong>unbiasedness</strong>:
 \begin{align*}
 \text{E}(b|X) &amp;= (X^\intercal X)^{-1} X^\intercal \text{E}(\mathbf{y}|X)  \\
 &amp; = (X^\intercal X)^{-1} X^\intercal (X \beta + \text{E}(\epsilon|X)) \\
@@ -13385,12 +13390,14 @@ variable (response) is considered in response to some independent or exogenous s
 <li>$\text{E}(\epsilon|X) = 0 \Rightarrow \text{E}(\epsilon X) = \text{Cov}(\epsilon, X) + \text{E}(\epsilon)\text{E}(X) = 0$</li>
 </ul>
 <p>The condition $\text{E}(\epsilon) = 0$ can be assumed without loss of generality because we can always scale the response $y$.</p>
-<p>$\text{E}(\epsilon X) = 0$ <strong>implies consistency</strong>:</p>
+<p>$\text{E}(\epsilon X) = 0$ and <strong>consistency</strong>:</p>
 <p>We define $\text{E}(\mathbf{x}_i \mathbf{x}^\top_i) = Q$. The law of large number suggests</p>
 \begin{align}
+\nonumber \\
 \text{plim} \frac{X^\top X}{n} = \text{plim} \frac{1}{n} \sum_{i} \mathbf{x}_i \mathbf{x}^\top_i = \text{E} \text{E}(\mathbf{x}_i \mathbf{x}^\top_i) = Q \nonumber
 \end{align}<p>$Q$ is positive definite since $X$ is full-dimensional. Then,</p>
 \begin{align}
+\nonumber \\
 \text{plim}\ b &amp; = \text{plim}\ (X^\top X)^{-1} X^\top \mathbf{y} \nonumber \\
 &amp; = \beta + \text{plim}\ (X^\top X)^{-1} X^\intercal \epsilon  \nonumber \\
 &amp; = \beta + \text{plim}\ \left( \frac{X^\top X}{n} \right)^{-1} \left( \frac{X^\top \epsilon}{n} \right) \nonumber \\
@@ -13936,18 +13943,23 @@ coefficient of infl from normal equation:
 <p>The prediction $\hat{y}^0 = b^\top \mathbf{x}^0$ where the actual value is $y^0 = \beta^\top \mathbf{x}^0 + \epsilon^0$. The prediction error is $e^0 = \hat{y}^0 - y^0 = (b-\beta)^\top \mathbf{x}^0 - \epsilon^0$.</p>
 <p>The <strong>prediction interval</strong> is constructed based on the variance</p>
 \begin{align*}
+\\
 \text{Var}(e^0|X, \mathbf{x}^0) = \sigma^2 + \text{Var}\big((b-\beta)^\top \mathbf{x}^0|X, \mathbf{x}^0\big) = \sigma^2 + (\mathbf{x}^0)^\top \big( \sigma^2 (X^\top X)^{-1} \big) \mathbf{x}^0
 \end{align*}<p>The <strong>confidence interval</strong> is constructed based on the variance</p>
 \begin{align*}
+\\
 \text{Var}(\hat{y}^0 - \text{E}(y^0)|X, \mathbf{x}^0) = \text{Var}\big((b-\beta)^\top \mathbf{x}^0|X, \mathbf{x}^0\big) = (\mathbf{x}^0)^\top \big( \sigma^2 (X^\top X)^{-1} \big) \mathbf{x}^0
 \end{align*}<hr>
-<p>Suppose the regression model describes $\ln y$. The natural approach for a predictor is $\ln y^0 = b^\top \mathbf{x}^0$ and $y^0 = \exp(b^\top \mathbf{x}^0)$. The problem is that $\text{E}(y^0|\mathbf{x}^0) \neq \exp \big(\text{E}(\ln y^0|\mathbf{x}^0) \big)$ and</p>
+<p>Suppose the regression model describes $\ln y$. The natural approach for a predictor is $\ln y^0 = b^\top \mathbf{x}^0$ and $y^0 = \exp(b^\top \mathbf{x}^0)$. The problem is that $\text{E}(y^0|\mathbf{x}^0) \neq \exp \big(\text{E}(\ln y^0|\mathbf{x}^0) \big)$ and 
 \begin{align*}
 \text{E}(y^0|\mathbf{x}^0) = \text{E}(\exp(\beta^\top \mathbf{x}^0 + \epsilon^0)|\mathbf{x}^0) = \exp(\beta^\top \mathbf{x}^0)  \text{E}(\exp(\epsilon^0)|\mathbf{x}^0)
-\end{align*}<p>The implication for normally distributed error terms would be that an appropriate predictor for the conditional mean would be</p>
+\end{align*}</p>
+<p>The implication for normally distributed error terms would be that an appropriate predictor for the conditional mean would be
 \begin{align*}
+\\
 \hat{y}^0 = \exp(b^\top \mathbf{x}^0 + s^2/2) &gt; \exp(b^\top \mathbf{x}^0)
-\end{align*}<hr>
+\end{align*}</p>
+<hr>
 <p>The prediction interval can be $[b^\top \mathbf{x}^0 \pm \text{t-value } \times se(e^0)]$. However, this may not be the narrowest interval with given confidence level. The narrowest interval can be found by solving an optimization problem.</p>
 
 </div>
@@ -14113,7 +14125,7 @@ Source: <a href="http://pages.stern.nyu.edu/~wgreene/Text/Edition7/tablelist8new
 <li>Cntwait3 = Percentage of Fandango votes that can't wait to see.</li>
 </ul>
 <p>The dependent variable is $\log(\text{box})$. We show that principal component variable <code>buzz</code> is a highly significant predictor of success.</p>
-<p>Let $Z = \text{colums of }(log(\text{Addict}), log(\text{Cmngsoon}), log(\text{Fandango}), \text{Cntwait3})$. Then the sample correlation matrix is $V$, and $c_1$ is the eigenvector associated with the largest eigenvalue. The variable <code>buzz</code> is defined as $Z c_1$.</p>
+<p>Let $Z = \text{colums of }(log(\text{Addict}), log(\text{Cmngsoon}), log(\text{Fandango}), \text{Cntwait3})$, $V$ be its sample correlation matrix, and $c_1$ be the eigenvector of $V$ associated with the largest eigenvalue. The variable <code>buzz</code> is defined as $Z c_1$.</p>
 
 </div>
 </div>
