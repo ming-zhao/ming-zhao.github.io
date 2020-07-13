@@ -14106,7 +14106,8 @@ Source: <a href="">Example 7.6 in Greene</a></p>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">plotx</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">25</span><span class="o">:</span><span class="m">65</span><span class="p">,</span><span class="m">25</span><span class="o">:</span><span class="m">65</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">toggle</span><span class="p">()</span>
+<span class="n">plotx</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">25</span><span class="o">:</span><span class="m">65</span><span class="p">,</span><span class="m">25</span><span class="o">:</span><span class="m">65</span><span class="p">)</span>
 <span class="n">plotd</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="o">=</span><span class="n">plotx</span><span class="p">,</span> <span class="s">&#39;educ&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">16</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">plotx</span><span class="p">))),</span>
                           <span class="s">&#39;female&#39;</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">plotx</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">),</span> <span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">plotx</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">))))</span>
 <span class="n">plotd</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">plotd</span><span class="p">,</span> <span class="s">&#39;pred&#39;</span><span class="o">=</span><span class="nf">predict</span><span class="p">(</span><span class="n">nlm</span><span class="p">,</span><span class="n">plotd</span><span class="p">),</span> 
@@ -14138,9 +14139,21 @@ Source: <a href="">Example 7.6 in Greene</a></p>
 
 
 
+<div class="output_html rendered_html output_subarea ">
+<a href="#" onclick="code_toggle(this); return false;">show code</a>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
 
 <div class="output_png output_subarea ">
-<img src="4. Nonlinear Regression_files/4. Nonlinear Regression_15_0.png"
+<img src="4. Nonlinear Regression_files/4. Nonlinear Regression_15_1.png"
 >
 </div>
 
@@ -14360,7 +14373,7 @@ F_{n}(b_q|\mathbf{y}, X) = \sum_{i:y_i \ge \beta_q^\top \mathbf{x}}^{n} q |y_i -
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Table F7.2: Statewide Data on Transportation Equipment Manufacturing, 25 Observations <br>
-Source: <a href="">Example </a></p>
+Source: <a href="">Example 7.10 in Greene</a></p>
 <ul>
 <li>State = Observation,</li>
 <li>ValueAdd = output,</li>
