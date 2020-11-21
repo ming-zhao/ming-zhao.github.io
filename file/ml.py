@@ -5,6 +5,5 @@ import seaborn as sns
 from ipywidgets import *
 from IPython.display import display, HTML
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
 
 print("hello")
