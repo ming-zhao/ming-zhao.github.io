@@ -5,5 +5,3 @@ import seaborn as sns
 from ipywidgets import *
 from IPython.display import display, HTML
 import tensorflow as tf
-
-print("hello")
