@@ -5,7 +5,6 @@ import seaborn as sns
 from ipywidgets import *
 from IPython.display import display, HTML
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
 
 def transfer_data(df, df_quantile):
     for col in ['month', 'art_book']:
