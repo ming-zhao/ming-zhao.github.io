@@ -38,6 +38,10 @@ def show_images():
                                             value='train', description='Data:', disabled=False),
              idx = widgets.IntText(value=7, description='Index:', disabled=False));
 
+from keras import models
+from keras import layers
+from keras.utils import to_categorical
+
 def transfer_data(df, df_quantile):
     for col in ['month', 'art_book']:
         df = pd.merge_asof(df.sort_values(col),df_quantile[[col, 'quantile']],
