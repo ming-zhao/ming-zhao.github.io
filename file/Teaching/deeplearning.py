@@ -10,31 +10,32 @@ from keras import models
 from keras import layers
 from keras.utils import to_categorical
 
-from keras.datasets import mnist
-(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
-# print('training images:{}, test images:{}'.format(train_images.shape, test_images.shape))
+def images(train_images, train_labels, test_images, test_labels):
+  def showimg(data, idx):
+      span = 5
+      if data=='train':
+        if idx+span<train_images.shape[0]:
+            images = train_images
+            labels = train_labels
+        else:
+            print('Index is out of range.')
+      if data=='test':
+        if idx+span<test_images.shape[0]:
+            images = test_images
+            labels = test_labels
+        else:
+            print('Index is out of range.')
+      plt.figure(figsize=(20,4))
+      for i in range(span):
+        plt.subplot(1, 5, i + 1)
+        digit = images[idx+i]            
+        plt.imshow(digit, cmap=plt.cm.binary)
+        plt.title('Index:{}, Label:{}'.format(idx+i, labels[idx+i]), fontsize = 15)
+      plt.show()
 
-def showimg(data, idx):
-    span = 5
-    if data=='train':
-      if idx+span<train_images.shape[0]:
-          images = train_images
-          labels = train_labels
-      else:
-          print('Index is out of range.')
-    if data=='test':
-      if idx+span<test_images.shape[0]:
-          images = test_images
-          labels = test_labels
-      else:
-          print('Index is out of range.')
-    plt.figure(figsize=(20,4))
-    for i in range(span):
-      plt.subplot(1, 5, i + 1)
-      digit = images[idx+i]            
-      plt.imshow(digit, cmap=plt.cm.binary)
-      plt.title('Index:{}, Label:{}'.format(idx+i, labels[idx+i]), fontsize = 15)
-    plt.show()
+  interact(showimg, data = widgets.RadioButtons(options=['train', 'test'],
+                                                value='train', description='Data:', disabled=False),
+           idx = widgets.IntText(value=7, description='Index:', disabled=False));
 
 def transfer_data(df, df_quantile):
     for col in ['month', 'art_book']:
