@@ -53,48 +53,55 @@ def prodmix_graph(zoom):
     ax.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
     plt.show()
 
-def prodmix_obj(zoom, margin1, margin2):
-    fig, ax = plt.subplots(figsize=(9, 8))
-    s = np.linspace(0, 1500)
+def demoobj():
+    def prodmix_obj(zoom, margin1, margin2):
+        fig, ax = plt.subplots(figsize=(9, 8))
+        s = np.linspace(0, 1500)
 
-    plt.plot(s, 10000/6 - 5*s/6, lw=3, label='$5x_1 + 6x_2 \leq 10000$')
-    plt.plot(s, 1500 - s/2, lw=3, label='$x_1 + 2x_2 \leq 3000$')
-    plt.plot(600 * np.ones_like(s), s, lw=3, label='$x_1 \leq 600$')
-    plt.plot(s, 1200 * np.ones_like(s), lw=3, label='$x_2 \leq 1200$')
-    plt.plot(s, np.zeros_like(s), lw=3, label='$x_1$ non-negative')
-    plt.plot(np.zeros_like(s), s, lw=3, label='$x_2$ non-negative')
+        plt.plot(s, 10000/6 - 5*s/6, lw=3, label='$5x_1 + 6x_2 \leq 10000$')
+        plt.plot(s, 1500 - s/2, lw=3, label='$x_1 + 2x_2 \leq 3000$')
+        plt.plot(600 * np.ones_like(s), s, lw=3, label='$x_1 \leq 600$')
+        plt.plot(s, 1200 * np.ones_like(s), lw=3, label='$x_2 \leq 1200$')
+        plt.plot(s, np.zeros_like(s), lw=3, label='$x_1$ non-negative')
+        plt.plot(np.zeros_like(s), s, lw=3, label='$x_2$ non-negative')
 
-    # plot the possible (x1, x2) pairs
-    pairs = [(x1, x2) for x1 in np.arange(start=0, stop=600, step=25)
-                    for x2 in np.arange(start=0, stop=1200, step=30)
-                    if (5*x1 + 6*x2) <= 10000
-                    and (x1 + 2*x2)  <= 3000
-                    and x1<=600 and x2<=1200]
+        # plot the possible (x1, x2) pairs
+        pairs = [(x1, x2) for x1 in np.arange(start=0, stop=600, step=25)
+                        for x2 in np.arange(start=0, stop=1200, step=30)
+                        if (5*x1 + 6*x2) <= 10000
+                        and (x1 + 2*x2)  <= 3000
+                        and x1<=600 and x2<=1200]
 
-    # split these into our variables
-    x1, x2 = np.hsplit(np.array(pairs), 2)
+        # split these into our variables
+        x1, x2 = np.hsplit(np.array(pairs), 2)
 
-    # caculate the objective function at each pair
-    z = margin1*x1 + margin2*x2  # the objective function
+        # caculate the objective function at each pair
+        z = margin1*x1 + margin2*x2  # the objective function
 
-    # plot the results
-    plt.scatter(x1, x2, c=z, cmap='jet',
-                label='Profit={} $x_1$ + {} $x_2$'.format(margin1, margin2), zorder=3)
+        # plot the results
+        plt.scatter(x1, x2, c=z, cmap='jet',
+                    label='Profit={} $x_1$ + {} $x_2$'.format(margin1, margin2), zorder=3)
 
-    # labels and stuff
-    cb = plt.colorbar()
-    cb.set_label('profit', fontsize=14)
-    plt.xlabel('$x_1$ (Basic)', fontsize=16)
-    plt.ylabel('$x_2$ (XP)', fontsize=16)
-    if zoom:
-        plt.xlim(400, 800)
-        plt.ylim(1000, 1400)
-    else:
-        plt.xlim(-0.5, 1500)
-        plt.ylim(-0.5, 1500)
-    plt.legend(fontsize=18)
-    ax.legend(loc='upper right', bbox_to_anchor=(1.8, 1))
-    plt.show()
+        # labels and stuff
+        cb = plt.colorbar()
+        cb.set_label('profit', fontsize=14)
+        plt.xlabel('$x_1$ (Basic)', fontsize=16)
+        plt.ylabel('$x_2$ (XP)', fontsize=16)
+        if zoom:
+            plt.xlim(400, 800)
+            plt.ylim(1000, 1400)
+        else:
+            plt.xlim(-0.5, 1500)
+            plt.ylim(-0.5, 1500)
+        plt.legend(fontsize=18)
+        ax.legend(loc='upper right', bbox_to_anchor=(1.8, 1))
+        plt.show()
+    interact(prodmix_obj,
+             zoom=widgets.Checkbox(value=False, description='Zoom In', disabled=False),
+             margin1=widgets.IntSlider(min=-30,max=150,step=10,value=80,description='Unit margin of Basic:',
+                                       style = {'description_width': 'initial'}),
+             margin2=widgets.IntSlider(min=-30,max=150,step=10,value=129,description='Unit margin of XP:',
+                                      style = {'description_width': 'initial'}));        
     
 def show_integer_feasregion():
     fig, ax = plt.subplots(figsize=(9, 8))
