@@ -8,13 +8,13 @@ import tensorflow as tf
 
 def showimg(data, idx):
     span = 5
-    if data=='Training':
+    if data=='train':
       if idx+span<train_images.shape[0]:
           images = train_images
           labels = train_labels
       else:
           print('Index is out of range.')
-    if data=='Testing':
+    if data=='test':
       if idx+span<test_images.shape[0]:
           images = test_images
           labels = test_labels
