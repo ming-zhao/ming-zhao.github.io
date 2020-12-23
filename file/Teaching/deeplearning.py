@@ -11,32 +11,28 @@ from keras.datasets import mnist
 
 # print('training images:{}, test images:{}'.format(train_images.shape, test_images.shape))
 
-def show_images():
-    def showimg(data, idx):
-        span = 5
-        if data=='Training':
-          if idx+span<train_images.shape[0]:
-              images = train_images
-              labels = train_labels
-          else:
-              print('Index is out of range.')
-        if data=='Testing':
-          if idx+span<test_images.shape[0]:
-              images = test_images
-              labels = test_labels
-          else:
-              print('Index is out of range.')
-        plt.figure(figsize=(20,4))
-        for i in range(span):
-          plt.subplot(1, 5, i + 1)
-          digit = images[idx+i]            
-          plt.imshow(digit, cmap=plt.cm.binary)
-          plt.title('Index:{}, Label:{}'.format(idx+i, labels[idx+i]), fontsize = 15)
-        plt.show()
+def showimg(data, idx):
+    span = 5
+    if data=='Training':
+      if idx+span<train_images.shape[0]:
+          images = train_images
+          labels = train_labels
+      else:
+          print('Index is out of range.')
+    if data=='Testing':
+      if idx+span<test_images.shape[0]:
+          images = test_images
+          labels = test_labels
+      else:
+          print('Index is out of range.')
+    plt.figure(figsize=(20,4))
+    for i in range(span):
+      plt.subplot(1, 5, i + 1)
+      digit = images[idx+i]            
+      plt.imshow(digit, cmap=plt.cm.binary)
+      plt.title('Index:{}, Label:{}'.format(idx+i, labels[idx+i]), fontsize = 15)
+    plt.show()
 
-    interact(showimg, data = widgets.RadioButtons(options=['train', 'test'],
-                                            value='train', description='Data:', disabled=False),
-             idx = widgets.IntText(value=7, description='Index:', disabled=False));
 
 from keras import models
 from keras import layers
