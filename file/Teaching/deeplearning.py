@@ -6,6 +6,10 @@ from ipywidgets import *
 from IPython.display import display, HTML
 import tensorflow as tf
 
+from keras import models
+from keras import layers
+from keras.utils import to_categorical
+
 from keras.datasets import mnist
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 # print('training images:{}, test images:{}'.format(train_images.shape, test_images.shape))
@@ -31,10 +35,6 @@ def showimg(data, idx):
       plt.imshow(digit, cmap=plt.cm.binary)
       plt.title('Index:{}, Label:{}'.format(idx+i, labels[idx+i]), fontsize = 15)
     plt.show()
-
-from keras import models
-from keras import layers
-from keras.utils import to_categorical
 
 def transfer_data(df, df_quantile):
     for col in ['month', 'art_book']:
