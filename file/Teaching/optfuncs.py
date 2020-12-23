@@ -53,7 +53,7 @@ def prodmix_graph(zoom):
     ax.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
     plt.show()
 
-def demoobj():
+def demoObj():
     def prodmix_obj(zoom, margin1, margin2):
         fig, ax = plt.subplots(figsize=(9, 8))
         s = np.linspace(0, 1500)
