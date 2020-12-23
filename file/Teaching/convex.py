@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ipywidgets import *
 
-def convex():
-    def showconvex(values):
+def democonvex():
+    def convex(values):
         plt.subplots(2, 2, figsize=(17,10))
         function = lambda x: (x-3)**2
         x = np.linspace(0.8,4.2,500)
@@ -39,7 +39,7 @@ def convex():
         
         plt.legend()
         plt.show()
-    interact(showconvex,
+    interact(convex,
              values = widgets.FloatRangeSlider(value=[2, 3.5],
                                                min=1.0, max=4.0, step=0.1,
                                                description='x values:', disabled=False,
