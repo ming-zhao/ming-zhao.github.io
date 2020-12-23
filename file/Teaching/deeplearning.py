@@ -6,11 +6,6 @@ from ipywidgets import *
 from IPython.display import display, HTML
 import tensorflow as tf
 
-from keras.datasets import mnist
-(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
-
-# print('training images:{}, test images:{}'.format(train_images.shape, test_images.shape))
-
 def showimg(data, idx):
     span = 5
     if data=='Training':
