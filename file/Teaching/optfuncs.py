@@ -66,8 +66,8 @@ def demoObj():
         plt.plot(np.zeros_like(s), s, lw=3, label='$x_2$ non-negative')
 
         # plot the possible (x1, x2) pairs
-        pairs = [(x1, x2) for x1 in np.arange(start=0, stop=600, step=25)
-                        for x2 in np.arange(start=0, stop=1200, step=30)
+        pairs = [(x1, x2) for x1 in np.arange(start=0, stop=600, step=8)
+                        for x2 in np.arange(start=0, stop=1200, step=12)
                         if (5*x1 + 6*x2) <= 10000
                         and (x1 + 2*x2)  <= 3000
                         and x1<=600 and x2<=1200]
