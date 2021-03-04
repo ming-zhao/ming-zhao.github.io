@@ -53,6 +53,53 @@ def prodmix_graph(zoom):
     ax.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
     plt.show()
 
+def selectObj():
+    def mvObj(objval):
+        fig, ax = plt.subplots(figsize=(8, 8))
+        s = np.linspace(0, 3000)
+
+        plt.plot(s, objval/129 - 80*s/129, lw=3, linestyle='dashed', label='$80x_1 + 129x_2$')
+
+        plt.plot(s, 10000/6 - 5*s/6, lw=3, label='$5x_1 + 6x_2 \leq 10000$')
+        plt.fill_between(s, 0, 10000/6 - 5*s/6, alpha=0.1)
+
+        plt.plot(s, 1500 - s/2, lw=3, label='$x_1 + 2x_2 \leq 3000$')
+        plt.fill_between(s, 0, 1500 - s/2, alpha=0.1)
+
+        plt.plot(600 * np.ones_like(s), s, lw=3, label='$x_1 \leq 600$')
+        plt.fill_betweenx(s, 0, 600, alpha=0.1)
+
+        plt.plot(s, 1200 * np.ones_like(s), lw=3, label='$x_2 \leq 1200$')
+        plt.fill_betweenx(0, s, 1200, alpha=0.1)
+
+        # add non-negativity constraints
+        plt.plot(s, np.zeros_like(s), lw=3, label='$x_1$ non-negative')
+        plt.plot(np.zeros_like(s), s, lw=3, label='$x_2$ non-negative')
+
+        # highlight the feasible region
+        path = Path([
+          (0., 0.),
+          (0., 1200.),
+          (560, 1200.),
+          (600., 7000/6),
+          (600., 0.),
+          (0., 0.),
+        ])
+        patch = PathPatch(path, label='feasible region', alpha=0.5)
+        ax.add_patch(patch)
+
+        # labels and stuff
+        plt.xlabel('$x_1$ (Basic)', fontsize=16)
+        plt.ylabel('$x_2$ (XP)', fontsize=16)
+        plt.xlim(-0.5, 1500)
+        plt.ylim(-0.5, 1500)
+        plt.legend(fontsize=11)
+        ax.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
+        plt.show()
+    interact(mvObj,
+             objval=widgets.IntSlider(min=100000,max=250000,step=5000,value=100000,description='Objective Value:',
+                                       style = {'description_width': 'initial'}));    
+
 def demoObj():
     def prodmix_obj(zoom, margin1, margin2):
         fig, ax = plt.subplots(figsize=(9, 8))
