@@ -13300,6 +13300,7 @@ $( document ).ready(function(){
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">warehouse_locations</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">order_variation</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">warehouse_stocks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warehouse</span><span class="p">)])</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
 <span class="n">orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">]),</span> 
@@ -13378,14 +13379,14 @@ $( document ).ready(function(){
       <td>1.54</td>
       <td>1.54</td>
       <td>3.46</td>
-      <td>-1.93</td>
+      <td>-1.92</td>
     </tr>
     <tr>
       <th>1</th>
       <td>3.58</td>
       <td>3.58</td>
       <td>1.42</td>
-      <td>2.17</td>
+      <td>2.16</td>
     </tr>
     <tr>
       <th>2</th>
@@ -13399,7 +13400,7 @@ $( document ).ready(function(){
       <td>0.26</td>
       <td>0.26</td>
       <td>4.74</td>
-      <td>-4.47</td>
+      <td>-4.48</td>
     </tr>
     <tr>
       <th>4</th>
@@ -13427,7 +13428,7 @@ $( document ).ready(function(){
       <td>4.76</td>
       <td>4.76</td>
       <td>0.24</td>
-      <td>4.53</td>
+      <td>4.52</td>
     </tr>
     <tr>
       <th>8</th>
@@ -13570,7 +13571,7 @@ $( document ).ready(function(){
       <td>1.42</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
     </tr>
     <tr>
       <th>2</th>
@@ -13615,7 +13616,7 @@ $( document ).ready(function(){
       <td>9.54</td>
       <td>1</td>
       <td>9.54</td>
-      <td>19.38</td>
+      <td>19.39</td>
     </tr>
     <tr>
       <th>7</th>
@@ -13624,7 +13625,7 @@ $( document ).ready(function(){
       <td>0.24</td>
       <td>1</td>
       <td>0.24</td>
-      <td>19.62</td>
+      <td>19.63</td>
     </tr>
     <tr>
       <th>8</th>
@@ -13633,7 +13634,7 @@ $( document ).ready(function(){
       <td>1.84</td>
       <td>1</td>
       <td>1.84</td>
-      <td>21.46</td>
+      <td>21.47</td>
     </tr>
     <tr>
       <th>9</th>
@@ -13642,7 +13643,7 @@ $( document ).ready(function(){
       <td>0.99</td>
       <td>1</td>
       <td>0.99</td>
-      <td>22.44</td>
+      <td>22.46</td>
     </tr>
   </tbody>
 </table>
@@ -13800,10 +13801,10 @@ Academic license - for non-commercial use only - expires 2022-01-23
       <td>1.42</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
     </tr>
     <tr>
       <th>2</th>
@@ -13860,7 +13861,7 @@ Academic license - for non-commercial use only - expires 2022-01-23
       <td>9.54</td>
       <td>1</td>
       <td>9.54</td>
-      <td>19.38</td>
+      <td>19.39</td>
       <td>0</td>
       <td>4.54</td>
       <td>15.27</td>
@@ -13872,10 +13873,10 @@ Academic license - for non-commercial use only - expires 2022-01-23
       <td>0.24</td>
       <td>1</td>
       <td>0.24</td>
-      <td>19.62</td>
+      <td>19.63</td>
       <td>1</td>
       <td>0.24</td>
-      <td>15.50</td>
+      <td>15.51</td>
     </tr>
     <tr>
       <th>8</th>
@@ -13884,10 +13885,10 @@ Academic license - for non-commercial use only - expires 2022-01-23
       <td>1.84</td>
       <td>1</td>
       <td>1.84</td>
-      <td>21.46</td>
+      <td>21.47</td>
       <td>1</td>
       <td>1.84</td>
-      <td>17.34</td>
+      <td>17.35</td>
     </tr>
     <tr>
       <th>9</th>
@@ -13896,10 +13897,10 @@ Academic license - for non-commercial use only - expires 2022-01-23
       <td>0.99</td>
       <td>1</td>
       <td>0.99</td>
-      <td>22.44</td>
+      <td>22.46</td>
       <td>1</td>
       <td>0.99</td>
-      <td>18.33</td>
+      <td>18.34</td>
     </tr>
   </tbody>
 </table>
@@ -14307,8 +14308,8 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>0</td>
       <td>1.54</td>
       <td>1.54</td>
-      <td>5.64</td>
-      <td>5.93</td>
+      <td>5.63</td>
+      <td>5.92</td>
       <td>0</td>
       <td>1.54</td>
       <td>1.54</td>
@@ -14320,15 +14321,15 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>1.42</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
       <td>4.46</td>
       <td>2.24</td>
       <td>1</td>
       <td>1.42</td>
-      <td>2.95</td>
+      <td>2.96</td>
     </tr>
     <tr>
       <th>2</th>
@@ -14358,8 +14359,8 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>0</td>
       <td>0.26</td>
       <td>4.64</td>
-      <td>8.88</td>
-      <td>10.94</td>
+      <td>8.89</td>
+      <td>10.95</td>
       <td>0</td>
       <td>0.26</td>
       <td>4.64</td>
@@ -14392,7 +14393,7 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>1</td>
       <td>2.94</td>
       <td>10.73</td>
-      <td>12.39</td>
+      <td>12.40</td>
       <td>10.63</td>
       <td>1</td>
       <td>2.94</td>
@@ -14405,12 +14406,12 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>9.54</td>
       <td>1</td>
       <td>9.54</td>
-      <td>19.38</td>
+      <td>19.39</td>
       <td>0</td>
       <td>4.54</td>
       <td>15.27</td>
       <td>13.38</td>
-      <td>15.41</td>
+      <td>15.42</td>
       <td>0</td>
       <td>4.54</td>
       <td>15.27</td>
@@ -14422,15 +14423,15 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>0.24</td>
       <td>1</td>
       <td>0.24</td>
-      <td>19.62</td>
+      <td>19.63</td>
       <td>1</td>
       <td>0.24</td>
-      <td>15.50</td>
+      <td>15.51</td>
       <td>NaN</td>
       <td>0.24</td>
       <td>1</td>
       <td>0.24</td>
-      <td>15.50</td>
+      <td>15.51</td>
     </tr>
     <tr>
       <th>8</th>
@@ -14439,15 +14440,15 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>1.84</td>
       <td>1</td>
       <td>1.84</td>
-      <td>21.46</td>
+      <td>21.47</td>
       <td>1</td>
       <td>1.84</td>
-      <td>17.34</td>
+      <td>17.35</td>
       <td>NaN</td>
       <td>1.84</td>
       <td>1</td>
       <td>1.84</td>
-      <td>17.34</td>
+      <td>17.35</td>
     </tr>
     <tr>
       <th>9</th>
@@ -14456,15 +14457,15 @@ p &amp;= \Phi\left(-\frac{\theta}{\sigma} \right)
       <td>0.99</td>
       <td>1</td>
       <td>0.99</td>
-      <td>22.44</td>
+      <td>22.46</td>
       <td>1</td>
       <td>0.99</td>
-      <td>18.33</td>
+      <td>18.34</td>
       <td>NaN</td>
       <td>0.99</td>
       <td>1</td>
       <td>0.99</td>
-      <td>18.33</td>
+      <td>18.34</td>
     </tr>
   </tbody>
 </table>
