@@ -272,7 +272,7 @@ class option_chain:
     # display(data_table.DataTable(df, include_index=False,num_rows_per_page=30))
 
   def __init__(self):
-    self.work = InvestAPI(watch_list['symbols'])
+    self.work = InvestAPI(watch_list['symbols'], credential)
     self.df_options = self.work.show_option_chain('gps')
     self.df_quotes = self.work.read_quotes('gps')
 
