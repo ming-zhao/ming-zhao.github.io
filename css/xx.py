@@ -220,3 +220,124 @@ class InvestAPI:
       # columns = ['date','put_call','symbol','strike','bid','ask','day','yr%','delta','iv','theta','gamma']  
       # df = df[columns]
       return df 
+
+class option_chain:
+  def on_change(self, change):
+    if change['type'] == 'change' and change['name'] == 'value':
+      if 'Stock' in change['owner'].description:
+        self.refresh()            
+      if 'Cost Basis' in change['owner'].description and self.cbck.value==False:
+        None
+      else:
+        self.show()
+
+  def refresh(self):
+    self.df_options = self.work.show_option_chain(self.symbol.value)
+    self.df_quotes = self.work.read_quotes(self.symbol.value)
+
+    bid = self.df_quotes['bid'].values[0]
+    strikes = np.unique(self.df_options.strike.values)
+    idx = (np.abs(strikes - bid)).argmin()
+    self.lsp.value=strikes[max(0,idx-5)]
+    self.hsp.value=strikes[min(idx+5, len(strikes))]
+    self.cb.value=strikes[idx]
+    self.cbck.value=False
+    self.expiration.options=np.unique(self.df_options.date)
+    self.expiration.index=[0,1,2,3]
+
+    self.show()
+
+  def on_click(self, change):
+    self.refresh()
+
+  def show(self):
+    lo_p = float(self.lsp.value)
+    hi_p = float(self.hsp.value)
+    cb = float(self.cb.value)
+    if hi_p<lo_p:
+      self.hsp.value=lo_p
+    dts = self.expiration.value
+    df = self.df_options[(self.df_options.strike>=lo_p)&(self.df_options.strike<=hi_p)&\
+                         (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in dts])))]
+    if self.cbck.value:
+      df['c_yr%'] = round(df['c_yr%']*df.strike/cb,2)
+    else:
+      df['c_yr%'] = round((df['c_bid']-0.65/100)/df.strike/df.day*365*100,2)
+
+    clear_output()
+    columns = ['bid', 'ask', 'ask_time','cl','lo','opn','hi','chg']
+    display(self.df_quotes[columns])
+    display(self.board)
+    display(df)
+    # display(data_table.DataTable(df, include_index=False,num_rows_per_page=30))
+
+  def __init__(self):
+    self.work = InvestAPI(watch_list['symbols'])
+    self.df_options = self.work.show_option_chain('gps')
+    self.df_quotes = self.work.read_quotes('gps')
+
+    self.symbol = widgets.Dropdown(
+        options=watch_list['symbols'],
+        value='GPS',
+        description='Stock:',
+        width = 100,
+        layout=Layout(width='180px'),
+    )
+    self.button = widgets.Button(
+        description='Refresh',
+        disabled=False,
+        button_style='success', # 'success', 'info', 'warning', 'danger' or ''
+        tooltip='Refresh Quote',
+        icon='check', # (FontAwesome names without the `fa-` prefix)
+        layout=Layout(width='100px'),
+        style={'description_width': '10px'},
+    )
+
+    bid = self.df_quotes['bid'].values[0]
+    strikes = np.unique(self.df_options.strike.values)
+    idx = (np.abs(strikes - bid)).argmin()
+    self.lsp = widgets.FloatText(
+        value=strikes[max(0,idx-5)],
+        description='Strike from:',
+        disabled=False,
+        continuous_update=False,
+        layout=Layout(width='180px'),
+    )
+    self.hsp = widgets.FloatText(
+        value=strikes[min(idx+5, len(strikes))],
+        description='to:',
+        disabled=False,
+        continuous_update=False,
+        layout=Layout(width='180px'),
+    )
+    self.cb = widgets.FloatText(
+        value=strikes[idx],
+        description='Cost Basis:',
+        disabled=False,
+        continuous_update=False,
+        layout=Layout(width='180px'),
+    )
+    self.cbck = widgets.Checkbox(
+        value=False,
+        description='Apply',
+        disabled=False,
+        layout=Layout(width='180px', position='left',display='flex'),
+    )
+    self.expiration = widgets.SelectMultiple(
+        options=np.unique(self.df_options.date),
+        index=[0,1,2,3],
+        rows=8,
+        description='Expire:',
+        disabled=False,
+        continuous_update=False,
+        layout=Layout(width='220px'),
+    )
+    self.symbol.observe(self.on_change)
+    self.lsp.observe(self.on_change)
+    self.hsp.observe(self.on_change)
+    self.expiration.observe(self.on_change)
+    self.cb.observe(self.on_change)
+    self.cbck.observe(self.on_change)
+    self.button.on_click(self.on_click)
+    self.board = widgets.HBox([widgets.VBox([self.symbol,self.cb,self.cbck]),widgets.VBox([self.lsp,self.hsp]),self.expiration,self.button])
+    self.show()
