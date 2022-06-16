@@ -268,8 +268,8 @@ class option_chain:
     columns = ['bid', 'ask', 'ask_time','cl','lo','opn','hi','chg']
     display(self.df_quotes[columns])
     display(self.board)
-    display(df)
-    # display(data_table.DataTable(df, include_index=False,num_rows_per_page=30))
+    # display(df)
+    display(data_table.DataTable(df, include_index=False,num_rows_per_page=30))
 
   def __init__(self, watch_list, credential):
     self.work = InvestAPI(credential)
