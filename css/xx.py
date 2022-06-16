@@ -25,7 +25,7 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
 class InvestAPI:
-    def __init__(self, symbols, credential):
+    def __init__(self, credential):
         self.ally_oauth_secret  = credential[0]
         self.ally_oauth_token   = credential[1]
         self.ally_client_key    = credential[2]
@@ -35,7 +35,7 @@ class InvestAPI:
         self.ally_auth_time     = None
         self.ally_auth          = None
 
-        self._dat_ = pd.DataFrame(symbols, columns=['symbol'])
+        self._dat_ = None #pd.DataFrame(symbols, columns=['symbol'])
         self.dat_options = None
         self.dat_quotes  = None
         
@@ -271,8 +271,8 @@ class option_chain:
     display(df)
     # display(data_table.DataTable(df, include_index=False,num_rows_per_page=30))
 
-  def __init__(self):
-    self.work = InvestAPI(watch_list['symbols'], credential)
+  def __init__(self, credential):
+    self.work = InvestAPI(credential)
     self.df_options = self.work.show_option_chain('gps')
     self.df_quotes = self.work.read_quotes('gps')
 
