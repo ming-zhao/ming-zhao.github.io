@@ -19,7 +19,7 @@ from plotly.subplots import make_subplots
 from dateutil.relativedelta import relativedelta
 from matplotlib.ticker import PercentFormatter
 
-# from google.colab import data_table
+from google.colab import data_table
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
@@ -326,8 +326,8 @@ class option_chain:
         columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
         display(self.df_quotes[columns])
         display(self.board)
-        display(df)
-        # display(data_table.DataTable(df, include_index=False,num_rows_per_page=20))
+        # display(df)
+        display(data_table.DataTable(df, include_index=False,num_rows_per_page=20))
 
     def __init__(self, watch_list, credential, output):
         self.work = InvestAPI(credential)
@@ -404,7 +404,6 @@ class option_chain:
         with self.output:                            
             self.show()
         
-        
 class option_roll:
     def on_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
@@ -412,32 +411,35 @@ class option_roll:
                 pos = self.pos.value
                 self.df_options = self.work.roll_option(pos)
                 self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())
-            self.show()
+            with self.output:
+                self.show()
 
     def on_click(self, change):
         pos = self.pos.value
         self.df_options = self.work.roll_option(pos)
         self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())
-        self.show()
+        with self.output:
+            self.show()
 
     def show(self):
         date = pd.to_datetime(self.date.value).date()
         mid = float(self.mid.value)
-        clear_output()
+        self.output.clear_output()
         # columns = ['bid', 'ask', 'ask_time','cl','lo','opn','hi','chg']
         # display(quote[columns])
         display(self.board)
         df = self.df_options[(self.df_options['date_r']>=date)&
                              (self.df_options.mid>=mid)&(self.df_options.strike_r<=self.df_options.strike)]
         df = df.sort_values(by=['date_r','strike_r'])
-        display(df)
-        # display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))    
+        # display(df)
+        display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))    
 
-    def __init__(self, watch_list, credential):
+    def __init__(self, watch_list, credential, output):
         self.work = InvestAPI(credential)
         pos = watch_list['positions'][0]
         self.df_options = self.work.roll_option(pos)
         self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())  
+        self.output = output
 
         self.pos = widgets.Dropdown(
             options=watch_list['positions'],
@@ -475,5 +477,6 @@ class option_roll:
         self.date.observe(self.on_change)
         self.mid.observe(self.on_change)
         self.refresh.on_click(self.on_click)
-        self.board = widgets.HBox([self.pos,self.date,self.mid,self.refresh]) 
-        self.show()
+        self.board = widgets.HBox([self.pos,self.date,self.mid,self.refresh])
+        with self.output:
+            self.show()
