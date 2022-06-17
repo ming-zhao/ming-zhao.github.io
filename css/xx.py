@@ -1,5 +1,7 @@
 _COLAB = True
 
+_COLAB = False
+
 from ipywidgets.widgets.widget_description import DescriptionStyle
 import ipywidgets as widgets
 from IPython.display import display
@@ -153,6 +155,14 @@ class InvestAPI:
                   [x for x in df.columns if x.startswith('p_')]
         df = df[columns]
 
+        if d[0]==None:
+            dl = df['date'].values[0]
+        else:
+            dl = pd.to_datetime(d[0]).date()
+        if d[1]==None:
+            dh = df['date'].values[-1]
+        else:
+            dh = pd.to_datetime(d[1]).date()        
         strikes = df.strike.values
         if s[0]==None:
             lo = min(strikes)
@@ -162,13 +172,13 @@ class InvestAPI:
             hi = max(strikes)
         else:
             hi = s[1]
-        df = df[(df.strike>=lo)&(df.strike<=hi)]
+        df = df[(df.strike>=lo)&(df.strike<=hi)&(df['date']>=dl)&(df['date']<=dh)]
         return df
 
     # pos = 'AEO 06/17/2022 13.00 P'
     # mid = lower bound of middle price
     # roll to date >= d
-    def roll_option(self, pos, mid=None, d=None, s=[None, None]):
+    def roll_option(self, pos, mid=None, d=[None,None], s=[None, None]):
         today = datetime.datetime.today()
         symbol = pos.split(' ')[0].strip()
         date = pd.to_datetime(pos.split(' ')[1].strip()).date()
@@ -179,7 +189,7 @@ class InvestAPI:
             typ = 'call'
         df = self.get_raw_options(symbol)
 
-        df = df[(df.date>=date)&(df.put_call==typ)]
+        df = df[df.put_call==typ]
         df = df[(df.date==date)&(df.put_call==typ)&(df.strike==strike)].merge(df, how='cross',suffixes=('_c', '_r'))
         df['bid'] = round(df['bid_r'] - df['ask_c'],2)
         df['ask'] = round(df['ask_r'] - df['bid_c'],2)
@@ -190,10 +200,14 @@ class InvestAPI:
         df.rename(columns=dict([[c,c.rsplit('_',1)[0]]for c in df.columns if c.endswith('_c')]), inplace=True)
         columns = ['bid','mid','ask','yr%','date_r','strike_r','date','strike','put_call']
         df = df[columns]
-        if d==None:
-            d = df['date'].values[0]
+        if d[0]==None:
+            dl = min(df['date_r'].values)
         else:
-            d = pd.to_datetime(d).date()
+            dl = pd.to_datetime(d[0]).date()
+        if d[1]==None:
+            dh = max(df['date_r'].values)
+        else:
+            dh = pd.to_datetime(d[1]).date()
         if mid==None:
             mid = min(df.mid.values)
         strikes = df.strike_r.values
@@ -206,7 +220,7 @@ class InvestAPI:
         else:
             hi = s[1]            
             
-        df = df[(df['date_r']>=d)&(df.mid>=mid)&(df.strike_r>=lo)&(df.strike_r<=hi)]
+        df = df[(df['date_r']>=dl)&(df['date_r']<=dh)&(df.mid>=mid)&(df.strike_r>=lo)&(df.strike_r<=hi)]
         df = df.sort_values(by=['date_r','strike_r'])
         return df
 
@@ -426,19 +440,19 @@ class option_roll:
         self.show()
 
     def show(self):
-        date = pd.to_datetime(self.date.value).date()
+        dl = pd.to_datetime(self.datel.value).date()
+        dh = pd.to_datetime(self.dateh.value).date()
         mid = float(self.mid.value)
         clear_output()
         # columns = ['bid', 'ask', 'ask_time','cl','lo','opn','hi','chg']
         # display(quote[columns])
         display(self.board)
-        df = self.df_options[(self.df_options['date_r']>=date)&
-                             (self.df_options.mid>=mid)&
-                             (
-                                 (self.df_options.strike_r<=self.df_options.strike)&(self.df_options.put_call=='put')|
-                                 (self.df_options.strike_r>=self.df_options.strike)&(self.df_options.put_call=='call')
-                             )
+        df = self.df_options[(self.df_options['date_r']>=dl)&(self.df_options['date_r']<=dh)&
+                             (self.df_options.mid>=mid)
                             ]
+        if self.check.value:
+            df = df[(df.strike_r<=df.strike)&(df.put_call=='put')|
+                    (df.strike_r>=df.strike)&(df.put_call=='call')]
         df = df.sort_values(by=['date_r','strike_r'])
         if _COLAB:
             display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
@@ -458,10 +472,17 @@ class option_roll:
             width = 100,
             layout=Layout(width='280px'),
         )
-        self.date = widgets.Dropdown(
+        self.datel = widgets.Dropdown(
             options=np.unique(self.df_options.date_r.values),
             index=1,
-            description='Date:',
+            description='Date from:',
+            width = 100,
+            layout=Layout(width='200px'),
+        )
+        self.dateh = widgets.Dropdown(
+            options=np.unique(self.df_options.date_r.values),
+            index=len(np.unique(self.df_options.date_r.values))-1,
+            description='to:',
             width = 100,
             layout=Layout(width='200px'),
         )
@@ -473,6 +494,12 @@ class option_roll:
             continuous_update=False,
             layout=Layout(width='180px'),
         )
+        self.check = widgets.Checkbox(
+            value=True,
+            description='Compact',
+            disabled=False,
+            layout=Layout(width='180px', position='left',display='flex'),
+        )        
         self.refresh = widgets.Button(
             description='Refresh',
             disabled=False,
@@ -484,9 +511,11 @@ class option_roll:
         )
 
         self.pos.observe(self.on_change)
-        self.date.observe(self.on_change)
+        self.datel.observe(self.on_change)
+        self.datel.observe(self.on_change)
         self.mid.observe(self.on_change)
+        self.check.observe(self.on_change)
         self.refresh.on_click(self.on_click)
-        self.board = widgets.HBox([self.pos,self.date,self.mid,self.refresh])
+        self.board = widgets.HBox([self.pos,widgets.VBox([self.datel,self.dateh]),widgets.VBox([self.mid,self.check]),self.refresh])
 
         self.show()
