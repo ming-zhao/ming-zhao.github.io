@@ -1,7 +1,5 @@
 _COLAB = True
 
-_COLAB = False
-
 from ipywidgets.widgets.widget_description import DescriptionStyle
 import ipywidgets as widgets
 from IPython.display import display
