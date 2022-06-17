@@ -1,3 +1,5 @@
+_COLAB = False
+
 from ipywidgets.widgets.widget_description import DescriptionStyle
 import ipywidgets as widgets
 from IPython.display import display
@@ -19,7 +21,8 @@ from plotly.subplots import make_subplots
 from dateutil.relativedelta import relativedelta
 from matplotlib.ticker import PercentFormatter
 
-from google.colab import data_table
+if _COLAB:
+    from google.colab import data_table
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
@@ -326,8 +329,11 @@ class option_chain:
         columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
         display(self.df_quotes[columns])
         display(self.board)
-        # display(df)
-        display(data_table.DataTable(df, include_index=False,num_rows_per_page=20))
+        
+        if _COLAB:
+            display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
+        else:
+            display(df)
 
     def __init__(self, watch_list, credential, output):
         self.work = InvestAPI(credential)
@@ -404,6 +410,7 @@ class option_chain:
         with self.output:                            
             self.show()
         
+        
 class option_roll:
     def on_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
@@ -431,8 +438,11 @@ class option_roll:
         df = self.df_options[(self.df_options['date_r']>=date)&
                              (self.df_options.mid>=mid)&(self.df_options.strike_r<=self.df_options.strike)]
         df = df.sort_values(by=['date_r','strike_r'])
-        # display(df)
-        display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))    
+        
+        if _COLAB:
+            display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
+        else:
+            display(df) 
 
     def __init__(self, watch_list, credential, output):
         self.work = InvestAPI(credential)
