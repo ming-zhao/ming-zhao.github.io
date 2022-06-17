@@ -433,7 +433,12 @@ class option_roll:
         # display(quote[columns])
         display(self.board)
         df = self.df_options[(self.df_options['date_r']>=date)&
-                             (self.df_options.mid>=mid)&(self.df_options.strike_r<=self.df_options.strike)]
+                             (self.df_options.mid>=mid)&
+                             (
+                                 (self.df_options.strike_r<=self.df_options.strike)&(self.df_options.put_call=='put')|
+                                 (self.df_options.strike_r>=self.df_options.strike)&(self.df_options.put_call=='call')
+                             )
+                            ]
         df = df.sort_values(by=['date_r','strike_r'])
         if _COLAB:
             display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
