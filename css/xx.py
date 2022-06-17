@@ -23,6 +23,7 @@ from matplotlib.ticker import PercentFormatter
 
 if _COLAB:
     from google.colab import data_table
+    
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
@@ -279,7 +280,6 @@ class InvestAPI:
 
         return df
 
-
 class option_chain:
     def on_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
@@ -288,8 +288,7 @@ class option_chain:
             if 'Cost Basis' in change['owner'].description and self.cbck.value==False:
                 None
             else:
-                with self.output:
-                    self.show()
+                self.show()
 
     def refresh(self):
         self.df_options = self.work.get_option_chain(self.symbol.value)
@@ -305,8 +304,7 @@ class option_chain:
         self.expiration.options=np.unique(self.df_options.date)
         self.expiration.index=[0,1,2,3]
 
-        with self.output:
-            self.show()
+        self.show()
 
     def on_click(self, change):
         self.refresh()
@@ -318,28 +316,29 @@ class option_chain:
         if hi_p<lo_p:
             self.hsp.value=lo_p
         dts = self.expiration.value
-        df = self.df_options[(self.df_options.strike>=lo_p)&(self.df_options.strike<=hi_p)&\
-                             (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in dts])))].copy()
+        self.df = self.df_options[(self.df_options.strike>=lo_p)&(self.df_options.strike<=hi_p)&\
+                                  (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in dts])))]
         if self.cbck.value:
-            df['c_yr%'] = round(df['c_yr%']*df.strike/cb,2)
+            self.df['c_yr%'] = round(self.df['c_yr%']*self.df.strike/cb,2)
         else:
-            df['c_yr%'] = round((df['c_bid']-0.65/100)/df.strike/df.day*365*100,2)
+            self.df['c_yr%'] = round((self.df['c_bid']-0.65/100)/self.df.strike/self.df.day*365*100,2)
 
-        self.output.clear_output()
+        clear_output()
         columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
         display(self.df_quotes[columns])
         display(self.board)
+        display(self.df)
         
-        if _COLAB:
-            display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
-        else:
-            display(df)
+#         if _COLAB:
+#             display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
+#         else:
+#             display(df)
 
-    def __init__(self, watch_list, credential, output):
+    def __init__(self, watch_list, credential):
         self.work = InvestAPI(credential)
         self.df_options = self.work.get_option_chain('gps')
         self.df_quotes = self.work.get_raw_quotes('gps')
-        self.output = output
+        self.df = None
 
         self.symbol = widgets.Dropdown(
             options=watch_list['symbols'],
@@ -407,8 +406,7 @@ class option_chain:
         self.board = widgets.HBox([widgets.VBox([self.symbol,self.cb,self.cbck]),
                                    widgets.VBox([self.lsp,self.hsp]),
                                    self.expiration,self.button])
-        with self.output:                            
-            self.show()
+        self.show()
         
         
 class option_roll:
@@ -418,38 +416,37 @@ class option_roll:
                 pos = self.pos.value
                 self.df_options = self.work.roll_option(pos)
                 self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())
-            with self.output:
-                self.show()
+
+            self.show()
 
     def on_click(self, change):
         pos = self.pos.value
         self.df_options = self.work.roll_option(pos)
         self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())
-        with self.output:
-            self.show()
+        
+        self.show()
 
     def show(self):
         date = pd.to_datetime(self.date.value).date()
         mid = float(self.mid.value)
-        self.output.clear_output()
+        clear_output()
         # columns = ['bid', 'ask', 'ask_time','cl','lo','opn','hi','chg']
         # display(quote[columns])
         display(self.board)
         df = self.df_options[(self.df_options['date_r']>=date)&
                              (self.df_options.mid>=mid)&(self.df_options.strike_r<=self.df_options.strike)]
         df = df.sort_values(by=['date_r','strike_r'])
-        
-        if _COLAB:
-            display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
-        else:
-            display(df) 
+        display(df)
+#         if _COLAB:
+#             display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
+#         else:
+#             display(df) 
 
-    def __init__(self, watch_list, credential, output):
+    def __init__(self, watch_list, credential):
         self.work = InvestAPI(credential)
         pos = watch_list['positions'][0]
         self.df_options = self.work.roll_option(pos)
         self.df_quotes = self.work.get_raw_quotes(pos.split(' ')[0].strip())  
-        self.output = output
 
         self.pos = widgets.Dropdown(
             options=watch_list['positions'],
@@ -488,5 +485,5 @@ class option_roll:
         self.mid.observe(self.on_change)
         self.refresh.on_click(self.on_click)
         self.board = widgets.HBox([self.pos,self.date,self.mid,self.refresh])
-        with self.output:
-            self.show()
+
+        self.show()
