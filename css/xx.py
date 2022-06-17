@@ -276,6 +276,7 @@ class InvestAPI:
 
         return df
 
+
 class option_chain:
     def on_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
@@ -313,23 +314,24 @@ class option_chain:
             self.hsp.value=lo_p
         dts = self.expiration.value
         df = self.df_options[(self.df_options.strike>=lo_p)&(self.df_options.strike<=hi_p)&\
-                             (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in dts])))]
+                             (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in dts])))].copy()
         if self.cbck.value:
             df['c_yr%'] = round(df['c_yr%']*df.strike/cb,2)
         else:
             df['c_yr%'] = round((df['c_bid']-0.65/100)/df.strike/df.day*365*100,2)
 
-        clear_output()
+        self.output.clear_output()
         columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
         display(self.df_quotes[columns])
         display(self.board)
-        # display(df)
-        display(data_table.DataTable(df, include_index=False,num_rows_per_page=20))
+        display(df)
+        # display(data_table.DataTable(df, include_index=False,num_rows_per_page=20))
 
-    def __init__(self, watch_list, credential):
+    def __init__(self, watch_list, credential, output):
         self.work = InvestAPI(credential)
         self.df_options = self.work.get_option_chain('gps')
         self.df_quotes = self.work.get_raw_quotes('gps')
+        self.output = output
 
         self.symbol = widgets.Dropdown(
             options=watch_list['symbols'],
@@ -425,8 +427,8 @@ class option_roll:
         df = self.df_options[(self.df_options['date_r']>=date)&
                              (self.df_options.mid>=mid)&(self.df_options.strike_r<=self.df_options.strike)]
         df = df.sort_values(by=['date_r','strike_r'])
-        # display(df)
-        display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))    
+        display(df)
+        # display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))    
 
     def __init__(self, watch_list, credential):
         self.work = InvestAPI(credential)
@@ -471,4 +473,4 @@ class option_roll:
         self.mid.observe(self.on_change)
         self.refresh.on_click(self.on_click)
         self.board = widgets.HBox([self.pos,self.date,self.mid,self.refresh]) 
-        self.show()    
+        self.show()
