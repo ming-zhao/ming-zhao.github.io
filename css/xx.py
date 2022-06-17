@@ -329,7 +329,7 @@ class option_chain:
         display(self.board)
         
         if _COLAB:
-            display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
+            display(data_table.DataTable(self.df,include_index=False,num_rows_per_page=20))
         else:
             display(self.df)
 
