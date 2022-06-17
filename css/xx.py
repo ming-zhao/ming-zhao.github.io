@@ -19,7 +19,7 @@ from plotly.subplots import make_subplots
 from dateutil.relativedelta import relativedelta
 from matplotlib.ticker import PercentFormatter
 
-from google.colab import data_table
+# from google.colab import data_table
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
@@ -285,7 +285,8 @@ class option_chain:
             if 'Cost Basis' in change['owner'].description and self.cbck.value==False:
                 None
             else:
-                self.show()
+                with self.output:
+                    self.show()
 
     def refresh(self):
         self.df_options = self.work.get_option_chain(self.symbol.value)
@@ -301,7 +302,8 @@ class option_chain:
         self.expiration.options=np.unique(self.df_options.date)
         self.expiration.index=[0,1,2,3]
 
-        self.show()
+        with self.output:
+            self.show()
 
     def on_click(self, change):
         self.refresh()
@@ -399,7 +401,8 @@ class option_chain:
         self.board = widgets.HBox([widgets.VBox([self.symbol,self.cb,self.cbck]),
                                    widgets.VBox([self.lsp,self.hsp]),
                                    self.expiration,self.button])
-        self.show()
+        with self.output:                            
+            self.show()
         
         
 class option_roll:
