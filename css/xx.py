@@ -1,4 +1,4 @@
-_COLAB = False
+_COLAB = True
 
 from ipywidgets.widgets.widget_description import DescriptionStyle
 import ipywidgets as widgets
