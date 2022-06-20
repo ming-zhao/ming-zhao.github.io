@@ -257,17 +257,22 @@ class tab_option_chain:
                 self.widget_lo_strike_price.value=strikes[max(0,idx-5)]
                 self.widget_hi_strike_price.value=strikes[min(idx+5, len(strikes))]
                 self.widget_cost_basis.value=strikes[idx]
-                self.widget_cost_basis_checkbox.value=False
                 self.widget_expiration_dates.options=np.unique(self.df_options.date)
                 self.widget_expiration_dates.index=[0,1,2,3]
-            if 'Cost Basis' in change['owner'].description and self.widget_cost_basis_checkbox.value==False:
-                None
-            else:
-                self.show()
+                self.page = 0
+            self.show()
 
     def on_click(self, change):
         self.df_options = self.work.get_option_chain(self.widget_symbol.value)
         self.df_quotes  = self.work.get_quotes(self.widget_symbol.value)
+        self.show()
+        
+    def on_flip_left(self, change):
+        self.page = max(0,self.page - 10)
+        self.show()
+        
+    def on_flip_right(self, change):
+        self.page = self.page + 10
         self.show()
         
     def show(self):
@@ -277,16 +282,15 @@ class tab_option_chain:
         if hi_strike_price<lo_strike_price:
             self.widget_hi_strike_price.value=lo_strike_price
         expiration_dates = self.widget_expiration_dates.value
-        if self.widget_cost_basis_checkbox.value:
-            self.df_options['c_yr%'] = \
-                round(self.df_options['c_yr%']*self.df_options.strike/cost_basis,2)
-        else:
-            self.df_options['c_yr%'] = \
-                round((self.df_options['c_bid']-0.65/100)/self.df_options.strike/self.df_options.day*365*100,2)
+
+        # for call - use cost basis to calculate yield
+        self.df_options['c_yr%'] = \
+            round((self.df_options['c_bid']-0.65/100)/cost_basis/self.df_options.day*365*100,2)
+            
         df = self.df_options.loc[\
-            (self.df_options.strike>=lo_strike_price)&\
-            (self.df_options.strike<=hi_strike_price)&\
-            (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in expiration_dates]))),:]
+                (self.df_options.strike>=lo_strike_price)&\
+                (self.df_options.strike<=hi_strike_price)&\
+                (self.df_options.date.isin(np.array([pd.to_datetime(d).date() for d in expiration_dates]))),:]
         
         sort_columns = []
         sort_order = []
@@ -299,6 +303,11 @@ class tab_option_chain:
         if len(sort_columns)>0:
             df = df.sort_values(by=sort_columns, ascending=sort_order)
         
+        if self.page>len(df)-10:
+            self.page=max(0,len(df)-10)
+        self.widget_rows.value = 'Total Rows: '+str(len(df))
+        df = df.reset_index(drop=True)
+        
         self.output.quote.clear_output()
         with self.output.quote:
             columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
@@ -307,12 +316,13 @@ class tab_option_chain:
         self.output.option.clear_output()
         with self.output.option:
             # display(data_table.DataTable(df,include_index=False,num_rows_per_page=20))
-            display(HTML(df.to_html(index=False)))
+            display(df.iloc[self.page:self.page+10,:])
             # display(df)
 
     def __init__(self, work, watch_list, output, flag=None):
         self.work = work
         default_symbol = watch_list.symbols[0]
+        self.page = 0
         
         self.df_options = self.work.get_option_chain(default_symbol)
         self.df_quotes  = self.work.get_quotes(default_symbol)
@@ -325,16 +335,6 @@ class tab_option_chain:
             width = 100,
             layout=Layout(width='180px'),
         )
-        self.widget_refresh_button = widgets.Button(
-            description='Refresh',
-            disabled=False,
-            button_style='success', # 'success', 'info', 'warning', 'danger' or ''
-            tooltip='Refresh Quote',
-            icon='check', # (FontAwesome names without the `fa-` prefix)
-            layout=Layout(width='90px',margin='0 0px 0 20px'),
-            # style={'description_width': '10px', },
-        )
-
         bid = self.df_quotes['bid'].values[0]
         strikes = np.unique(self.df_options.strike.values)
         idx = (np.abs(strikes - bid)).argmin()
@@ -359,12 +359,6 @@ class tab_option_chain:
             continuous_update=False,
             layout=Layout(width='180px'),
         )
-        self.widget_cost_basis_checkbox = widgets.Checkbox(
-            value=False,
-            description='Apply',
-            disabled=False,
-            layout=Layout(width='180px', position='left',display='flex'),
-        )
         self.widget_expiration_dates = widgets.SelectMultiple(
             options=np.unique(self.df_options.date),
             index=[0,1,2,3],
@@ -375,7 +369,7 @@ class tab_option_chain:
             layout=Layout(width='220px', margin='0px 0 0 -20px'),
         )
         
-        columns = [' ', 'date', 'strike', 'symbol', 'c_yr%', 'p_yr%']
+        columns = [' ', 'date', 'strike', 'c_yr%', 'p_yr%']
         self.widget_sort = [
             widgets.Dropdown(
                 options=columns,
@@ -393,41 +387,101 @@ class tab_option_chain:
                 layout=Layout(width='max-content', margin='0px 0 0 -85px'),
             ) for _ in range(3)
         ]
+        self.widget_refresh_button = widgets.Button(
+            description='Refresh',
+            disabled=False,
+            button_style='success', # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Refresh Quote',
+            icon='refresh', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(width='90px', margin='0 0px 0 20px'),
+            # style={'description_width': '10px', },
+        )        
+        self.widget_left_flip_button = widgets.Button(
+            description='',
+            disabled=False,
+            button_style='warning', # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Left',
+            icon='caret-left', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(height='20px', width='20px', margin='10px 5px 0 20px'),
+            # style={'description_width': '10px', },
+        )
+        self.widget_right_flip_button = widgets.Button(
+            description='',
+            disabled=False,
+            button_style='warning', # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Right',
+            icon='caret-right', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(height='20px', width='20px', margin='10px 0px 0 0px'),
+            # style={'description_width': '10px', },
+        )
+        self.widget_rows = widgets.Label(
+            value='Total Row',
+            layout=Layout(margin='0px 0px 0 20px')
+        )        
         self.widget_symbol.observe(self.on_change)
         self.widget_lo_strike_price.observe(self.on_change)
         self.widget_hi_strike_price.observe(self.on_change)
         self.widget_expiration_dates.observe(self.on_change)
         self.widget_cost_basis.observe(self.on_change)
-        self.widget_cost_basis_checkbox.observe(self.on_change)
         for i in range(3):
             self.widget_sort[i].observe(self.on_change)
             self.widget_sort_checkbox[i].observe(self.on_change)
         self.widget_refresh_button.on_click(self.on_click)
+        self.widget_left_flip_button.on_click(self.on_flip_left)
+        self.widget_right_flip_button.on_click(self.on_flip_right)
+       
         self.board = widgets.HBox([
                             widgets.VBox([widgets.HBox([widgets.VBox([self.widget_symbol,
-                                                                     self.widget_cost_basis,
-                                                                     self.widget_cost_basis_checkbox]),
+                                                                      self.widget_cost_basis]),
                                                        widgets.VBox([self.widget_lo_strike_price,
                                                                      self.widget_hi_strike_price])
                                                       ]),
-                                          widgets.HBox([widgets.Label(value="Columns:")] + 
+                                          widgets.HBox([widgets.Label(value="Columns:",
+                                                                      layout=Layout(margin='0px 7px 0 27px'))] + 
                                                        [widgets.VBox([self.widget_sort[i], self.widget_sort_checkbox[i]])
                                                         for i in range(3)
                                                       ])
                                          ]),
                             self.widget_expiration_dates,
-                            self.widget_refresh_button])
+                            widgets.VBox([self.widget_refresh_button, 
+                                          widgets.HBox([self.widget_left_flip_button, 
+                                                        self.widget_right_flip_button]),
+                                          self.widget_rows
+                                         ])
+        ])
         self.show()
         
 class tab_option_roll:
-
     def on_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
-            if 'Position' in change['owner'].description or 'Date' in change['owner'].description:
+            if 'Position:' in change['owner'].description or 'Date:' in change['owner'].description:
                 position = self.widget_position.value + ' ' + self.widget_date.value.strftime("%m/%d/%Y")
                 self.df_options = self.get_option_roll(position)
                 self.df_quotes  = self.work.get_quotes(position.split(' ')[0].strip())
+                
+                strike = float(position.split(' ')[1].strip())
+                strikes = np.unique(self.df_options.strike_r.values)
+                idx = (np.abs(strikes - strike)).argmin()
+                lo_strike_price = strikes[0]
+                hi_strike_price = strikes[-1]
+                if position.split(' ')[2].strip().lower()=='p':
+                    self.widget_hi_strike_price.value = strikes[idx]
+                else:
+                    self.widget_lo_strike_price.value = strikes[idx]
+                    
+                expiration_dates = np.unique(self.df_options.date_r.values)
+                self.widget_date_from.index = min(expiration_dates.tolist().index(self.widget_date.value)+1,len(expiration_dates)-1)
+                self.widget_date_to.index = len(expiration_dates)-1
 
+            lo_strike_price = float(self.widget_lo_strike_price.value)
+            hi_strike_price = float(self.widget_hi_strike_price.value)                
+            if 'Strike from:' in change['owner'].description and lo_strike_price>=hi_strike_price:
+                  self.widget_hi_strike_price.index=min(self.widget_hi_strike_price.options.index(self.widget_lo_strike_price.value)+1,
+                                                      len(self.widget_hi_strike_price.options)-1)
+            if 'to:' in change['owner'].description and '160px' in change['owner'].layout.width and lo_strike_price>=hi_strike_price:
+                self.widget_lo_strike_price.index=max(self.widget_lo_strike_price.options.index(self.widget_hi_strike_price.value)-1,
+                                                      0)
+            self.page = 0                
             self.show()
 
     def on_click(self, change):
@@ -435,33 +489,58 @@ class tab_option_roll:
         self.df_options = self.get_option_roll(position)
         self.df_quotes = self.work.get_quotes(position.split(' ')[0].strip())
         self.show()
+        
+    def on_flip_left(self, change):
+        self.page = max(0,self.page - 10)
+        self.show()
+        
+    def on_flip_right(self, change):
+        self.page = self.page + 10
+        self.show()        
 
     def show(self):
         date_from = pd.to_datetime(self.widget_date_from.value).date()
         date_to   = pd.to_datetime(self.widget_date_to.value).date()
+        lo_strike_price = float(self.widget_lo_strike_price.value)
+        hi_strike_price = float(self.widget_hi_strike_price.value)         
         lo_mid_price = float(self.widget_lo_mid_price.value)
-        df = self.df_options[(self.df_options['date_r']>=date_from)&(self.df_options['date_r']<=date_to)&
+        df = self.df_options[(self.df_options.date_r>=date_from)&(self.df_options.date_r<=date_to)&\
+                             (self.df_options.strike_r>=lo_strike_price)&\
+                             (self.df_options.strike_r<=hi_strike_price)&\
                              (self.df_options.mid>=lo_mid_price)
-                            ]
-        if self.widget_compact_checkbox.value:
-            df = df[(df.strike_r<=df.strike)&(df.put_call=='put')|
-                    (df.strike_r>=df.strike)&(df.put_call=='call')]
-        df = df.sort_values(by=['date_r','strike_r'])
+                            ].rename(columns={'date_r': 'date', 'strike_r': 'strike'})
+        columns = ['bid','mid','ask','yr%','date','strike']
+        df = df[columns]                                     
+        if self.page>len(df)-10:
+            self.page=max(0,len(df)-10)
+        self.widget_rows.value = 'Total Rows: '+str(len(df))
+        
+        sort_columns = []
+        sort_order = []
+        for i in range(3):
+            if len(self.widget_sort[i].value.strip())>0:
+                sort_columns.append(self.widget_sort[i].value)
+                sort_order.append(not self.widget_sort_checkbox[i].value)
+            else:
+                break
+        if len(sort_columns)>0:
+            df = df.sort_values(by=sort_columns, ascending=sort_order) 
+        df = df.reset_index(drop=True)  
         
         self.output.quote.clear_output()
         with self.output.quote:
             columns = ['bid', 'ask', 'time','cl','lo','opn','hi','chg']
             display(self.df_quotes[columns])
 
-        self.output.option.clear_output()            
+        self.output.option.clear_output()
         with self.output.option:            
-            display(HTML(df.to_html(index=False)))
-            # display(df)
+            # display(HTML(df.to_html(index=False)))
+            display(df.iloc[self.page:self.page+10,:])
 
     # pos = 'AEO 13.00 P 06/17/2022'
     # mid = lower bound of middle price
     # roll to date >= d
-    def get_option_roll(self, pos, mid=None, d=[None,None], s=[None, None]):
+    def get_option_roll(self, pos):
         today = datetime.datetime.today()
         symbol = pos.split(' ')[0].strip()
         df = self.work.get_options(symbol)
@@ -480,31 +559,6 @@ class tab_option_roll:
         df['mid'] = round((df['ask']+df['bid'])/2,3)
         df['day'] = (df.date_r - df.date_c).dt.days+1
         df['yr%'] = round((df['mid']-1.3/100)/df['strike_r']/df.day*365*100,2)
-        df.drop(columns=['symbol_r','put_call_r','bid_r','ask_r','day_r','yr%_r','yr%_c','bid_c','ask_c','day_c'], inplace=True)
-        df.rename(columns=dict([[c,c.rsplit('_',1)[0]]for c in df.columns if c.endswith('_c')]), inplace=True)
-        columns = ['bid','mid','ask','yr%','date_r','strike_r','date','strike','put_call']
-        df = df[columns]
-        if d[0]==None:
-            dl = min(df['date_r'].values)
-        else:
-            dl = pd.to_datetime(d[0]).date()
-        if d[1]==None:
-            dh = max(df['date_r'].values)
-        else:
-            dh = pd.to_datetime(d[1]).date()
-        if mid==None:
-            mid = min(df.mid.values)
-        strikes = df.strike_r.values
-        if s[0]==None:
-            lo = min(strikes)
-        else:
-            lo = s[0]
-        if s[1]==None:
-            hi = max(strikes)
-        else:
-            hi = s[1]            
-            
-        df = df[(df['date_r']>=dl)&(df['date_r']<=dh)&(df.mid>=mid)&(df.strike_r>=lo)&(df.strike_r<=hi)]
         df = df.sort_values(by=['date_r','strike_r'])
         return df
                 
@@ -512,6 +566,7 @@ class tab_option_roll:
     def __init__(self, work, watch_list, output, flag=None):
         
         self.work = work
+        self.page = 0
         position = watch_list.option_positions[0]
         symbol = position.split(' ')[0].strip()
         
@@ -521,13 +576,13 @@ class tab_option_roll:
             options=watch_list.option_positions,
             value=watch_list.option_positions[0],
             description='Position:',
-            layout=Layout(width='220px'),
+            layout=Layout(width='210px'),
         )
         self.widget_date = widgets.Dropdown(
             options=expiration_dates,
             value=expiration_dates[0],
             description='Date:',
-            layout=Layout(width='190px'),
+            layout=Layout(width='210px'),
         )
         self.widget_date_from = widgets.Dropdown(
             options=expiration_dates,
@@ -543,30 +598,91 @@ class tab_option_roll:
             width = 100,
             layout=Layout(width='190px'),
         )
+        
+        # if the position is put
+        # if the position is call
+        strike = float(position.split(' ')[1].strip())
+        strikes = np.unique(df_options.strike.values)
+        idx = (np.abs(strikes - strike)).argmin()
+        lo_strike_price = strikes[0]
+        hi_strike_price = strikes[-1]
+        if position.split(' ')[2].strip().lower()=='p':
+            hi_strike_price = strikes[idx]
+        else:
+            lo_strike_price = strikes[idx]
+        self.widget_lo_strike_price = widgets.Dropdown(
+            options=strikes,
+            value=lo_strike_price,
+            description='Strike from:',
+            disabled=False,
+            continuous_update=False,
+            layout=Layout(width='160px'),
+        )
+        self.widget_hi_strike_price = widgets.Dropdown(
+            options=strikes,
+            value=hi_strike_price,
+            description='to:',
+            disabled=False,
+            continuous_update=False,
+            layout=Layout(width='160px'),
+        )
         self.widget_lo_mid_price = widgets.FloatText(
             value=0,
             description='Mid:',
             disabled=False,
             step=0.02,
             continuous_update=False,
-            layout=Layout(width='180px'),
+            layout=Layout(width='140px', margin='0px 0px 0 -30px'),
         )
-        self.widget_compact_checkbox = widgets.Checkbox(
-            value=True,
-            description='Compact',
-            disabled=False,
-            layout=Layout(width='180px', position='left',display='flex'),
-        )        
-        self.widget_refresh = widgets.Button(
+        columns = [' ', 'date', 'strike', 'yr%', 'mid']
+        self.widget_sort = [
+            widgets.Dropdown(
+                options=columns,
+                value=columns[0],
+                description='',
+                layout=Layout(width='100px'),
+            ) for _ in range(3)
+        ]
+        self.widget_sort_checkbox = [
+            widgets.Checkbox(
+                value=False,
+                description='Descending',
+                disabled=False,
+                # disabled=False,
+                layout=Layout(width='max-content', margin='0px 0 0 -85px'),
+            ) for _ in range(3)
+        ]
+        self.widget_refresh_button = widgets.Button(
             description='Refresh',
             disabled=False,
             button_style='success', # 'success', 'info', 'warning', 'danger' or ''
             tooltip='Refresh Quote',
-            icon='check', # (FontAwesome names without the `fa-` prefix)
-            layout=Layout(width='100px'),
-            style={'description_width': '10px'},
+            icon='refresh', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(width='90px', margin='0 0px 0 20px'),
+            # style={'description_width': '10px'},
         )
-        
+        self.widget_left_flip_button = widgets.Button(
+            description='',
+            disabled=False,
+            button_style='warning', # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Left',
+            icon='caret-left', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(height='20px', width='20px', margin='10px 5px 0 20px'),
+            # style={'description_width': '10px', },
+        )
+        self.widget_right_flip_button = widgets.Button(
+            description='',
+            disabled=False,
+            button_style='warning', # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Right',
+            icon='caret-right', # (FontAwesome names without the `fa-` prefix)
+            layout=Layout(height='20px', width='20px', margin='10px 0px 0 0px'),
+            # style={'description_width': '10px', },
+        )
+        self.widget_rows = widgets.Label(
+            value='',
+            layout=Layout(margin='0px 0px 0 20px')
+        )
         position = self.widget_position.value + ' ' + self.widget_date.value.strftime("%m/%d/%Y")
         self.df_options = self.get_option_roll(position)
         self.df_quotes  = self.work.get_quotes(symbol)        
@@ -576,15 +692,31 @@ class tab_option_roll:
         self.widget_date.observe(self.on_change)
         self.widget_date_from.observe(self.on_change)
         self.widget_date_to.observe(self.on_change)
+        self.widget_lo_strike_price.observe(self.on_change)
+        self.widget_hi_strike_price.observe(self.on_change)
         self.widget_lo_mid_price.observe(self.on_change)
-        self.widget_compact_checkbox.observe(self.on_change)
-        self.widget_refresh.on_click(self.on_click)
-        self.board = widgets.HBox([self.widget_position, self.widget_date,
-                                   widgets.VBox([self.widget_date_from,self.widget_date_to]),
-                                   widgets.VBox([self.widget_lo_mid_price,self.widget_compact_checkbox]),
-                                   self.widget_refresh]
-                                 )
-
+        for i in range(3):
+            self.widget_sort[i].observe(self.on_change)
+            self.widget_sort_checkbox[i].observe(self.on_change)        
+        self.widget_refresh_button.on_click(self.on_click)
+        self.widget_left_flip_button.on_click(self.on_flip_left)
+        self.widget_right_flip_button.on_click(self.on_flip_right)        
+        self.board = widgets.HBox([widgets.VBox([widgets.HBox([widgets.VBox([self.widget_position, self.widget_date]),
+                                                               widgets.VBox([self.widget_date_from,self.widget_date_to]),
+                                                               widgets.VBox([self.widget_lo_strike_price,self.widget_hi_strike_price])]),
+                                                 widgets.HBox([widgets.Label(value="Columns:   ",
+                                                                             layout=Layout(margin='0px 8px 0 26px'))] + 
+                                                              [widgets.VBox([self.widget_sort[i], self.widget_sort_checkbox[i]])
+                                                               for i in range(3)
+                                                              ])
+                                                ]),
+                                   self.widget_lo_mid_price,
+                                   widgets.VBox([self.widget_refresh_button, 
+                                                 widgets.HBox([self.widget_left_flip_button, 
+                                                               self.widget_right_flip_button]),
+                                                 self.widget_rows,
+                                                ])
+                                  ])
         # self.show()
         
 class tab_view:
@@ -607,10 +739,6 @@ class tab_view:
         self.tab_roll  = tab_option_roll(self.work, watch_list, output)
         
         output_selected_options = widgets.Output()
-        with output_selected_options:
-            print('here')
-
-        output_selected_options = widgets.Output()     
         with output_selected_options:
             print('here')
 
