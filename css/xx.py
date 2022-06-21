@@ -462,24 +462,40 @@ class tab_option_roll:
                 strike = float(position.split(' ')[1].strip())
                 strikes = np.unique(self.df_options.strike_r.values)
                 idx = (np.abs(strikes - strike)).argmin()
-                lo_strike_price = strikes[0]
-                hi_strike_price = strikes[-1]
+                
+                self.widget_lo_strike_price.unobserve(self.on_change)
+                self.widget_hi_strike_price.unobserve(self.on_change)
+                self.widget_date_from.unobserve(self.on_change)
+                self.widget_date_to.unobserve(self.on_change)
+                
+                self.widget_lo_strike_price.options = strikes
+                self.widget_hi_strike_price.options = strikes
+                self.widget_lo_strike_price.value = strikes[0]
+                self.widget_hi_strike_price.value = strikes[-1]
+                
                 if position.split(' ')[2].strip().lower()=='p':
                     self.widget_hi_strike_price.value = strikes[idx]
                 else:
                     self.widget_lo_strike_price.value = strikes[idx]
                     
                 expiration_dates = np.unique(self.df_options.date_r.values)
+                self.widget_date_from.options = expiration_dates
+                self.widget_date_to.options   = expiration_dates
                 self.widget_date_from.index = min(expiration_dates.tolist().index(self.widget_date.value)+1,len(expiration_dates)-1)
-                self.widget_date_to.index = len(expiration_dates)-1
+                self.widget_date_to.index   = len(expiration_dates)-1
+                
+                self.widget_lo_strike_price.observe(self.on_change)
+                self.widget_hi_strike_price.observe(self.on_change)
+                self.widget_date_from.observe(self.on_change)
+                self.widget_date_to.observe(self.on_change)                
 
             lo_strike_price = float(self.widget_lo_strike_price.value)
             hi_strike_price = float(self.widget_hi_strike_price.value)                
             if 'Strike from:' in change['owner'].description and lo_strike_price>=hi_strike_price:
-                  self.widget_hi_strike_price.index=min(self.widget_hi_strike_price.options.index(self.widget_lo_strike_price.value)+1,
+                self.widget_hi_strike_price.index=min(list(self.widget_hi_strike_price.options).index(self.widget_lo_strike_price.value)+1,
                                                       len(self.widget_hi_strike_price.options)-1)
             if 'to:' in change['owner'].description and '160px' in change['owner'].layout.width and lo_strike_price>=hi_strike_price:
-                self.widget_lo_strike_price.index=max(self.widget_lo_strike_price.options.index(self.widget_hi_strike_price.value)-1,
+                self.widget_lo_strike_price.index=max(list(self.widget_lo_strike_price.options).index(self.widget_hi_strike_price.value)-1,
                                                       0)
             self.page = 0                
             self.show()
