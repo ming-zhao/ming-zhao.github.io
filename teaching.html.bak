@@ -38,7 +38,6 @@
 		<ul style="padding: 10px 10px 20px 25px; list-style: disc outside none; margin: 0px; font-size: 14px;">
 			<li><a href="" target="_blank">Introduction</a></li>
 			<li><a href="https://colab.research.google.com/github/ming-zhao/AIML_for_Business/blob/main/Neural_Networks.ipynb" target="_blank">Neural Networks</a></li>
-			<li><a href="https://colab.research.google.com/github/ming-zhao/AIML_for_Business/blob/main/Computer_Vision.ipynb" target="_blank">Computer Vision</a></li>
 		</ul>
 		</div>
 	</div>
