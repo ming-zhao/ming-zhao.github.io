@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<style>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+</style>
+
+<html>
+<head>
+	<title>Ming Zhao</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse">
+	 <div class="container">
+		<div class="nav navbar-nav">
+		  <a href="/">Home</a>
+		  <a href="research.html">Research</a>
+		  <a href="teaching.html">Teaching</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+		<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Introduction to Analytics (with Python)</div></b>
+		<ul style="padding: 10px 10px 20px 25px; list-style: disc outside none; margin: 0px; font-size: 14px;">
+			<li><a href="./analytics/Introduction.html" target="_blank">Introduction</a></li>
+			<li><a href="./analytics/Linear Models for Regression.html" target="_blank">Linear Models for Regression</a></li>
+			<li><a href="./analytics/Linear Models for Classification.html" target="_blank">Linear Models for Classification</a></li>
+			<li><a href="./analytics/Neural Networks.html" target="_blank">Neural Networks</a></li>
+			<li><a href="./analytics/Expectation-Maximization Algorithm.html" target="_blank">Expectation-Maximization Algorithm</a></li>
+			<li><a href="./analytics/Optimization.html" target="_blank">Optimization</a></li>
+			<!--
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/introduction.html">Introduction</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/linear_regression.html">Linear Rgression</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/linear_classification.html">Linear Classification </a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/linear_programming.html">Linear Programming</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/neural_networks.html">Neural Networks</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/convnet.html">Convolutional Neural Networks</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/kernal_methods.html">Kernel Methods</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/sequential_data_methods.html">Sequential Data Methods</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/text_mining.html">Text Mining</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/conic_programming.html">Conic Programming</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/decomposition.html">Decomposition Methods</a></li>
+			<li><a href="https://ming-zhao.github.io/Optimization-and-Learning/html/docs/keras.html">Advanced Deep-Learning</a></li>
+			<li><a href="">Introduction</a></li>
+			<li><a href="">Kernel Methods</a></li>
+			<li><a href="">Neural Networks</a></li>
+			<li><a href="">EM and Variational Bayes</a></li>
+			<li><a href="">Sampling</a></li>
+			<li><a href="">Continuous Latent Variables</a></li>
+			<li><a href="">Sequential Data</a></li>
+			-->
+		</ul>
+		<!--
+		<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Game Theory</div></b>
+		<ul style="padding: 10px 10px 20px 25px; list-style: disc outside none; margin: 0px; font-size: 14px;">
+			<li><a href="">Introduction</a></li>
+			<li><a href="">Basic Models</a></li>
+			<li><a href="">Equilibria</a></li>
+			<li><a href="">Repeated Games</a></li>
+			<li><a href="">Mechanism Design</a></li>
+			<li><a href="">Cooperative Games</a></li>
+		</ul> -->
+		
+		<!--
+		<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Applied Regression</a></div></b>
+		<ul style="padding: 10px 10px 20px 25px; list-style: disc outside none; margin: 0px; font-size: 14px;">
+			<li><a href="./reg/1. Least Square Regression.html" target="_blank">Least Square Regression</a></li>
+			<li><a href="./reg/2. Hypothesis Testing.html" target="_blank">Hypothesis Testing</a></li>
+			<li><a href="./reg/3. Indicator Variables.html" target="_blank">Indicator Variables</a></li>
+			<li><a href="./reg/4. Nonlinear Regression.html" target="_blank">Nonlinear Regression</a></li>
+		</ul>-->    
+		</div>
+		
+		<!--
+		<div style="font-family: 'Oswald', sans-serif; font-size: 22px;"><a href="https://ming-zhao.github.io/Data-Management/html/index.html">Data Management</a></div></b>
+		</div>
+		-->
+	</div>
+	
+</div>
+</body>
+</html>
