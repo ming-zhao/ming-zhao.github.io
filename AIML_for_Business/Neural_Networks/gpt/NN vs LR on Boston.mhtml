@@ -1,25 +1,25 @@
 From: <Saved by Blink>
-Snapshot-Content-Location: https://chat.openai.com/?model=text-davinci-002-render-sha
+Snapshot-Content-Location: https://chat.openai.com/c/4e8a90be-73f4-4fef-b0cb-8566357b7102
 Subject: NN vs LR on Boston
-Date: Sun, 23 Jul 2023 14:28:43 -0000
+Date: Sun, 23 Jul 2023 14:50:12 -0000
 MIME-Version: 1.0
 Content-Type: multipart/related;
 	type="text/html";
-	boundary="----MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----"
+	boundary="----MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----"
 
 
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: text/html
 Content-ID: <frame-372E8113EF79D6DD437572DEE42B9E97@mhtml.blink>
 Content-Transfer-Encoding: quoted-printable
-Content-Location: https://chat.openai.com/?model=text-davinci-002-render-sha
+Content-Location: https://chat.openai.com/c/4e8a90be-73f4-4fef-b0cb-8566357b7102
 
 <!DOCTYPE html><html class=3D"light" style=3D"color-scheme: light;" data-lt=
 -installed=3D"true"><head><meta http-equiv=3D"Content-Type" content=3D"text=
 /html; charset=3DUTF-8"><link rel=3D"stylesheet" type=3D"text/css" href=3D"=
-cid:css-cdb86469-d794-430c-8802-65a4250900b4@mhtml.blink" /><link rel=3D"st=
-ylesheet" type=3D"text/css" href=3D"cid:css-63f31ce3-8dd2-4f87-a771-466f46e=
-12bf3@mhtml.blink" /><title>NN vs LR on Boston</title><meta name=3D"title" =
+cid:css-9c522cc4-5717-4874-b141-e2e066db0067@mhtml.blink" /><link rel=3D"st=
+ylesheet" type=3D"text/css" href=3D"cid:css-f3f62d70-aca1-4eb5-8a62-13d3b32=
+7d1f2@mhtml.blink" /><title>NN vs LR on Boston</title><meta name=3D"title" =
 content=3D"ChatGPT: Get instant answers, find inspiration, learn something =
 new"><meta name=3D"keywords" content=3D"ai chat,ai,chap gpt,chat gbt,chat g=
 pt 3,chat gpt login,chat gpt website,chat gpt,chat gtp,chat openai,chat,cha=
@@ -44,12 +44,12 @@ load" href=3D"https://cdn.openai.com/common/fonts/soehne/soehne-mono-buch.w=
 off2" as=3D"font" crossorigin=3D""><link rel=3D"preload" href=3D"https://cd=
 n.openai.com/common/fonts/soehne/soehne-mono-halbfett.woff2" as=3D"font" cr=
 ossorigin=3D""><link rel=3D"preload" href=3D"https://chat.openai.com/_next/=
-static/css/c8a4ec226dd6b8e1.css" as=3D"style"><link rel=3D"stylesheet" href=
-=3D"https://chat.openai.com/_next/static/css/c8a4ec226dd6b8e1.css" data-n-g=
+static/css/cc36b64ec67404c4.css" as=3D"style"><link rel=3D"stylesheet" href=
+=3D"https://chat.openai.com/_next/static/css/cc36b64ec67404c4.css" data-n-g=
 =3D""><meta name=3D"react-scroll-to-bottom:version" content=3D"4.2.0"></hea=
 d><body class=3D"antialiased" style=3D""><div id=3D"__next"><div class=3D"o=
 verflow-hidden w-full h-full relative flex z-0"><div class=3D"dark flex-shr=
-ink-0 overflow-x-hidden bg-gray-900" data-projection-id=3D"85" style=3D"wid=
+ink-0 overflow-x-hidden bg-gray-900" data-projection-id=3D"21" style=3D"wid=
 th: 0px; visibility: hidden;"><div class=3D"h-full w-[260px]"><div class=3D=
 "flex h-full min-h-0 flex-col "><div class=3D"scrollbar-trigger relative h-=
 full w-full flex-1 items-start border-white/20"><h2 style=3D"position: abso=
@@ -93,245 +93,234 @@ ss=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000=
 /div><div class=3D"h-24 bg-gradient-to-t from-gray-900/0 to-gray-900"></div=
 ></div><div class=3D"flex-col flex-1 transition-opacity duration-500 overfl=
 ow-y-auto"><div class=3D"flex flex-col gap-2 pb-2 text-gray-100 text-sm"><d=
-iv><span><div class=3D"relative" data-projection-id=3D"86" style=3D"height:=
+iv><span><div class=3D"relative" data-projection-id=3D"22" style=3D"height:=
  auto; opacity: 1;"><ol></ol></div><div class=3D"relative" data-projection-=
-id=3D"112" style=3D"height: auto; opacity: 1; position: relative;"><div cla=
-ss=3D"sticky top-0 z-[16]" data-projection-id=3D"113" style=3D"opacity: 1;"=
-><h3 class=3D"h-9 pb-2 pt-3 px-3 text-xs text-gray-500 font-medium text-ell=
-ipsis overflow-hidden break-all bg-gray-900">Previous 7 Days</h3></div><ol>=
-<li class=3D"relative z-[15]" data-projection-id=3D"114" style=3D"opacity: =
+id=3D"23" style=3D"height: auto; opacity: 1;"><div class=3D"sticky top-0 z-=
+[16]" data-projection-id=3D"24" style=3D"opacity: 1;"><h3 class=3D"h-9 pb-2=
+ pt-3 px-3 text-xs text-gray-500 font-medium text-ellipsis overflow-hidden =
+break-all bg-gray-900">Previous 7 Days</h3></div><ol><li class=3D"relative =
+z-[15]" data-projection-id=3D"25" style=3D"opacity: 1; height: auto;"><a cl=
+ass=3D"flex py-3 px-3 items-center gap-3 relative rounded-md cursor-pointer=
+ break-all pr-[4.5rem] )} )} bg-gray-800 hover:bg-gray-800 group"><svg stro=
+ke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" =
+stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=
+=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 =
+15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><di=
+v class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all relative"=
+>NN vs LR on Boston<div class=3D"absolute inset-y-0 right-0 w-8 z-10 bg-gra=
+dient-to-l from-gray-800"></div></div><div class=3D"absolute flex right-1 z=
+-10 text-gray-300 visible"><button class=3D"p-1 hover:text-white"><svg stro=
+ke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" =
+stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=
+=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M12 =
+20h9"></path><path d=3D"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 =
+3.5z"></path></svg></button><button type=3D"button" aria-haspopup=3D"dialog=
+" aria-expanded=3D"false" aria-controls=3D"radix-:r1i:" data-state=3D"close=
+d" class=3D"p-1 hover:text-white"><svg stroke=3D"currentColor" fill=3D"none=
+" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-=
+linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"=
+http://www.w3.org/2000/svg"><path d=3D"M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2=
+-2v-8"></path><polyline points=3D"16 6 12 2 8 6"></polyline><line x1=3D"12"=
+ y1=3D"2" x2=3D"12" y2=3D"15"></line></svg></button><button class=3D"p-1 ho=
+ver:text-white"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"=
+2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round"=
+ class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/=
+2000/svg"><polyline points=3D"3 6 5 6 21 6"></polyline><path d=3D"M19 6v14a=
+2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></pa=
+th><line x1=3D"10" y1=3D"11" x2=3D"10" y2=3D"17"></line><line x1=3D"14" y1=
+=3D"11" x2=3D"14" y2=3D"17"></line></svg></button></div></a></li></ol></div=
+><div class=3D"relative" data-projection-id=3D"26" style=3D"height: auto; o=
+pacity: 1;"><div class=3D"sticky top-0 z-[14]" data-projection-id=3D"27" st=
+yle=3D"opacity: 1;"><h3 class=3D"h-9 pb-2 pt-3 px-3 text-xs text-gray-500 f=
+ont-medium text-ellipsis overflow-hidden break-all bg-gray-900">Previous 30=
+ Days</h3></div><ol><li class=3D"relative" data-projection-id=3D"28" style=
+=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 px-3 items-center gap-=
+3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hov=
+er:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none" strok=
+e-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoi=
+n=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://=
+www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2=
+h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5=
+ overflow-hidden break-all relative">=E5=9C=A8=E9=A3=9E=E8=88=B9=E4=B8=8A=
+=E7=8E=A9=E6=B8=B8=E6=88=8F<div class=3D"absolute inset-y-0 right-0 w-8 z-1=
+0 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div></div></=
+a></li><li class=3D"relative" data-projection-id=3D"29" style=3D"opacity: 1=
+; height: auto;"><a class=3D"flex py-3 px-3 items-center gap-3 relative rou=
+nded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gra=
+y-900 group"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2" =
+viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" cl=
+ass=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/200=
+0/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 =
+2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5 overflow-hidd=
+en break-all relative">=E6=97=A0=E5=85=84=E5=BC=9F=E5=A7=90=E5=A6=B9=E7=9A=
+=84=E7=94=B7=E5=AD=A9=E7=9A=84=E8=AF=B7=E6=B1=82<div class=3D"absolute inse=
+t-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A=
+2B32]"></div></div></a></li><li class=3D"relative" data-projection-id=3D"30=
+" style=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 px-3 items-cent=
+er gap-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )}=
+ )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none=
+" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-=
+linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"=
+http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 =
+0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis =
+max-h-5 overflow-hidden break-all relative">Wasserstein Distance for Distri=
+butions<div class=3D"absolute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l f=
+rom-gray-900 group-hover:from-[#2A2B32]"></div></div></a></li></ol></div></=
+span><span><div class=3D"relative" data-projection-id=3D"31" style=3D"heigh=
+t: auto; opacity: 1;"><div class=3D"sticky top-0 z-[14]" data-projection-id=
+=3D"32" style=3D"opacity: 1;"><h3 class=3D"h-9 pb-2 pt-3 px-3 text-xs text-=
+gray-500 font-medium text-ellipsis overflow-hidden break-all bg-gray-900">M=
+ay</h3></div><ol><li class=3D"relative" data-projection-id=3D"33" style=3D"=
+opacity: 1; height: auto;"><a class=3D"flex py-3 px-3 items-center gap-3 re=
+lative rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hover:p=
+r-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none" stroke-wi=
+dth=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D=
+"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.=
+w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a=
+2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5 ove=
+rflow-hidden break-all relative">Boy's Desperate Plea<div class=3D"absolute=
+ inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from=
+-[#2A2B32]"></div></div></a></li><li class=3D"relative" data-projection-id=
+=3D"34" style=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 px-3 item=
+s-center gap-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer break-=
+all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=
+=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round"=
+ stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" x=
+mlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V=
+5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-e=
+llipsis max-h-5 overflow-hidden break-all relative">Service Learning Reflec=
+tion: Empowering Communities<div class=3D"absolute inset-y-0 right-0 w-8 z-=
+10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div></div><=
+/a></li><li class=3D"relative" data-projection-id=3D"35" style=3D"opacity: =
 1; height: auto;"><a class=3D"flex py-3 px-3 items-center gap-3 relative ro=
-unded-md cursor-pointer break-all pr-[4.5rem] )} )} bg-gray-800 hover:bg-gr=
-ay-800 group"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2"=
+unded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gr=
+ay-900 group"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2"=
  viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" c=
 lass=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/20=
 00/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1=
  2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5 overflow-hid=
-den break-all relative">NN vs LR on Boston<div class=3D"absolute inset-y-0 =
-right-0 w-8 z-10 bg-gradient-to-l from-gray-800"></div></div><div class=3D"=
-absolute flex right-1 z-10 text-gray-300 visible"><button class=3D"p-1 hove=
-r:text-white"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2"=
- viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" c=
-lass=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/20=
-00/svg"><path d=3D"M12 20h9"></path><path d=3D"M16.5 3.5a2.121 2.121 0 0 1 =
-3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></button><button type=3D"button" =
-aria-haspopup=3D"dialog" aria-expanded=3D"false" aria-controls=3D"radix-:r7=
-4:" data-state=3D"closed" class=3D"p-1 hover:text-white"><svg stroke=3D"cur=
-rentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-li=
-necap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" =
-width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M4 12v8a2 2 0=
- 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points=3D"16 6 12 2 8 6"></p=
-olyline><line x1=3D"12" y1=3D"2" x2=3D"12" y2=3D"15"></line></svg></button>=
-<button class=3D"p-1 hover:text-white"><svg stroke=3D"currentColor" fill=3D=
-"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" st=
-roke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmln=
-s=3D"http://www.w3.org/2000/svg"><polyline points=3D"3 6 5 6 21 6"></polyli=
-ne><path d=3D"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h=
-4a2 2 0 0 1 2 2v2"></path><line x1=3D"10" y1=3D"11" x2=3D"10" y2=3D"17"></l=
-ine><line x1=3D"14" y1=3D"11" x2=3D"14" y2=3D"17"></line></svg></button></d=
-iv></a></li></ol></div><div class=3D"relative" data-projection-id=3D"89" st=
-yle=3D"height: auto; opacity: 1; transform: none; transform-origin: 50% 50%=
- 0px;"><div class=3D"sticky top-0 z-[14]" data-projection-id=3D"90" style=
-=3D"transform: none; transform-origin: 50% 50% 0px; opacity: 1;"><h3 class=
-=3D"h-9 pb-2 pt-3 px-3 text-xs text-gray-500 font-medium text-ellipsis over=
-flow-hidden break-all bg-gray-900">Previous 30 Days</h3></div><ol><li class=
-=3D"relative" data-projection-id=3D"91" style=3D"opacity: 1; height: auto; =
-transform: none; transform-origin: 50% 50% 0px;"><a class=3D"flex py-3 px-3=
- items-center gap-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer b=
-reak-all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" f=
-ill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"rou=
-nd" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em=
-" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4=
- 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 tex=
-t-ellipsis max-h-5 overflow-hidden break-all relative">=E5=9C=A8=E9=A3=9E=
-=E8=88=B9=E4=B8=8A=E7=8E=A9=E6=B8=B8=E6=88=8F<div class=3D"absolute inset-y=
--0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B3=
-2]"></div></div></a></li><li class=3D"relative" data-projection-id=3D"92" s=
-tyle=3D"opacity: 1; height: auto; transform: none; transform-origin: 50% 50=
-% 0px;"><a class=3D"flex py-3 px-3 items-center gap-3 relative rounded-md h=
-over:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 gro=
-up"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=
-=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"=
-h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg">=
-<path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"><=
-/path></svg><div class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden brea=
-k-all relative">=E6=97=A0=E5=85=84=E5=BC=9F=E5=A7=90=E5=A6=B9=E7=9A=84=E7=
-=94=B7=E5=AD=A9=E7=9A=84=E8=AF=B7=E6=B1=82<div class=3D"absolute inset-y-0 =
-right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"=
-></div></div></a></li><li class=3D"relative" data-projection-id=3D"93" styl=
-e=3D"opacity: 1; height: auto; transform: none; transform-origin: 50% 50% 0=
-px;"><a class=3D"flex py-3 px-3 items-center gap-3 relative rounded-md hove=
-r:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 group"=
-><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0=
- 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w=
--4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path=
- d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path=
-></svg><div class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all=
- relative">Wasserstein Distance for Distributions<div class=3D"absolute ins=
-et-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2=
-A2B32]"></div></div></a></li></ol></div></span><span><div class=3D"relative=
-" data-projection-id=3D"94" style=3D"height: auto; opacity: 1; transform: n=
-one; transform-origin: 50% 50% 0px;"><div class=3D"sticky top-0 z-[14]" dat=
-a-projection-id=3D"95" style=3D"transform: none; transform-origin: 50% 50% =
-0px; opacity: 1;"><h3 class=3D"h-9 pb-2 pt-3 px-3 text-xs text-gray-500 fon=
-t-medium text-ellipsis overflow-hidden break-all bg-gray-900">May</h3></div=
-><ol><li class=3D"relative" data-projection-id=3D"96" style=3D"opacity: 1; =
-height: auto; transform: none; transform-origin: 50% 50% 0px;"><a class=3D"=
-flex py-3 px-3 items-center gap-3 relative rounded-md hover:bg-[#2A2B32] cu=
-rsor-pointer break-all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"c=
-urrentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-=
-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em=
-" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 =
-0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=
-=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all relative">Boy's =
-Desperate Plea<div class=3D"absolute inset-y-0 right-0 w-8 z-10 bg-gradient=
--to-l from-gray-900 group-hover:from-[#2A2B32]"></div></div></a></li><li cl=
-ass=3D"relative" data-projection-id=3D"97" style=3D"opacity: 1; height: aut=
-o; transform: none; transform-origin: 50% 50% 0px;"><a class=3D"flex py-3 p=
+den break-all relative">Logistic Regression for Health Data.<div class=3D"a=
+bsolute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hov=
+er:from-[#2A2B32]"></div></div></a></li><li class=3D"relative" data-project=
+ion-id=3D"36" style=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 px-=
+3 items-center gap-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer =
+break-all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" =
+fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"ro=
+und" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1e=
+m" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-=
+4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 te=
+xt-ellipsis max-h-5 overflow-hidden break-all relative">Convert code to TF =
+v2<div class=3D"absolute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-g=
+ray-900 group-hover:from-[#2A2B32]"></div></div></a></li><li class=3D"relat=
+ive" data-projection-id=3D"37" style=3D"opacity: 1; height: auto;"><a class=
+=3D"flex py-3 px-3 items-center gap-3 relative rounded-md hover:bg-[#2A2B32=
+] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=
+=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" st=
+roke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=
+=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 =
+15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><di=
+v class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all relative"=
+>Sharp black hole image.<div class=3D"absolute inset-y-0 right-0 w-8 z-10 b=
+g-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div></div></a><=
+/li></ol></div><div class=3D"relative" data-projection-id=3D"38" style=3D"h=
+eight: auto; opacity: 1;"><div class=3D"sticky top-0 z-[14]" data-projectio=
+n-id=3D"39" style=3D"opacity: 1;"><h3 class=3D"h-9 pb-2 pt-3 px-3 text-xs t=
+ext-gray-500 font-medium text-ellipsis overflow-hidden break-all bg-gray-90=
+0">April</h3></div><ol><li class=3D"relative" data-projection-id=3D"40" sty=
+le=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 px-3 items-center ga=
+p-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} h=
+over:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none" str=
+oke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linej=
+oin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http:=
+//www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2=
+-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h=
+-5 overflow-hidden break-all relative">Sick Kids Can't Attend.<div class=3D=
+"absolute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-h=
+over:from-[#2A2B32]"></div></div></a></li><li class=3D"relative" data-proje=
+ction-id=3D"41" style=3D"opacity: 1; height: auto;"><a class=3D"flex py-3 p=
 x-3 items-center gap-3 relative rounded-md hover:bg-[#2A2B32] cursor-pointe=
 r break-all )} )} hover:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor=
 " fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"=
 round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"=
 1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7=
 l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 =
-text-ellipsis max-h-5 overflow-hidden break-all relative">Service Learning =
-Reflection: Empowering Communities<div class=3D"absolute inset-y-0 right-0 =
-w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div><=
-/div></a></li><li class=3D"relative" data-projection-id=3D"98" style=3D"opa=
-city: 1; height: auto; transform: none; transform-origin: 50% 50% 0px;"><a =
-class=3D"flex py-3 px-3 items-center gap-3 relative rounded-md hover:bg-[#2=
-A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 group"><svg st=
-roke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24=
-" stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" heig=
-ht=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M2=
-1 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><=
-div class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all relativ=
-e">Logistic Regression for Health Data.<div class=3D"absolute inset-y-0 rig=
-ht-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></=
-div></div></a></li><li class=3D"relative" data-projection-id=3D"99" style=
-=3D"opacity: 1; height: auto; transform: none; transform-origin: 50% 50% 0p=
-x;"><a class=3D"flex py-3 px-3 items-center gap-3 relative rounded-md hover=
-:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 group">=
-<svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 =
-0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-=
-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path =
-d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>=
-</svg><div class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all =
-relative">Convert code to TF v2<div class=3D"absolute inset-y-0 right-0 w-8=
- z-10 bg-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div></di=
-v></a></li><li class=3D"relative" data-projection-id=3D"100" style=3D"opaci=
-ty: 1; height: auto; transform: none; transform-origin: 50% 50% 0px;"><a cl=
-ass=3D"flex py-3 px-3 items-center gap-3 relative rounded-md hover:bg-[#2A2=
-B32] cursor-pointer break-all )} )} hover:pr-4 bg-gray-900 group"><svg stro=
-ke=3D"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" =
-stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=
-=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M21 =
-15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><di=
-v class=3D"flex-1 text-ellipsis max-h-5 overflow-hidden break-all relative"=
->Sharp black hole image.<div class=3D"absolute inset-y-0 right-0 w-8 z-10 b=
-g-gradient-to-l from-gray-900 group-hover:from-[#2A2B32]"></div></div></a><=
-/li></ol></div><div class=3D"relative" data-projection-id=3D"101" style=3D"=
-height: auto; opacity: 1; transform: none; transform-origin: 50% 50% 0px;">=
-<div class=3D"sticky top-0 z-[14]" data-projection-id=3D"102" style=3D"tran=
-sform: none; transform-origin: 50% 50% 0px; opacity: 1;"><h3 class=3D"h-9 p=
-b-2 pt-3 px-3 text-xs text-gray-500 font-medium text-ellipsis overflow-hidd=
-en break-all bg-gray-900">April</h3></div><ol><li class=3D"relative" data-p=
-rojection-id=3D"103" style=3D"opacity: 1; height: auto; transform: none; tr=
-ansform-origin: 50% 50% 0px;"><a class=3D"flex py-3 px-3 items-center gap-3=
- relative rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hove=
-r:pr-4 bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none" stroke=
--width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=
-=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://w=
-ww.w3.org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h=
-14a2 2 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5 =
-overflow-hidden break-all relative">Sick Kids Can't Attend.<div class=3D"ab=
-solute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hove=
-r:from-[#2A2B32]"></div></div></a></li><li class=3D"relative" data-projecti=
-on-id=3D"104" style=3D"opacity: 1; height: auto; transform: none; transform=
--origin: 50% 50% 0px;"><a class=3D"flex py-3 px-3 items-center gap-3 relati=
-ve rounded-md hover:bg-[#2A2B32] cursor-pointer break-all )} )} hover:pr-4 =
-bg-gray-900 group"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=
+text-ellipsis max-h-5 overflow-hidden break-all relative">"Request for summ=
+arization".<div class=3D"absolute inset-y-0 right-0 w-8 z-10 bg-gradient-to=
+-l from-gray-900 group-hover:from-[#2A2B32]"></div></div></a></li></ol></di=
+v></span><span></span></div></div></div><div class=3D"border-t border-white=
+/20 pt-2 empty:hidden"><a class=3D"flex p-3 items-center gap-3 transition-c=
+olors duration-200 text-white cursor-pointer text-sm hover:bg-gray-800 roun=
+ded-md"><span class=3D"flex w-full flex-row justify-between"><span class=3D=
+"gold-new-button flex items-center gap-3"><svg stroke=3D"currentColor" fill=
+=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round"=
+ stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" x=
+mlns=3D"http://www.w3.org/2000/svg"><path d=3D"M20 21v-2a4 4 0 0 0-4-4H8a4 =
+4 0 0 0-4 4v2"></path><circle cx=3D"12" cy=3D"7" r=3D"4"></circle></svg>Upg=
+rade to Plus</span><span class=3D"rounded-md bg-yellow-200 px-1.5 py-0.5 te=
+xt-xs font-medium uppercase text-gray-800">NEW</span></span></a><div class=
+=3D"group relative" data-headlessui-state=3D""><button class=3D"flex w-full=
+ items-center gap-2.5 rounded-md px-3 py-3 text-sm transition-colors durati=
+on-200 hover:bg-gray-800 group-ui-open:bg-gray-800" type=3D"button" aria-ha=
+spopup=3D"true" aria-expanded=3D"false" data-state=3D"closed" id=3D"headles=
+sui-menu-button-:r26:" data-headlessui-state=3D""><div class=3D"flex-shrink=
+-0"><div class=3D"relative flex"><img alt=3D"User" loading=3D"lazy" width=
+=3D"28" height=3D"28" decoding=3D"async" data-nimg=3D"1" class=3D"rounded-s=
+m" src=3D"https://chat.openai.com/_next/image?url=3Dhttps%3A%2F%2Fs.gravata=
+r.com%2Favatar%2Ff500c0f2eb9ceca3f324c4bc1611611a%3Fs%3D480%26r%3Dpg%26d%3D=
+https%253A%252F%252Fcdn.auth0.com%252Favatars%252Fzm.png&amp;w=3D64&amp;q=
+=3D75" style=3D"color: transparent;"></div></div><div class=3D"grow overflo=
+w-hidden text-ellipsis whitespace-nowrap text-left text-white">zmathematics=
+@hotmail.com</div><svg stroke=3D"currentColor" fill=3D"none" stroke-width=
 =3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"ro=
-und" class=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.=
-org/2000/svg"><path d=3D"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2=
- 0 0 1 2 2z"></path></svg><div class=3D"flex-1 text-ellipsis max-h-5 overfl=
-ow-hidden break-all relative">"Request for summarization".<div class=3D"abs=
-olute inset-y-0 right-0 w-8 z-10 bg-gradient-to-l from-gray-900 group-hover=
-:from-[#2A2B32]"></div></div></a></li></ol></div></span><span></span></div>=
-</div></div><div class=3D"border-t border-white/20 pt-2 empty:hidden"><a cl=
-ass=3D"flex p-3 items-center gap-3 transition-colors duration-200 text-whit=
-e cursor-pointer text-sm hover:bg-gray-800 rounded-md"><span class=3D"flex =
-w-full flex-row justify-between"><span class=3D"gold-new-button flex items-=
-center gap-3"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"2"=
- viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" c=
-lass=3D"h-4 w-4" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/20=
-00/svg"><path d=3D"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circl=
-e cx=3D"12" cy=3D"7" r=3D"4"></circle></svg>Upgrade to Plus</span><span cla=
-ss=3D"rounded-md bg-yellow-200 px-1.5 py-0.5 text-xs font-medium uppercase =
-text-gray-800">NEW</span></span></a><div class=3D"group relative" data-head=
-lessui-state=3D""><button class=3D"flex w-full items-center gap-2.5 rounded=
--md px-3 py-3 text-sm transition-colors duration-200 hover:bg-gray-800 grou=
-p-ui-open:bg-gray-800" type=3D"button" aria-haspopup=3D"true" aria-expanded=
-=3D"false" data-state=3D"closed" id=3D"headlessui-menu-button-:r5s:" data-h=
-eadlessui-state=3D""><div class=3D"flex-shrink-0"><div class=3D"relative fl=
-ex"><img alt=3D"User" loading=3D"lazy" width=3D"28" height=3D"28" decoding=
-=3D"async" data-nimg=3D"1" class=3D"rounded-sm" src=3D"https://chat.openai.=
-com/_next/image?url=3Dhttps%3A%2F%2Fs.gravatar.com%2Favatar%2Ff500c0f2eb9ce=
-ca3f324c4bc1611611a%3Fs%3D480%26r%3Dpg%26d%3Dhttps%253A%252F%252Fcdn.auth0.=
-com%252Favatars%252Fzm.png&amp;w=3D64&amp;q=3D75" style=3D"color: transpare=
-nt;"></div></div><div class=3D"grow overflow-hidden text-ellipsis whitespac=
-e-nowrap text-left text-white">zmathematics@hotmail.com</div><svg stroke=3D=
-"currentColor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" strok=
-e-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4 flex-shrink-=
-0 text-gray-500" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/20=
-00/svg"><circle cx=3D"12" cy=3D"12" r=3D"1"></circle><circle cx=3D"19" cy=
-=3D"12" r=3D"1"></circle><circle cx=3D"5" cy=3D"12" r=3D"1"></circle></svg>=
-</button></div></div></nav></div></div></div></div><div class=3D"absolute l=
-eft-2 top-2 z-10 hidden md:inline-block" data-projection-id=3D"115" style=
-=3D"opacity: 1;"><span class=3D"" data-state=3D"closed"><button aria-label=
-=3D"Open sidebar" class=3D"flex p-3 items-center gap-3 transition-colors du=
-ration-200 text-white cursor-pointer text-sm rounded-md border bg-white dar=
-k:bg-gray-800 border-black/10 dark:border-white/20 hover:bg-gray-50 dark:ho=
-ver:bg-gray-700 h-11"><svg stroke=3D"currentColor" fill=3D"none" stroke-wid=
-th=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"=
-round" class=3D"h-4 w-4 text-black dark:text-white" height=3D"1em" width=3D=
-"1em" xmlns=3D"http://www.w3.org/2000/svg"><rect x=3D"3" y=3D"3" width=3D"1=
-8" height=3D"18" rx=3D"2" ry=3D"2"></rect><line x1=3D"9" y1=3D"3" x2=3D"9" =
-y2=3D"21"></line></svg></button></span></div><div class=3D"relative flex h-=
-full max-w-full flex-1 overflow-hidden"><div class=3D"flex h-full max-w-ful=
-l flex-1 flex-col"><main class=3D"relative h-full w-full transition-width f=
-lex flex-col overflow-auto items-stretch flex-1"><div class=3D"flex-1 overf=
-low-hidden"><div class=3D"react-scroll-to-bottom--css-zwfiz-79elbk h-full d=
-ark:bg-gray-800"><div class=3D"react-scroll-to-bottom--css-zwfiz-1n7m0yu"><=
-div class=3D"flex flex-col text-sm dark:bg-gray-800"><div class=3D"group w-=
-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-=
-gray-900/50 dark:bg-gray-800"><div class=3D"flex p-4 gap-4 text-base md:gap=
--6 md:max-w-3xl md:py-6 lg:px-0 m-auto"><div class=3D"flex-shrink-0 flex fl=
-ex-col relative items-end"><div class=3D"w-[30px]"><div class=3D"relative f=
-lex"><img alt=3D"User" loading=3D"lazy" width=3D"38" height=3D"38" decoding=
-=3D"async" data-nimg=3D"1" class=3D"rounded-sm" src=3D"https://chat.openai.=
-com/_next/image?url=3Dhttps%3A%2F%2Fs.gravatar.com%2Favatar%2Ff500c0f2eb9ce=
-ca3f324c4bc1611611a%3Fs%3D480%26r%3Dpg%26d%3Dhttps%253A%252F%252Fcdn.auth0.=
-com%252Favatars%252Fzm.png&amp;w=3D96&amp;q=3D75" style=3D"color: transpare=
-nt;"></div></div><div class=3D"text-xs flex items-center justify-center gap=
--1 invisible absolute left-0 top-2 -ml-4 -translate-x-full group-hover:visi=
-ble !invisible"><button disabled=3D"" class=3D"dark:text-white disabled:tex=
-t-gray-300 dark:disabled:text-gray-400"><svg stroke=3D"currentColor" fill=
-=3D"none" stroke-width=3D"1.5" viewBox=3D"0 0 24 24" stroke-linecap=3D"roun=
-d" stroke-linejoin=3D"round" class=3D"h-3 w-3" height=3D"1em" width=3D"1em"=
- xmlns=3D"http://www.w3.org/2000/svg"><polyline points=3D"15 18 9 12 15 6">=
-</polyline></svg></button><span class=3D"flex-grow flex-shrink-0">1 / 1</sp=
-an><button disabled=3D"" class=3D"dark:text-white disabled:text-gray-300 da=
-rk:disabled:text-gray-400"><svg stroke=3D"currentColor" fill=3D"none" strok=
-e-width=3D"1.5" viewBox=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linej=
-oin=3D"round" class=3D"h-3 w-3" height=3D"1em" width=3D"1em" xmlns=3D"http:=
-//www.w3.org/2000/svg"><polyline points=3D"9 18 15 12 9 6"></polyline></svg=
-></button></div></div><div class=3D"relative flex w-[calc(100%-50px)] flex-=
-col gap-1 md:gap-3 lg:w-[calc(100%-115px)]"><div class=3D"flex flex-grow fl=
-ex-col gap-3"><div class=3D"min-h-[20px] flex items-start overflow-x-auto w=
-hitespace-pre-wrap break-words flex-col gap-4"><div class=3D"empty:hidden">=
-Use a neural network model to perform prediction on the boston housing data=
- in the following steps:
+und" class=3D"h-4 w-4 flex-shrink-0 text-gray-500" height=3D"1em" width=3D"=
+1em" xmlns=3D"http://www.w3.org/2000/svg"><circle cx=3D"12" cy=3D"12" r=3D"=
+1"></circle><circle cx=3D"19" cy=3D"12" r=3D"1"></circle><circle cx=3D"5" c=
+y=3D"12" r=3D"1"></circle></svg></button></div></div></nav></div></div></di=
+v></div><div class=3D"absolute left-2 top-2 z-10 hidden md:inline-block" da=
+ta-projection-id=3D"42" style=3D"opacity: 1;"><span class=3D"" data-state=
+=3D"closed"><button aria-label=3D"Open sidebar" class=3D"flex p-3 items-cen=
+ter gap-3 transition-colors duration-200 text-white cursor-pointer text-sm =
+rounded-md border bg-white dark:bg-gray-800 border-black/10 dark:border-whi=
+te/20 hover:bg-gray-50 dark:hover:bg-gray-700 h-11"><svg stroke=3D"currentC=
+olor" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=
+=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4 text-black dark:text-=
+white" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><r=
+ect x=3D"3" y=3D"3" width=3D"18" height=3D"18" rx=3D"2" ry=3D"2"></rect><li=
+ne x1=3D"9" y1=3D"3" x2=3D"9" y2=3D"21"></line></svg></button></span></div>=
+<div class=3D"relative flex h-full max-w-full flex-1 overflow-hidden"><div =
+class=3D"flex h-full max-w-full flex-1 flex-col"><main class=3D"relative h-=
+full w-full transition-width flex flex-col overflow-auto items-stretch flex=
+-1"><div class=3D"flex-1 overflow-hidden"><div class=3D"react-scroll-to-bot=
+tom--css-fhjjk-79elbk h-full dark:bg-gray-800"><div class=3D"react-scroll-t=
+o-bottom--css-fhjjk-1n7m0yu"><div class=3D"flex flex-col h-full text-sm dar=
+k:bg-gray-800"><div class=3D"group w-full text-gray-800 dark:text-gray-100 =
+border-b border-black/10 dark:border-gray-900/50 dark:bg-gray-800"><div cla=
+ss=3D"flex p-4 gap-4 text-base md:gap-6 md:max-w-3xl md:py-6 lg:px-0 m-auto=
+"><div class=3D"flex-shrink-0 flex flex-col relative items-end"><div class=
+=3D"w-[30px]"><div class=3D"relative flex"><img alt=3D"User" loading=3D"laz=
+y" width=3D"38" height=3D"38" decoding=3D"async" data-nimg=3D"1" class=3D"r=
+ounded-sm" src=3D"https://chat.openai.com/_next/image?url=3Dhttps%3A%2F%2Fs=
+.gravatar.com%2Favatar%2Ff500c0f2eb9ceca3f324c4bc1611611a%3Fs%3D480%26r%3Dp=
+g%26d%3Dhttps%253A%252F%252Fcdn.auth0.com%252Favatars%252Fzm.png&amp;w=3D96=
+&amp;q=3D75" style=3D"color: transparent;"></div></div><div class=3D"text-x=
+s flex items-center justify-center gap-1 invisible absolute left-0 top-2 -m=
+l-4 -translate-x-full group-hover:visible !invisible"><button disabled=3D""=
+ class=3D"dark:text-white disabled:text-gray-300 dark:disabled:text-gray-40=
+0"><svg stroke=3D"currentColor" fill=3D"none" stroke-width=3D"1.5" viewBox=
+=3D"0 0 24 24" stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"=
+h-3 w-3" height=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg">=
+<polyline points=3D"15 18 9 12 15 6"></polyline></svg></button><span class=
+=3D"flex-grow flex-shrink-0">1 / 1</span><button disabled=3D"" class=3D"dar=
+k:text-white disabled:text-gray-300 dark:disabled:text-gray-400"><svg strok=
+e=3D"currentColor" fill=3D"none" stroke-width=3D"1.5" viewBox=3D"0 0 24 24"=
+ stroke-linecap=3D"round" stroke-linejoin=3D"round" class=3D"h-3 w-3" heigh=
+t=3D"1em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><polyline poin=
+ts=3D"9 18 15 12 9 6"></polyline></svg></button></div></div><div class=3D"r=
+elative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-3 lg:w-[calc(100%-11=
+5px)]"><div class=3D"flex flex-grow flex-col gap-3"><div class=3D"min-h-[20=
+px] flex items-start overflow-x-auto whitespace-pre-wrap break-words flex-c=
+ol gap-4"><div class=3D"empty:hidden">Use a neural network model to perform=
+ prediction on the boston housing data in the following steps:
 1) Load training and testing data from Keras 2) The neural network has the =
 structure as follows:
 
@@ -630,148 +619,149 @@ nd" stroke-linejoin=3D"round" class=3D"h-4 w-4" height=3D"1em" width=3D"1em=
 " xmlns=3D"http://www.w3.org/2000/svg"><path d=3D"M10 15v4a3 3 0 0 0 3 3l4-=
 9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1=
  22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg></button></div></div></div>=
-</div></div></div><div class=3D"h-32 md:h-48 flex-shrink-0"></div></div><bu=
-tton class=3D"cursor-pointer absolute right-6 bottom-[124px] md:bottom-[120=
-px] z-10 rounded-full border border-gray-200 bg-gray-50 text-gray-600 dark:=
-border-white/10 dark:bg-white/10 dark:text-gray-200"><svg stroke=3D"current=
-Color" fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-lineca=
-p=3D"round" stroke-linejoin=3D"round" class=3D"h-4 w-4 m-1" height=3D"1em" =
-width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><line x1=3D"12" y1=3D"5"=
- x2=3D"12" y2=3D"19"></line><polyline points=3D"19 12 12 19 5 12"></polylin=
-e></svg></button></div><button class=3D"react-scroll-to-bottom--css-zwfiz-1=
-tj0vk3 scroll-convo" type=3D"button"></button></div></div><div class=3D"abs=
-olute bottom-0 left-0 w-full border-t md:border-t-0 dark:border-white/20 md=
-:border-transparent md:dark:border-transparent md:bg-vert-light-gradient bg=
--white dark:bg-gray-800 md:!bg-transparent dark:md:bg-vert-dark-gradient pt=
--2 md:pl-2 md:w-[calc(100%-.5rem)]"><form class=3D"stretch mx-2 flex flex-r=
-ow gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3x=
-l"><div class=3D"relative flex h-full flex-1 items-stretch md:flex-col" rol=
-e=3D"presentation"><div class=3D""><div class=3D"h-full flex ml-1 md:w-full=
- md:m-auto md:mb-2 gap-0 md:gap-2 justify-center"><button class=3D"btn rela=
-tive btn-neutral -z-0 border-0 md:border" as=3D"button"><div class=3D"flex =
-w-full gap-2 items-center justify-center"><svg stroke=3D"currentColor" fill=
-=3D"none" stroke-width=3D"1.5" viewBox=3D"0 0 24 24" stroke-linecap=3D"roun=
-d" stroke-linejoin=3D"round" class=3D"h-3 w-3 flex-shrink-0" height=3D"1em"=
- width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><polyline points=3D"1 4=
- 1 10 7 10"></polyline><polyline points=3D"23 20 23 14 17 14"></polyline><p=
-ath d=3D"M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 1=
-5"></path></svg>Regenerate response</div></button></div></div><div class=3D=
-"flex flex-col w-full py-[10px] flex-grow md:py-4 md:pl-4 relative border b=
-order-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-gra=
-y-700 rounded-xl shadow-xs dark:shadow-xs"><lt-mirror contenteditable=3D"fa=
-lse" class=3D"lt-mirror--grid-item" data-lt-linked=3D"1" style=3D"display: =
-none;"><lt-highlighter contenteditable=3D"false" style=3D"display: none;"><=
-lt-div spellcheck=3D"false" class=3D"lt-highlighter__wrapper" style=3D"widt=
-h: 750px !important; height: 24px !important; transform: none !important; t=
-ransform-origin: 375px 12px !important; zoom: 1 !important; margin-top: 16p=
-x !important; margin-left: 16px !important;"><lt-div class=3D"lt-highlighte=
-r__scroll-element" style=3D"top: 0px !important; left: 0px !important; widt=
-h: 750px !important; height: 24px !important;"></lt-div></lt-div></lt-highl=
-ighter><lt-div spellcheck=3D"false" class=3D"lt-mirror__wrapper notranslate=
-" data-lt-scroll-top=3D"0" data-lt-scroll-left=3D"0" data-lt-scroll-top-sca=
-led=3D"0" data-lt-scroll-left-scaled=3D"0" data-lt-scroll-top-scaled-and-zo=
-omed=3D"0" data-lt-scroll-left-scaled-and-zoomed=3D"0" style=3D"border: 0px=
- solid rgb(142, 142, 160) !important; border-radius: 0px !important; direct=
-ion: ltr !important; font: 400 16px / 24px S=C3=B6hne, ui-sans-serif, syste=
-m-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot=
-;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Appl=
-e Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot=
-;, &quot;Noto Color Emoji&quot; !important; font-synthesis: weight style sm=
-all-caps !important; hyphens: manual !important; letter-spacing: normal !im=
-portant; line-break: auto !important; margin: 16px 0px 0px 16px !important;=
- padding: 0px 48px 0px 0px !important; text-align: start !important; text-d=
-ecoration: none solid rgb(0, 0, 0) !important; text-indent: 0px !important;=
- text-rendering: auto !important; text-transform: none !important; transfor=
-m: none !important; transform-origin: 375px 12px !important; unicode-bidi: =
-normal !important; white-space: pre-wrap !important; word-spacing: 0px !imp=
-ortant; overflow-wrap: break-word !important; writing-mode: horizontal-tb !=
-important; zoom: 1 !important; -webkit-locale: auto !important; -webkit-rtl=
--ordering: logical !important; width: 702px !important; height: 24px !impor=
-tant;"><lt-div class=3D"lt-mirror__canvas" style=3D"margin-top: 0px !import=
-ant; margin-left: 0px !important; width: 702px !important; height: 24px !im=
-portant;"></lt-div></lt-div></lt-mirror><textarea id=3D"prompt-textarea" ta=
-bindex=3D"0" data-id=3D"request-:r6g:-0" rows=3D"1" placeholder=3D"Send a m=
-essage" class=3D"m-0 w-full resize-none border-0 bg-transparent p-0 pr-10 f=
-ocus:ring-0 focus-visible:ring-0 dark:bg-transparent md:pr-12 pl-3 md:pl-0"=
- style=3D"max-height: 200px; height: 24px; overflow-y: hidden;" data-lt-tmp=
--id=3D"lt-657076" spellcheck=3D"false" data-gramm=3D"false"></textarea><but=
-ton class=3D"absolute p-1 rounded-md md:bottom-3 md:p-2 md:right-3 dark:hov=
-er:bg-gray-900 dark:disabled:hover:bg-transparent right-2 disabled:text-gra=
-y-400 enabled:bg-brand-purple text-white bottom-1.5 transition-colors disab=
-led:opacity-40" style=3D"" disabled=3D""><span class=3D"" data-state=3D"clo=
-sed"><svg xmlns=3D"http://www.w3.org/2000/svg" viewBox=3D"0 0 16 16" fill=
-=3D"none" class=3D"h-4 w-4 m-1 md:m-0" stroke-width=3D"2"><path d=3D"M.5 1.=
-163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 =
-.5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.1=
-63Z" fill=3D"currentColor"></path></svg></span></button></div></div></form>=
-<div class=3D"px-3 pb-3 pt-2 text-center text-xs text-gray-600 dark:text-gr=
-ay-300 md:px-4 md:pb-6 md:pt-3"><span>Free Research Preview. ChatGPT may pr=
-oduce inaccurate information about people, places, or facts. <a href=3D"htt=
-ps://help.openai.com/en/articles/6825453-chatgpt-release-notes" target=3D"_=
-blank" rel=3D"noreferrer" class=3D"underline">ChatGPT July 20 Version</a></=
-span></div></div></main></div></div></div><div role=3D"region" aria-label=
-=3D"Notifications (F8)" tabindex=3D"-1" style=3D"pointer-events: none;"><ol=
- tabindex=3D"-1" class=3D"z-100 fixed bottom-0 right-0 m-0 flex  max-w-[100=
-vw] list-none flex-col gap-[10px] p-[var(--viewport-padding)] outline-none =
-[--viewport-padding:_25px]"></ol></div><div class=3D"absolute left-0 right-=
-0 top-0 z-[2]"></div></div><next-route-announcer><p aria-live=3D"assertive"=
- id=3D"__next-route-announcer__" role=3D"alert" style=3D"border: 0px; clip:=
- rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; pad=
-ding: 0px; position: absolute; top: 0px; width: 1px; white-space: nowrap; o=
-verflow-wrap: normal;">ChatGPT</p></next-route-announcer><div portal-contai=
-ner=3D""><span class=3D"pointer-events-none fixed inset-0 z-[60] mx-auto my=
--2 flex max-w-[560px] flex-col items-stretch justify-start md:pb-5"></span>=
-</div><iframe id=3D"intercom-frame" style=3D"position: absolute !important;=
- opacity: 0 !important; width: 1px !important; height: 1px !important; top:=
- 0 !important; left: 0 !important; border: none !important; display: block =
-!important; z-index: -1 !important; pointer-events: none;" aria-hidden=3D"t=
-rue" tabindex=3D"-1" title=3D"Intercom"></iframe><div class=3D"intercom-lig=
-htweight-app"></div><lt-toolbar contenteditable=3D"false" data-lt-adjust-ap=
-pearance=3D"true" data-lt-force-appearance=3D"light" style=3D"display: none=
-;"><lt-div class=3D"lt-toolbar__wrapper lt-toolbar__wrapper-hide" style=3D"=
-left: 1271px; position: absolute !important; top: 774px !important; bottom:=
- auto !important; z-index: auto;"><lt-div class=3D"lt-toolbar__extras"><lt-=
-span class=3D"lt-toolbar__disable-icon"><lt-comp-icon class=3D"lt-icon--dis=
-able lt-icon--clickable" data-lt-prevent-focus=3D"true"><lt-span class=3D"l=
-t-icon__icon lt-icon__disable"></lt-span></lt-comp-icon></lt-span><lt-div c=
-lass=3D"lt-toolbar__divider"></lt-div><lt-div class=3D"lt-toolbar__premium-=
-icon"></lt-div><lt-span class=3D"lt-toolbar__rephrasing-icon lt-toolbar__re=
-phrasing-icon--disabled lt-toolbar__rephrasing-icon--disabled"><lt-comp-ico=
-n class=3D"lt-icon--rephrasing lt-icon--clickable" data-lt-prevent-focus=3D=
-"true"><lt-span class=3D"lt-icon__icon lt-icon__rephrasing"></lt-span></lt-=
-comp-icon></lt-span><lt-span class=3D"lt-toolbar__rephrasing-icon lt-toolba=
-r__rephrasing-icon--disabled lt-toolbar__rephrasing-icon--hidden"><lt-comp-=
-icon class=3D"lt-icon--rephrasing lt-icon--clickable" data-lt-prevent-focus=
-=3D"true"><lt-span class=3D"lt-icon__icon lt-icon__rephrasing"></lt-span></=
-lt-comp-icon></lt-span></lt-div><lt-div class=3D"lt-toolbar__status-icon lt=
--toolbar__status-icon--has-no-errors" title=3D""></lt-div><lt-div class=3D"=
-lt-toolbar__premium-icon-dot"></lt-div></lt-div></lt-toolbar></body></html>
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+</div></div></div><div class=3D"h-32 md:h-48 flex-shrink-0"></div><button c=
+lass=3D"cursor-pointer absolute right-6 bottom-[124px] md:bottom-[120px] z-=
+10 rounded-full border border-gray-200 bg-gray-50 text-gray-600 dark:border=
+-white/10 dark:bg-white/10 dark:text-gray-200"><svg stroke=3D"currentColor"=
+ fill=3D"none" stroke-width=3D"2" viewBox=3D"0 0 24 24" stroke-linecap=3D"r=
+ound" stroke-linejoin=3D"round" class=3D"h-4 w-4 m-1" height=3D"1em" width=
+=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><line x1=3D"12" y1=3D"5" x2=
+=3D"12" y2=3D"19"></line><polyline points=3D"19 12 12 19 5 12"></polyline><=
+/svg></button></div></div><button class=3D"react-scroll-to-bottom--css-fhjj=
+k-1tj0vk3 scroll-convo" type=3D"button"></button></div></div><div class=3D"=
+absolute bottom-0 left-0 w-full border-t md:border-t-0 dark:border-white/20=
+ md:border-transparent md:dark:border-transparent md:bg-vert-light-gradient=
+ bg-white dark:bg-gray-800 md:!bg-transparent dark:md:bg-vert-dark-gradient=
+ pt-2 md:pl-2 md:w-[calc(100%-.5rem)]"><form class=3D"stretch mx-2 flex fle=
+x-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w=
+-3xl"><div class=3D"relative flex h-full flex-1 items-stretch md:flex-col" =
+role=3D"presentation"><div class=3D""><div class=3D"h-full flex ml-1 md:w-f=
+ull md:m-auto md:mb-2 gap-0 md:gap-2 justify-center"><button class=3D"btn r=
+elative btn-neutral -z-0 border-0 md:border" as=3D"button"><div class=3D"fl=
+ex w-full gap-2 items-center justify-center"><svg stroke=3D"currentColor" f=
+ill=3D"none" stroke-width=3D"1.5" viewBox=3D"0 0 24 24" stroke-linecap=3D"r=
+ound" stroke-linejoin=3D"round" class=3D"h-3 w-3 flex-shrink-0" height=3D"1=
+em" width=3D"1em" xmlns=3D"http://www.w3.org/2000/svg"><polyline points=3D"=
+1 4 1 10 7 10"></polyline><polyline points=3D"23 20 23 14 17 14"></polyline=
+><path d=3D"M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.5=
+1 15"></path></svg>Regenerate response</div></button></div></div><div class=
+=3D"flex flex-col w-full py-[10px] flex-grow md:py-4 md:pl-4 relative borde=
+r border-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-=
+gray-700 rounded-xl shadow-xs dark:shadow-xs"><lt-mirror contenteditable=3D=
+"false" class=3D"lt-mirror--grid-item" data-lt-linked=3D"1" style=3D"displa=
+y: none;"><lt-highlighter contenteditable=3D"false" style=3D"display: none;=
+"><lt-div spellcheck=3D"false" class=3D"lt-highlighter__wrapper" style=3D"w=
+idth: 750px !important; height: 24px !important; transform: none !important=
+; transform-origin: 375px 12px !important; zoom: 1 !important; margin-top: =
+16px !important; margin-left: 16px !important;"><lt-div class=3D"lt-highlig=
+hter__scroll-element" style=3D"top: 0px !important; left: 0px !important; w=
+idth: 750px !important; height: 24px !important;"></lt-div></lt-div></lt-hi=
+ghlighter><lt-div spellcheck=3D"false" class=3D"lt-mirror__wrapper notransl=
+ate" data-lt-scroll-top=3D"0" data-lt-scroll-left=3D"0" data-lt-scroll-top-=
+scaled=3D"0" data-lt-scroll-left-scaled=3D"0" data-lt-scroll-top-scaled-and=
+-zoomed=3D"0" data-lt-scroll-left-scaled-and-zoomed=3D"0" style=3D"border: =
+0px solid rgb(142, 142, 160) !important; border-radius: 0px !important; dir=
+ection: ltr !important; font: 400 16px / 24px S=C3=B6hne, ui-sans-serif, sy=
+stem-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &q=
+uot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;A=
+pple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&q=
+uot;, &quot;Noto Color Emoji&quot; !important; font-synthesis: weight style=
+ small-caps !important; hyphens: manual !important; letter-spacing: normal =
+!important; line-break: auto !important; margin: 16px 0px 0px 16px !importa=
+nt; padding: 0px 48px 0px 0px !important; text-align: start !important; tex=
+t-decoration: none solid rgb(0, 0, 0) !important; text-indent: 0px !importa=
+nt; text-rendering: auto !important; text-transform: none !important; trans=
+form: none !important; transform-origin: 375px 12px !important; unicode-bid=
+i: normal !important; white-space: pre-wrap !important; word-spacing: 0px !=
+important; overflow-wrap: break-word !important; writing-mode: horizontal-t=
+b !important; zoom: 1 !important; -webkit-locale: auto !important; -webkit-=
+rtl-ordering: logical !important; width: 702px !important; height: 24px !im=
+portant;"><lt-div class=3D"lt-mirror__canvas" style=3D"margin-top: 0px !imp=
+ortant; margin-left: 0px !important; width: 702px !important; height: 24px =
+!important;"></lt-div></lt-div></lt-mirror><textarea id=3D"prompt-textarea"=
+ tabindex=3D"0" data-id=3D"2899c1a7-53ea-431d-9a52-36165be0b3fa" rows=3D"1"=
+ placeholder=3D"Send a message" class=3D"m-0 w-full resize-none border-0 bg=
+-transparent p-0 pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparen=
+t md:pr-12 pl-3 md:pl-0" style=3D"max-height: 200px; height: 24px; overflow=
+-y: hidden;" data-lt-tmp-id=3D"lt-681996" spellcheck=3D"false" data-gramm=
+=3D"false"></textarea><button disabled=3D"" class=3D"absolute p-1 rounded-m=
+d md:bottom-3 md:p-2 md:right-3 dark:hover:bg-gray-900 dark:disabled:hover:=
+bg-transparent right-2 disabled:text-gray-400 enabled:bg-brand-purple text-=
+white bottom-1.5 transition-colors disabled:opacity-40"><span class=3D"" da=
+ta-state=3D"closed"><svg xmlns=3D"http://www.w3.org/2000/svg" viewBox=3D"0 =
+0 16 16" fill=3D"none" class=3D"h-4 w-4 m-1 md:m-0" stroke-width=3D"2"><pat=
+h d=3D"M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.=
+72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 =
+1 .5 5.67V1.163Z" fill=3D"currentColor"></path></svg></span></button></div>=
+</div></form><div class=3D"px-3 pb-3 pt-2 text-center text-xs text-gray-600=
+ dark:text-gray-300 md:px-4 md:pb-6 md:pt-3"><span>Free Research Preview. C=
+hatGPT may produce inaccurate information about people, places, or facts. <=
+a href=3D"https://help.openai.com/en/articles/6825453-chatgpt-release-notes=
+" target=3D"_blank" rel=3D"noreferrer" class=3D"underline">ChatGPT July 20 =
+Version</a></span></div></div></main></div></div></div><div role=3D"region"=
+ aria-label=3D"Notifications (F8)" tabindex=3D"-1" style=3D"pointer-events:=
+ none;"><ol tabindex=3D"-1" class=3D"z-100 fixed bottom-0 right-0 m-0 flex =
+ max-w-[100vw] list-none flex-col gap-[10px] p-[var(--viewport-padding)] ou=
+tline-none [--viewport-padding:_25px]"></ol></div><div class=3D"absolute le=
+ft-0 right-0 top-0 z-[2]"></div></div><iframe height=3D"1" width=3D"1" styl=
+e=3D"position: absolute; top: 0px; left: 0px; border: none; visibility: hid=
+den;"></iframe><next-route-announcer><p aria-live=3D"assertive" id=3D"__nex=
+t-route-announcer__" role=3D"alert" style=3D"border: 0px; clip: rect(0px, 0=
+px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; p=
+osition: absolute; top: 0px; width: 1px; white-space: nowrap; overflow-wrap=
+: normal;">ChatGPT</p></next-route-announcer><div portal-container=3D""><sp=
+an class=3D"pointer-events-none fixed inset-0 z-[60] mx-auto my-2 flex max-=
+w-[560px] flex-col items-stretch justify-start md:pb-5"></span></div><ifram=
+e id=3D"intercom-frame" style=3D"position: absolute !important; opacity: 0 =
+!important; width: 1px !important; height: 1px !important; top: 0 !importan=
+t; left: 0 !important; border: none !important; display: block !important; =
+z-index: -1 !important; pointer-events: none;" aria-hidden=3D"true" tabinde=
+x=3D"-1" title=3D"Intercom"></iframe><div class=3D"intercom-lightweight-app=
+"></div><lt-toolbar contenteditable=3D"false" data-lt-adjust-appearance=3D"=
+true" data-lt-force-appearance=3D"light" style=3D"display: none;"><lt-div c=
+lass=3D"lt-toolbar__wrapper lt-toolbar__wrapper-hide"><lt-div class=3D"lt-t=
+oolbar__extras"><lt-span class=3D"lt-toolbar__disable-icon"><lt-comp-icon c=
+lass=3D"lt-icon--disable lt-icon--clickable" data-lt-prevent-focus=3D"true"=
+><lt-span class=3D"lt-icon__icon lt-icon__disable"></lt-span></lt-comp-icon=
+></lt-span><lt-div class=3D"lt-toolbar__divider"></lt-div><lt-div class=3D"=
+lt-toolbar__premium-icon"></lt-div><lt-span class=3D"lt-toolbar__rephrasing=
+-icon lt-toolbar__rephrasing-icon--disabled lt-toolbar__rephrasing-icon--di=
+sabled"><lt-comp-icon class=3D"lt-icon--rephrasing lt-icon--clickable" data=
+-lt-prevent-focus=3D"true"><lt-span class=3D"lt-icon__icon lt-icon__rephras=
+ing"></lt-span></lt-comp-icon></lt-span><lt-span class=3D"lt-toolbar__rephr=
+asing-icon lt-toolbar__rephrasing-icon--disabled lt-toolbar__rephrasing-ico=
+n--hidden"><lt-comp-icon class=3D"lt-icon--rephrasing lt-icon--clickable" d=
+ata-lt-prevent-focus=3D"true"><lt-span class=3D"lt-icon__icon lt-icon__reph=
+rasing"></lt-span></lt-comp-icon></lt-span></lt-div><lt-div class=3D"lt-too=
+lbar__status-icon lt-toolbar__status-icon--has-no-errors" title=3D""></lt-d=
+iv><lt-div class=3D"lt-toolbar__premium-icon-dot"></lt-div></lt-div></lt-to=
+olbar></body></html>
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
-Content-Location: cid:css-cdb86469-d794-430c-8802-65a4250900b4@mhtml.blink
+Content-Location: cid:css-9c522cc4-5717-4874-b141-e2e066db0067@mhtml.blink
 
 @charset "utf-8";
 
-.react-scroll-to-bottom--css-zwfiz-79elbk { position: relative; }
+.react-scroll-to-bottom--css-fhjjk-79elbk { position: relative; }
 
-.react-scroll-to-bottom--css-zwfiz-1n7m0yu { height: 100%; overflow-y: auto=
+.react-scroll-to-bottom--css-fhjjk-1n7m0yu { height: 100%; overflow-y: auto=
 ; width: 100%; }
 
-.react-scroll-to-bottom--css-zwfiz-1tj0vk3 { background-color: rgba(0, 0, 0=
+.react-scroll-to-bottom--css-fhjjk-1tj0vk3 { background-color: rgba(0, 0, 0=
 , 0.2); border-radius: 10px; border-width: 0px; bottom: 5px; cursor: pointe=
 r; height: 20px; outline: 0px; position: absolute; right: 20px; width: 20px=
 ; }
 
-.react-scroll-to-bottom--css-zwfiz-1tj0vk3:hover { background-color: rgba(0=
+.react-scroll-to-bottom--css-fhjjk-1tj0vk3:hover { background-color: rgba(0=
 , 0, 0, 0.4); }
 
-.react-scroll-to-bottom--css-zwfiz-1tj0vk3:active { background-color: rgba(=
+.react-scroll-to-bottom--css-fhjjk-1tj0vk3:active { background-color: rgba(=
 0, 0, 0, 0.6); }
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
-Content-Location: cid:css-63f31ce3-8dd2-4f87-a771-466f46e12bf3@mhtml.blink
+Content-Location: cid:css-f3f62d70-aca1-4eb5-8a62-13d3b327d1f2@mhtml.blink
 
 @charset "utf-8";
 
@@ -866,10 +856,10 @@ w: rgba(0, 0, 0, 0.05) 0px 0px 25px; }
 @media print {
   .intercom-lightweight-app { display: none; }
 }
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
-Content-Location: https://chat.openai.com/_next/static/css/c8a4ec226dd6b8e1.css
+Content-Location: https://chat.openai.com/_next/static/css/cc36b64ec67404c4.css
 
 @charset "utf-8";
 
@@ -1933,6 +1923,8 @@ ce: nowrap; width: 1px; }
 
 .-ml-1 { margin-left: -0.25rem; }
 
+.-ml-2 { margin-left: -0.5rem; }
+
 .-ml-4 { margin-left: -1rem; }
 
 .-ml-\[1px\] { margin-left: -1px; }
@@ -2258,6 +2250,8 @@ y: -webkit-box; overflow: hidden; }
 .max-w-\[100vw\] { max-width: 100vw; }
 
 .max-w-\[220px\] { max-width: 220px; }
+
+.max-w-\[250px\] { max-width: 250px; }
 
 .max-w-\[350px\] { max-width: 350px; }
 
@@ -2678,6 +2672,9 @@ var(--tw-border-opacity)); }
 
 .border-white\/20 { border-color: rgba(255, 255, 255, 0.2); }
 
+.\!bg-brand-purple { --tw-bg-opacity: 1 !important; background-color: rgba(=
+171,104,255,var(--tw-bg-opacity)) !important; }
+
 .\!bg-gray-700 { --tw-bg-opacity: 1 !important; background-color: rgba(64,6=
 5,79,var(--tw-bg-opacity)) !important; }
 
@@ -3047,6 +3044,9 @@ ica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",=
 .tracking-wide { letter-spacing: 0.025em; }
 
 .tracking-widest { letter-spacing: 0.1em; }
+
+.\!text-gray-500 { --tw-text-opacity: 1 !important; color: rgba(142,142,160=
+,var(--tw-text-opacity)) !important; }
 
 .text-\[\#756B5C\] { --tw-text-opacity: 1; color: rgba(117,107,92,var(--tw-=
 text-opacity)); }
@@ -3594,6 +3594,9 @@ ar(--tw-bg-opacity)); }
 
 .hover\:bg-black\/10:hover { background-color: rgba(0, 0, 0, 0.1); }
 
+.hover\:bg-brand-purple:hover { --tw-bg-opacity: 1; background-color: rgba(=
+171,104,255,var(--tw-bg-opacity)); }
+
 .hover\:bg-gray-100:hover { --tw-bg-opacity: 1; background-color: rgba(236,=
 236,241,var(--tw-bg-opacity)); }
 
@@ -3663,6 +3666,11 @@ r(--tw-text-opacity)); }
 .hover\:opacity-75:hover { opacity: 0.75; }
 
 .hover\:opacity-80:hover { opacity: 0.8; }
+
+.hover\:brightness-90:hover { --tw-brightness: brightness(.9); filter: var(=
+--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(=
+--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--=
+tw-drop-shadow); }
 
 .focus\:border-brand-green:focus, .focus\:border-green-500:focus { --tw-bor=
 der-opacity: 1; border-color: rgba(25,195,125,var(--tw-border-opacity)); }
@@ -4229,11 +4237,13 @@ xt-opacity: 1; color: rgba(172,172,190,var(--tw-text-opacity)); }
   .sm\:mb-0\.5 { margin-bottom: 0.125rem; }
   .sm\:mb-16 { margin-bottom: 4rem; }
   .sm\:mb-2 { margin-bottom: 0.5rem; }
+  .sm\:ml-0 { margin-left: 0px; }
   .sm\:mt-0 { margin-top: 0px; }
   .sm\:mt-16 { margin-top: 4rem; }
   .sm\:mt-4 { margin-top: 1rem; }
   .sm\:mt-6 { margin-top: 1.5rem; }
   .sm\:mt-\[20vh\] { margin-top: 20vh; }
+  .sm\:mt-\[6vh\] { margin-top: 6vh; }
   .sm\:block { display: block; }
   .sm\:h-10 { height: 2.5rem; }
   .sm\:h-5 { height: 1.25rem; }
@@ -4342,6 +4352,7 @@ template-rows: minmax(20px, 1fr) auto minmax(20px, 1fr); }
   .md\:\!pt-0 { padding-top: 0px !important; }
   .md\:pb-5 { padding-bottom: 1.25rem; }
   .md\:pb-6 { padding-bottom: 1.5rem; }
+  .md\:pb-\[8vh\] { padding-bottom: 8vh; }
   .md\:pl-0 { padding-left: 0px; }
   .md\:pl-2 { padding-left: 0.5rem; }
   .md\:pl-4 { padding-left: 1rem; }
@@ -5279,7 +5290,7 @@ sparent; margin: 0px; }
 .react-select-container .react-select__multi-value__label { padding: 0px; }
 
 #intercom-container { display: none; }
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: image/webp
 Content-Transfer-Encoding: base64
 Content-Location: https://chat.openai.com/_next/image?url=https%3A%2F%2Fs.gravatar.com%2Favatar%2Ff500c0f2eb9ceca3f324c4bc1611611a%3Fs%3D480%26r%3Dpg%26d%3Dhttps%253A%252F%252Fcdn.auth0.com%252Favatars%252Fzm.png&w=64&q=75
@@ -5291,7 +5302,7 @@ GI3828jb5bv/xDn9bf9ymxVNCr9t721xN5U7ONFYWTi6OdrKPGgspxRLDX+/vjb2jjn9K/xqUD/i
 KvzMSzxRLzp/2rT5yc1dmmKCccvtqyFcJjep+us6bvr0JjdtDZnTyz+dIgcJanoFUXuZghbDNvt5
 B9IAAAA=
 
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: image/webp
 Content-Transfer-Encoding: base64
 Content-Location: https://chat.openai.com/_next/image?url=https%3A%2F%2Fs.gravatar.com%2Favatar%2Ff500c0f2eb9ceca3f324c4bc1611611a%3Fs%3D480%26r%3Dpg%26d%3Dhttps%253A%252F%252Fcdn.auth0.com%252Favatars%252Fzm.png&w=96&q=75
@@ -5304,9 +5315,16 @@ keG9hGLHFROlmb69fbIz+4W+YaAVb7Bf+Z1X+MwOwcynIXobmo3acSLpFQcejDBvnS8JMpxXjpE4
 wmoARbh4ehStLFTI/MSe0xgazMQ+XvP44zfh/nVn5NLXtoB+K334ZVJ12ywvWTz5/27I67zel0H6
 0Sd8zxmAlFvpbaERaY4nL3WBP2cG04aZh8aX88IvpALzoBdHfpKzVQP35O+VvLgA
 
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF----
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
 Content-Type: text/html
-Content-ID: <frame-3A3184154C8AA859A76973C5454DC78E@mhtml.blink>
+Content-ID: <frame-302E189ED50E1E455315A23F0C36F4A2@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+
+<html data-lt-installed=3D"true"><head><meta http-equiv=3D"Content-Type" co=
+ntent=3D"text/html; charset=3DUTF-8"></head><body></body></html>
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx----
+Content-Type: text/html
+Content-ID: <frame-18705D8B5E471ACEFF504DEF1A302647@mhtml.blink>
 Content-Transfer-Encoding: quoted-printable
 
 <html lang=3D"en" data-lt-installed=3D"true"><head><meta http-equiv=3D"Cont=
@@ -5316,4 +5334,4 @@ ent-Type" content=3D"text/html; charset=3DUTF-8">
       <body>
      =20
     </body></html>
-------MultipartBoundary--iyHzwiR9VJWTNtOI5fOALCnLXITdQroOfAif88fwFF------
+------MultipartBoundary--Dz1hpoPNJS2BxpIaYwQph3hVYuxFnf1GOvnDBfU3Cx------
