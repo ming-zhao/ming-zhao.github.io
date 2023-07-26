@@ -179,16 +179,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/tensor.png" width="500">
 </center>
 <ul>
-<li><p>Scalars: 0 dimensional tensors</p></li>
-<li><p>Vectors: 1 dimensional tensors</p></li>
-<li><p>Matrix: 2 dimensional tensors</p></li>
+<li>Scalars: 0 dimensional tensors</li>
+<li>Vectors: 1 dimensional tensors</li>
+<li>Matrix: 2 dimensional tensors</li>
 </ul>
 <p>Let’s make data tensors more concrete with real-world examples:</p>
 <ul>
-<li><p>Vector data — 2D tensors of shape (samples, features)</p></li>
-<li><p>Timeseries data or sequence data — 3D tensors of shape (samples, timesteps, features)</p></li>
-<li><p>Images — 4D tensors of shape (samples, height, width, channels) or (samples, channels, height, width)</p></li>
-<li><p>Video — 5D tensors of shape (samples, frames, height, width, channels) or (samples, frames, channels, height, width)</p></li>
+<li>Vector data — 2D tensors of shape (samples, features)</li>
+<li>Timeseries data or sequence data — 3D tensors of shape (samples, timesteps, features)</li>
+<li>Images — 4D tensors of shape (samples, height, width, channels) or (samples, channels, height, width)</li>
+<li>Video — 5D tensors of shape (samples, frames, height, width, channels) or (samples, frames, channels, height, width)</li>
 </ul>
 </section>
 <section id="layers-the-building-blocks-of-deep-learning" class="level2">
@@ -218,8 +218,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Another very important activation function <em>softmax</em>, which is a little more complicated mathematically. Basically it produces a set of values between 0 and 1 that adds up to 1 (probabilities!) and weights the values so it exaggerates differences—that is, it produces one result in a vector higher than everything else. It is often used at the end of a classification network to ensure that that network makes a definite prediction about what class it thinks the input belongs to.</p>
 <p>Without activation functions, neural network falls back to being a linear model. Since the layers of linear operations is still a linear operation, the absence of activation functions makes the network unable to learn nonlinear relationships between inputs and outputs. The following are true for the activation functions:</p>
 <ul>
-<li><p>They have at least one sensitive range, where nontrivial changes to the input result in a corresponding nontrivial change to the output. This is needed for training.</p></li>
-<li><p>Many of them have an insensitive (or saturated) range, where changes to the input result in little or no change to the output.</p></li>
+<li>They have at least one sensitive range, where nontrivial changes to the input result in a corresponding nontrivial change to the output. This is needed for training.</li>
+<li>Many of them have an insensitive (or saturated) range, where changes to the input result in little or no change to the output.</li>
 </ul>
 </section>
 <section id="loss-function-and-optimizer-less-is-what-we-want" class="level2">
