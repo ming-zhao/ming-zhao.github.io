@@ -9,7 +9,7 @@
 <meta name="author" content="Ming Zhao">
 <meta name="dcterms.date" content="2023-07-25">
 
-<title>Tree Ensembles</title>
+<title>Neural Networks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tree Ensembles</h1>
+<h1 class="title">Neural Networks</h1>
 </div>
 
 
@@ -328,9 +328,9 @@ test_labels_cat = to_categorical(test_labels)</code></pre>
 <h2 class="anchored" data-anchor-id="compilation">Compilation</h2>
 <p>Before training the network, we need to perform a compilation step by setting up:</p>
 <ul>
-<li><p>An optimizer: the mechanism to improve its performance on the training data</p></li>
-<li><p>A loss function: the measurement of its performance on the training data</p></li>
-<li><p>Metrics to monitor during training and testing</p></li>
+<li>An optimizer: the mechanism to improve its performance on the training data</li>
+<li>A loss function: the measurement of its performance on the training data</li>
+<li>Metrics to monitor during training and testing</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>network.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'rmsprop'</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                loss<span class="op">=</span><span class="st">'categorical_crossentropy'</span>,</span>
@@ -342,8 +342,7 @@ test_labels_cat = to_categorical(test_labels)</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>network.fit(train_images_reshape, train_labels_cat, epochs<span class="op">=</span><span class="dv">5</span>, batch_size<span class="op">=</span><span class="dv">128</span>, verbose<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The network will start to iterate on the training data in mini-batch of 128 samples, 5 times over (each iteration over all the training data is called an <em>epoch</em>). At each iteration, the network will compute the gradient of the weights with regard to the loss on the batch, and update the weights accordingly. After these 5 epochs, the network will have performed 2345 = 5 <span class="math inline">\times</span> ceil(60000 <span class="math inline">\div</span> 128) gradient updates.</p>
 <p>Batch size impacts learning significantly. If your batch size is big enough, this will provide a stable enough estimate of what the gradient of the full dataset would be. By taking samples from your dataset, you estimate the gradient while reducing computational cost significantly.</p>
-<p>The lower you go, the less accurate your estimate will be, however in some cases these noisy gradients can actually help escape local minimum. When it is too low, your network weights can just jump around if your data is noisy and it might be unable to learn or it converges very slowly, thus negatively impacting total computation time.</p>
-<div class="cell" data-outputid="ad4b50a9-d6ad-492a-8e11-86050d4b310b" data-execution_count="13">
+<div class="cell" data-outputid="ad4b50a9-d6ad-492a-8e11-86050d4b310b" data-execution_count="14">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -377,56 +376,17 @@ test_labels_cat = to_categorical(test_labels)</code></pre>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>train_labels_cat <span class="op">=</span> to_categorical(train_labels)</span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>test_labels_cat <span class="op">=</span> to_categorical(test_labels)</span>
 <span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># model = build_model()</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> models.load_model(get_file(origin<span class="op">=</span>base <span class="op">+</span> <span class="st">'/data/mnist_simple.h5'</span>))</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>model.summary()</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model.evaluate(test_images_reshape, test_labels_cat, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.argmax(model.predict(test_images_reshape, verbose<span class="op">=</span><span class="dv">0</span>), axis<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">abs</span>(predicted <span class="op">-</span> test_labels)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>misclassified <span class="op">=</span> np.where(result<span class="op">&gt;</span><span class="dv">0</span>)[<span class="dv">0</span>]</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test accuracy is </span><span class="sc">{}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="bu">round</span>(test_acc<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)))</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out of 10000 testing images, </span><span class="sc">{}</span><span class="st"> misclassified images.</span><span class="ch">\n</span><span class="st">'</span>.<span class="bu">format</span>(misclassified.shape[<span class="dv">0</span>]))</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co"># # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the weights of all layers</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [layer.get_weights() <span class="cf">for</span> layer <span class="kw">in</span> model.layers]</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the weights into 28x28 images</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>weight <span class="op">=</span> np.reshape(weights[<span class="dv">0</span>][<span class="dv">0</span>], (<span class="dv">28</span>, <span class="dv">28</span>, <span class="dv">512</span>))</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'plot weights of the first layer as a heatmap'</span>)</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">16</span>, ncols<span class="op">=</span><span class="dv">32</span>, figsize<span class="op">=</span>(<span class="dv">32</span>,<span class="dv">16</span>))</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">16</span>):</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>):</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        axs[i,j].imshow(weight[:,:,i<span class="op">*</span><span class="dv">32</span><span class="op">+</span>j], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>        axs[i,j].axis(<span class="st">'off'</span>)</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'plot aggregated weights of both layers as a heatmap'</span>)</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Get aggregated weights and reshape</span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>weight <span class="op">=</span> (weights[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">@</span> weights[<span class="dv">1</span>][<span class="dv">0</span>]).reshape(<span class="dv">28</span>, <span class="dv">28</span>, <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">10</span>, figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">10</span>))</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    ax.set_title(i)</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(weight[:,:,i], cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">'off'</span>)</span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im, ax<span class="op">=</span>axes, fraction<span class="op">=</span><span class="fl">0.006</span>, pad<span class="op">=</span><span class="fl">0.01</span>)</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Examples of misclassified images </span><span class="sc">{}</span><span class="st">-</span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(index, index<span class="op">+</span><span class="dv">4</span>))</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">13</span>,<span class="dv">3</span>))</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">1</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> misclassified[i<span class="op">+</span>index]</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    digit <span class="op">=</span> test_images[idx]</span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    plt.imshow(digit, cmap<span class="op">=</span>plt.cm.binary)</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Predicted:</span><span class="sc">{}</span><span class="st">, Label:</span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(predicted[idx], test_labels[idx]), fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co"># model = build_model()</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> models.load_model(get_file(origin<span class="op">=</span>base <span class="op">+</span> <span class="st">'/data/mnist_simple.h5'</span>))</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>model.summary()</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model.evaluate(test_images_reshape, test_labels_cat, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.argmax(model.predict(test_images_reshape, verbose<span class="op">=</span><span class="dv">0</span>), axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">abs</span>(predicted <span class="op">-</span> test_labels)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>misclassified <span class="op">=</span> np.where(result<span class="op">&gt;</span><span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test accuracy is </span><span class="sc">{}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="bu">round</span>(test_acc<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)))</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out of 10000 testing images, </span><span class="sc">{}</span><span class="st"> misclassified images.</span><span class="ch">\n</span><span class="st">'</span>.<span class="bu">format</span>(misclassified.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential"
@@ -444,19 +404,79 @@ Non-trainable params: 0
 _________________________________________________________________
 Test accuracy is 97.91%
 Out of 10000 testing images, 209 misclassified images.
-
-plot weights of the first layer as a heatmap
-plot aggregated weights of both layers as a heatmap
-Examples of misclassified images 0-4</code></pre>
+</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<p><img src="Neural_Networks_1_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
 </div>
+<div class="cell" data-execution_count="27">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the weights of all layers</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [layer.get_weights() <span class="cf">for</span> layer <span class="kw">in</span> model.layers]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the weights into 28x28 images</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>weight <span class="op">=</span> np.reshape(weights[<span class="dv">0</span>][<span class="dv">0</span>], (<span class="dv">28</span>, <span class="dv">28</span>, <span class="dv">512</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print('plot weights of the first layer as a heatmap')</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">16</span>, ncols<span class="op">=</span><span class="dv">32</span>, figsize<span class="op">=</span>(<span class="dv">32</span>,<span class="dv">16</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">16</span>):</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>):</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        axs[i,j].imshow(weight[:,:,i<span class="op">*</span><span class="dv">32</span><span class="op">+</span>j], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        axs[i,j].axis(<span class="st">'off'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="Neural_Networks_1_files/figure-html/cell-4-output-3.png" class="img-fluid"></p>
+<div id="fig-first_layer_heatmap" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Neural_Networks_1_files/figure-html/fig-first_layer_heatmap-output-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Plot weights of the first layer as a heatmap</figcaption>
+</figure>
 </div>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print('plot aggregated weights of both layers as a heatmap')</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get aggregated weights and reshape</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>weight <span class="op">=</span> (weights[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">@</span> weights[<span class="dv">1</span>][<span class="dv">0</span>]).reshape(<span class="dv">28</span>, <span class="dv">28</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">10</span>, figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">10</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(i)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(weight[:,:,i], cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">'off'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im, ax<span class="op">=</span>axes, fraction<span class="op">=</span><span class="fl">0.006</span>, pad<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="Neural_Networks_1_files/figure-html/cell-4-output-4.png" class="img-fluid"></p>
+<div id="fig-more_layer_heatmap" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Neural_Networks_1_files/figure-html/fig-more_layer_heatmap-output-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Plot aggregated weights of both layers as a heatmap</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print('Examples of misclassified images {}-{}'.format(index, index+4))</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">13</span>,<span class="dv">3</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">1</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> misclassified[i<span class="op">+</span>index]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    digit <span class="op">=</span> test_images[idx]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    plt.imshow(digit, cmap<span class="op">=</span>plt.cm.binary)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Predicted:</span><span class="sc">{}</span><span class="st">, Label:</span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(predicted[idx], test_labels[idx]), fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-misclassified" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Neural_Networks_1_files/figure-html/fig-misclassified-output-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Examples of misclassified images</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>While the aggregated weights plots don’t take into account activation functions and bias terms, they do provide some insight into how the neural network operates. For instance, the center of the 0 image displays strongly negative values, indicating that any color in the center of the image is less likely to be classified as 0.</p>
