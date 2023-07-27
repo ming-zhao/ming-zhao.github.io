@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2023-07-25">
+<meta name="dcterms.date" content="2023-07-27">
 
 <title>Neural Networks</title>
 <style>
@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 25, 2023</p>
+      <p class="date">July 27, 2023</p>
     </div>
   </div>
   
@@ -176,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tensor-where-it-starts">Tensor: where it starts</h2>
 <p>Tensors are fundamental to the data representations for neural networks. Another name for the same concept is multidimensional array. The dimensionality of a tensor coincides with the number of indexes used to refer to scalar values within the tensor.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/tensor.png" width="500">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/tensor.png" width="500">
 </center>
 <ul>
 <li>Scalars: 0 dimensional tensors</li>
@@ -195,12 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="layers-the-building-blocks-of-deep-learning">Layers: the building blocks of deep learning</h2>
 <p>A layer in a neural network is a collection of nodes or neurons responsible for learning specific features from input data. Each layer takes one or more input tensors and outputs one or more output tensors, forming a hierarchical structure of learned features.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/NN_layers.jpg" width="500">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/NN_layers.jpg" width="500">
 </center>
 <p>A crucial aspect of each layer is its set of weights (<span class="math inline">w_i</span> in the simplified representation), which are learned during training and determine the contribution of each input feature to the output. These weights control how much each input feature affects the layer’s output and are adjusted during training to improve the model’s performance. In summary, a neural network layer is a data-processing module that learns meaningful representations of the input data, which are used to make predictions or classifications.</p>
-<p>An example of a simple neural network with one input node, two hidden nodes, and one output node can be seen in the included <a href="https://github.com/ming-zhao/ming-zhao.github.io/blob/master/AIML_for_Business/Neural_Networks/data/SimpleNeuralNetwork.xlsx?raw=true">Excel file</a>.</p>
+<p>An example of a simple neural network with one input node, two hidden nodes, and one output node can be seen in the included <a href="https://github.com/ming-zhao/ming-zhao.github.io/blob/master/AIML_for_Business/res/Neural_Networks/data/SimpleNeuralNetwork.xlsx?raw=true">Excel file</a>.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/simpleNN.png" width="700">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/simpleNN.png" width="700">
 </center>
 <p>By varying the input value, the output value exhibits a non-linearity.</p>
 </section>
@@ -208,12 +208,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="activation-functions-beyond-the-linearity">Activation functions: beyond the linearity</h2>
 <p>As we have seen, the simplest unit in (deep) neural networks is a linear operation (scaling + offset) followed by an activation function.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/activation.jpg" width="700">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/activation.jpg" width="700">
 </center>
 <p>where the linear operation is often performed as matrix multiplication.</p>
 <p>Activation functions sound complicated, but the most common activation function these days is ReLU, or rectified linear unit. Which again sounds complicated! But all it turns out to be is a function that implements <span class="math inline">max(0,x)</span>, so the result is 0 if the input is negative, or just the input (<span class="math inline">x</span>) if <span class="math inline">x</span> is positive. The graphs illustrate the shape of some commonly used activation functions and how they transform input values to output values.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/activation2.jpg" width="600">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/activation2.jpg" width="600">
 </center>
 <p>Another very important activation function <em>softmax</em>, which is a little more complicated mathematically. Basically it produces a set of values between 0 and 1 that adds up to 1 (probabilities!) and weights the values so it exaggerates differences—that is, it produces one result in a vector higher than everything else. It is often used at the end of a classification network to ensure that that network makes a definite prediction about what class it thinks the input belongs to.</p>
 <p>Without activation functions, neural network falls back to being a linear model. Since the layers of linear operations is still a linear operation, the absence of activation functions makes the network unable to learn nonlinear relationships between inputs and outputs. The following are true for the activation functions:</p>
@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="anatomy-of-a-neural-network">Anatomy of a neural network</h2>
 <p>We consider a simple neural network with 3 hidden layers. It learns from scatter input points of a set of functions, such as <span class="math inline">x^2</span>, <span class="math inline">\sin(x)</span>, <span class="math inline">\text{abs}(x)</span> and <span class="math inline">\text{heaviside}(x)</span>, and outputs the predicted functions.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/hidden.jpg" width="600">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/hidden.jpg" width="600">
 </center>
 <p><a href="#fig-hidden_layers">Figure&nbsp;1</a> displays the features captured by the hidden layers. In other words, the neural network believes that the final curve is a weighted sum of three curves produced by the hidden layers.</p>
 <div class="cell" data-outputid="9c8f2d12-7576-47f1-ccea-2fc4d65766e0" data-execution_count="10">
@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
 <p>Before training, we reshape and scale the image data, and categorically encode the labels</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/mnist_1.jpg" width="700">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/mnist_1.jpg" width="700">
 </center>
 <p>which is executed in python code as follows</p>
 <pre class="{python}"><code>train_images_reshape = train_images.reshape((60000, 28 * 28))
@@ -319,7 +319,7 @@ test_labels_cat = to_categorical(test_labels)</code></pre>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>network.add(layers.Dense(<span class="dv">10</span>, activation<span class="op">=</span><span class="st">'softmax'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here, our network consists of a sequence of two densely connected (fully connected) layers.</p>
 <center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/Neural_Networks/figures/mnist_2.jpg" width="700">
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/mnist_2.jpg" width="700">
 </center>
 <p>The weights of the first layer can be viewed as 512 28x28 filter images. The first layer compares the input images with these 512 filter images and generates 512 filter scores as output.</p>
 <p>The second (and last) layer is a 10-way softmax layer. It aggregates the 512 filter scores into 10 probability scores using the softmax activation function. Each score represents the probability that the current digit image belongs to one of the 10 digit classes.</p>
