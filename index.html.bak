@@ -66,7 +66,7 @@
 			<!-- <p> <em> Data Driven Optimization, Risk Management and Healthcare Operations. </em> </p>
 			My experience as a researcher in companies has exposed me to many applications in operations management, and lead to published research on analytic models that allow practitioners to solve real-world problems. My research focuses on developing a unified decision-making framework connecting machine learning and optimization. Real-world analytics problems involve two essential components: prediction and optimization. Machine learning tools are intended to minimize prediction error and do not account for how the predictions will be used in the downstream optimization problem. Our proposed framework aims to minimize the decision error, instead of precision error, by directly leveraging the optimization problem structure for designing better prediction models. --> </div>
 			<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Biography:</div></b>
-			<div style="padding: 5px 0px 10px 0px; margin: 0px; font-size: 14px;">Dr. Zhao is an assistant professor of operations management in the Department of Business Administration at the University of Delaware. Before joining the University of Delaware, he was an assistant professor in the <a href="https://www.bauer.uh.edu/">University of Houston</a>. He received a Ph.D. degree in the <a href="http://engineering.buffalo.edu/industrial-systems.html">Department of Industrial & System Engineering</a> at the University at Buffalo. In his industrial experience, he served as a postdoctoral researcher in the Department of Business Analytics & Mathematical Sciences (BAMS) in <a href="https://www.research.ibm.com/labs/watson/">IBM T.J. Watson research center</a>, and then a senior operations research specialist in Advanced Analytics and Optimization Services (AAOS) in <a href="https://www.sas.com/en_us/home.html">SAS</a>.</div>
+			<div style="padding: 5px 0px 10px 0px; margin: 0px; font-size: 14px;">Dr. Zhao is an associate professor of operations management in the Department of Business Administration at the University of Delaware. Before joining the University of Delaware, he was an assistant professor in the <a href="https://www.bauer.uh.edu/">University of Houston</a>. He received a Ph.D. degree in the <a href="http://engineering.buffalo.edu/industrial-systems.html">Department of Industrial & System Engineering</a> at the University at Buffalo. In his industrial experience, he served as a postdoctoral researcher in the Department of Business Analytics & Mathematical Sciences (BAMS) in <a href="https://www.research.ibm.com/labs/watson/">IBM T.J. Watson research center</a>, and then a senior operations research specialist in Advanced Analytics and Optimization Services (AAOS) in <a href="https://www.sas.com/en_us/home.html">SAS</a>.</div>
 			<!-- <p> -->
 			
 			<div style="font-family: 'Oswald', sans-serif; font-size: 22px;">Publications:</div></b>
@@ -75,10 +75,10 @@
 				Z. Zhu, Y. Xiang, M. Zhao and Y. Shi, 2023 "Data-Driven Remanufacturing Planning with Parameter Uncertainty," <strong>European Journal of Operational Research</strong>, Accepted. 
 				</li>
 				<li>
-				M. Zhao, N.K. Freeman and K. Pan, 2022 "Robust Sourcing under Multi-level Supply Risks: Analysis of Random Yield and Capacity," <strong>INFORMS Journal on Computing</strong>, Accepted.
+				M. Zhao, N.K. Freeman and K. Pan, 2022 "Robust Sourcing under Multi-level Supply Risks: Analysis of Random Yield and Capacity," <strong>INFORMS Journal on Computing</strong>, 35(1), 178-195.
 				</li>			
 				<li>
-				K. Pan, M. Zhao, C.-L. Li and F. Qiu, 2022 "A Polyhedral Study on Fuel-Constrained Unit Commitment," <strong>INFORMS Journal on Computing</strong>, Accepted.
+				K. Pan, M. Zhao, C.-L. Li and F. Qiu, 2022 "A Polyhedral Study on Fuel-Constrained Unit Commitment," <strong>INFORMS Journal on Computing</strong>, 34(6), 3309-3324.
 				</li>
 				<li>
 				R. Fan, M. Zhao and D. Peng, 2021, "Differentiating Interhospital Transfer Types: Varied Impacts and Diverging Coordination Strategies," <strong>Production and Operations Management</strong>, 30(10), 3657-3678.
