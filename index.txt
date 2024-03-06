@@ -1,27 +1,0 @@
-Home Research Teaching
-
-Ming Zhao
-Associate Professor Department of Business Administration Lerner College of Business and Economics 303 Alfred Lerner Hall Newark, DE 19716 Email: mzhao(at)udel(dot)edu
-Research Interests:
-Data Driven Optimization, Risk Management and Healthcare Operations.
-Biography:
-Dr. Zhao is an associate professor of operations management in the Department of Business Administration at the University of Delaware. Before joining the University of Delaware, he was an assistant professor in the University of Houston. He received a Ph.D. degree in the Department of Industrial & System Engineering at the University at Buffalo. In his industrial experience, he served as a postdoctoral researcher in the Department of Business Analytics & Mathematical Sciences (BAMS) in IBM T.J. Watson research center, and then a senior operations research specialist in Advanced Analytics and Optimization Services (AAOS) in SAS.
-Publications:
-	1	Z. Zhu, Y. Xiang, M. Zhao and Y. Shi, 2023 "Data-Driven Remanufacturing Planning with Parameter Uncertainty," European Journal of Operational Research, 309(1), 102-116.
-	2	M. Zhao, N.K. Freeman and K. Pan, 2023 "Robust Sourcing under Multi-level Supply Risks: Analysis of Random Yield and Capacity," INFORMS Journal on Computing, 35(1), 178-195.
-	3	K. Pan, M. Zhao, C.-L. Li and F. Qiu, 2022 "A Polyhedral Study on Fuel-Constrained Unit Commitment," INFORMS Journal on Computing, 34(6), 3309-3324.
-	4	R. Fan, M. Zhao and D. Peng, 2021, "Differentiating Interhospital Transfer Types: Varied Impacts and Diverging Coordination Strategies," Production and Operations Management, 30(10), 3657-3678.
-	5	M. Zhao and M. Zhang, 2020, "Multiechelon Lot Sizing: New Complexities and Inequalities," Operations Research, 68(2), 534-551.
-	6	N.K. Freeman, M. Zhao, S.H. Melouk and J. Mittenthal, 2019, "The Economics of Flipping Operating Rooms," Production and Operations Management, 28(10), 2629-2652.
-	7	M. Zhao and N.K. Freeman, 2019, "Robust Sourcing from Suppliers under Ambiguously Correlated Major Disruption Risks," Production and Operations Management, 28(2), 441-456.
-	8	N.K. Freeman, M. Zhao and S.H. Melouk, 2018, "An Iterative Approach for Case Mix Planning Under Uncertainty," Omega: International Journal of Management Science, 76, 160-173.
-	9	M. Zhao, K. Huang and B. Zeng, 2017, "A Polyhedral Study on Chance Constrained Program with Random Right-Hand Side," Mathematical Programming, 166(1), 19-64.
-	10	N. Esquejo, K. Miller, K. Norwood, I. Oliveira, R. Pratt and M. Zhao, 2015, "Statistical and Optimization Techniques for Laundry Portfolio Optimization at P&G," INFORMS Journal on Applied Analytics, 45(5), 444-461.
-	11	I.R. de Farias JR., E. Kozyreff and M. Zhao, 2014, "Branch-and-Cut for Complementarity-Constrained Optimization," Mathematical Programming Computation, 6(4), 365-403.
-	12	I.R. de Farias JR., R. Gupta, E. Kozyreff and M. Zhao, 2013, "Branch-and-Cut for Separable Piecewise Linear Optimization: Computation," Mathematical Programming Computation, 5(1), 75-112.
-	13	I.R. de Farias JR. and M. Zhao, 2013, "A Polyhedral Study of the Semi-Continuous Knapsack Problem," Mathematical Programming, 142(1) 169-203.
-	14	M. Zhao and I.R. de Farias JR., 2013, "The Piecewise Linear Optimization Polytope: New Inequalities and Intersection with Semi-Continuous Constraints," Mathematical Programming, 142(1), 217-255.
-	15	I.R. de Farias JR., H. Zhao, and M. Zhao, 2010, ''A Family of Inequalities Valid for the Robust Single Machine Scheduling Polyhedron," Computers and Operations Research, 37(9), 1610-1614.
-	16	M. Zhao and I.R. de Farias JR., 2008, "A Note on the Continuous Mixing Set," Operations Research Letters, 36(6), 726-733.
-	17	I.R. de Farias JR., M. Zhao, and H. Zhao, 2008, "A Special Ordered Set Approach for Optimizing a Discontinuous Separable Piecewise Linear Function," Operations Research Letters, 36(2), 234-238.
-	18	M. Zhao and I.R. de Farias JR., 2008, "The Mixing-MIR Set with Divisible Capacities," Mathematical Programming, 115(1), 73-103.
