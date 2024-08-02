@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ming Zhao">
+<meta name="dcterms.date" content="2023-07-25">
+
+<title>Introduction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Introduction_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Introduction_files/libs/quarto-html/quarto.js"></script>
+<script src="Introduction_files/libs/quarto-html/popper.min.js"></script>
+<script src="Introduction_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Introduction_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Introduction_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Introduction_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Introduction_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Introduction_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Introduction_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#overfitting" id="toc-overfitting" class="nav-link" data-scroll-target="#overfitting">Overfitting</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ming Zhao </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 25, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Every machine learning task involves two fundamental components:</p>
+<ul>
+<li>Optimization: The process of tuning a model to achieve the best possible performance on the training data, which is the essence of learning in machine learning.</li>
+<li>Generalization: The process of applying the trained model to new data that it has never seen before.</li>
+</ul>
+<p>The main challenge in machine learning is to find a balance between optimization and generalization. The ultimate goal is to achieve good generalization, but this cannot be directly controlled. Instead, the model can only be adjusted based on its training data to increase its chances of generalizing well.</p>
+<p>Overfitting occurs when the model cannot generalize, but well optimized to fit too closely to the training dataset instead. Overfitting happens in every machine-learning problem. Learning how to deal with overfitting is essential to mastering machine learning.</p>
+<section id="overfitting" class="level2">
+<h2 class="anchored" data-anchor-id="overfitting">Overfitting</h2>
+<p>Let’s consider a simple polynomial fitting example to better illustrate overfitting.</p>
+Suppose we have observed 13 data points (called training data because we use data to train our forecasting model) that are generated from the function <span class="math inline">\sin(2 \pi x)</span> with some small perturbations. The figure below illustrates these training data in blue circles and the curve of <span class="math inline">\sin(2 \pi x)</span>.
+<center>
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/overfit_polynomial_1.png" width="350">
+</center>
+<p>Our task is to predict the underlying data pattern by using simple polynomial functions with degree 1, 3 and 9. In other words, without knowing the true function <span class="math inline">\sin(2 \pi x)</span>, we need to</p>
+<ol type="1">
+<li>fit the given 13 training data points with simple polynomial functions,</li>
+<li>choose one of the polynomial functions to better represent the true function <span class="math inline">\sin(2 \pi x)</span> for forecasting future observations.</li>
+</ol>
+<p>If you feel that the numerical example is not easy to comprehend, you may consider an application as follows.</p>
+<p style="margin-left:3%; margin-right:3%; font-style: italic">
+The green <span class="math inline">\sin(2 \pi x)</span> curve is the true underlying business cycle (which has an up-and-down pattern), and blue circles are observed sales. In an ideal world, sales are fully described by the business cycle. However, in the real world sales may be perturbed from the true business cycle by other random facts (such as weather). That explains why those blue circles are generated from the <span class="math inline">\sin(2 \pi x)</span> curve with small perturbations. Our goal is to offer an understanding (i.e., a polynomial function) to properly explain the underlying business cycle.
+</p>
+The figure below shows the fitting polynomials with degree 1, 3 and 9 which are red curve (or line) in subgraphs.
+<center>
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/overfit_polynomial_2.png" width="800">
+</center>
+<p>Note that a simple polynomial function with degree 1 is a linear function. Hence, the fitting procedure with a linear function is the well-known linear regression.</p>
+<p>If we knew the underlying true function <span class="math inline">\sin(2 \pi x)</span>, then it is quite clear that</p>
+<ul>
+<li>the linear function is under-fitting because it doesn’t explain the up-and-down pattern in the training data;</li>
+<li>the polynomial function with degree 9 is over-fitting. Although the polynomial curve accurately describe the observed training data, it focuses too much on noises and does not correctly interpret the pattern of the underlying function LaTeX: (2 x);</li>
+<li>the polynomial with degree 3 is the best because it balances the information and noises and extracts the valuable information from the training data.</li>
+</ul>
+<p>However, as in many real world applications, we do not know the underlying true pattern of the training data, i.e., the function <span class="math inline">\sin(2 \pi x)</span>, in our example. We can only observe a figure as below. Then, the figure poses a simple question to all decision makers: which polynomial is the best to present the data pattern for future forecasting?</p>
+<center>
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/overfit_polynomial_3.png" width="800">
+</center>
+<p>If we only consider the error measure, we may choose the polynomial function with degree 9 as our model candidate for future forecasting, because this polynomial function describes the training data with less error (it pretty much passes all data points exactly). The issue is that the polynomial function with degree 9 captures both the information (the value comes from the true function <span class="math inline">\sin(2 \pi x)</span>) and noises (the perturbations on each data points). We may wonder if it is possible to identify the polynomial with degree 3 as the best function and balance the information and noises.</p>
+<p>The answer is positive. We can use holdout (or validation dataset) as follows:</p>
+<ul>
+<li>choose 3 (or any small number of) data points as testing data</li>
+<li>fit polynomial functions only on the remaining 10 data points</li>
+<li>find the best fitting function based on those 3 chosen data points (i.e.&nbsp;testing data) The figure below illustrate the results where 3 orange circles are testing data points.</li>
+</ul>
+<center>
+<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Neural_Networks/figures/overfit_polynomial_4.png" width="800">
+</center>
+<p>Apparently, we can rule out linear regression since it did a poor job on explaining the training data. Although 9-degree polynomial perfectly fits the training data, it performs horribly on the testing data. The Y values correspond to 3 testing data points are actually out of the chart for 9-degree polynomial. Hence, 3-degree polynomial is the obvious winner based on the testing data.</p>
+<p>The example illustrates <strong>the law of parsimony (Occam’s razor)</strong>: we generally prefer a simpler model because simpler models track only the most basic underlying patterns and can be more flexible and accurate in predicting the future!</p>
+<p>This polynomial fitting example demonstrates the use of a validation dataset for model selection. The best practice is to use K-fold cross-validation, which will be introduced in the section of predicting house prices.</p>
+<p>To prevent a model from learning irrelevant or misleading patterns found in the training data, the best solution is to obtain more training data. A model trained on more data will naturally generalize better.</p>
+<p>If obtaining more data is not possible, the next best solution is to limit the amount of information the model can store. By forcing the model to focus on the most prominent patterns, it has a better chance of generalizing well.</p>
+<p>The process of mitigating overfitting by reducing the model’s ability to learn irrelevant patterns is called regularization. The most commonly used regularization techniques for neural networks are:</p>
+<ul>
+<li>Reducing the network’s size</li>
+<li>Adding weight regularization</li>
+<li>Adding dropout</li>
+</ul>
+<p>We will discuss and demonstrate the application of these techniques in the later sections.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

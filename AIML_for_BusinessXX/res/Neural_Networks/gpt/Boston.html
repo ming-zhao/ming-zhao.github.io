@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>Chat GPT: ${title}</title>
+                                <meta name="generator" content="chatGPT Saving Bookmark"/>
+                                <style>
+                                    body {
+                                        background-color: rgb(32,33,35);
+                                        color: rgb(236,236,241);
+                                        font-size: 16px;
+                                        font-family: sans-serif;
+                                        line-height: 28px;
+                                        margin: -10px;
+                                    }
+                                    body > .w-full {
+                                        padding: 30px;
+                                    }
+                                    /* prompt */
+                                    body > .w-full:nth-child(2n+1) {
+                                        background: rgb(52,53,65);
+                                    }
+                                    /* response */
+                                    body > .w-full:nth-child(2n+2) {
+                                        background: rgb(68,70,84);
+                                    }
+                                    a, a:visited {
+                                        color: #7792cd;
+                                    }
+                                    pre {
+                                        margin: 0 0 1em 0;
+                                        display: inline-block;
+                                        width: 100%;
+                                    }
+                                    pre code.hljs {
+                                        margin-bottom: 1em;
+                                        border-radius: 5px;
+                                    }
+                                    .whitespace-pre-wrap {
+                                        white-space: pre-wrap;
+                                    }
+                                    .flex-col {
+                                        max-width: 850px;
+                                        margin: 0px auto;
+                                    }
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#f3f3f3;color:#444}.hljs-comment{color:#697070}.hljs-punctuation,.hljs-tag{color:#444a}.hljs-tag .hljs-attr,.hljs-tag .hljs-name{color:#444}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{font-weight:700}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:#800}.hljs-section,.hljs-title{color:#800;font-weight:700}.hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#ab5656}.hljs-literal{color:#695}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta .hljs-string{color:#38a}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+</style>
+                            </head>
+                            <body><div class="group w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 dark:bg-gray-800"><div class="flex p-4 gap-4 text-base md:gap-6 md:max-w-3xl md:py-6 lg:px-0 m-auto"><div class="relative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-3 lg:w-[calc(100%-115px)]"><div class="flex flex-grow flex-col gap-3"><div class="min-h-[20px] flex items-start overflow-x-auto whitespace-pre-wrap break-words flex-col gap-4"><div class="empty:hidden">Use a neural network model to perform prediction on the boston housing data in the following steps:
+1) Load training and testing data from Keras 2) The neural network has the structure as follows:
+
+Layer 1 with 64 output features, followed by the ReLU activation function.
+Layer 2 with 64 output features, followed by the ReLU activation function.
+Layer 3 with 1 output feature.
+3) Compare the mean absolute error of prediction between this neural network model and a linear regression model.
+4) Retrain the neural network model using K-fold validation with K=5. Show its mean absolute error of prediction.</div></div></div></div></div></div><div class="group w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 bg-gray-50 dark:bg-[#444654]"><div class="flex p-4 gap-4 text-base md:gap-6 md:max-w-3xl md:py-6 lg:px-0 m-auto"><div class="relative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-3 lg:w-[calc(100%-115px)]"><div class="flex flex-grow flex-col gap-3"><div class="min-h-[20px] flex items-start overflow-x-auto whitespace-pre-wrap break-words flex-col gap-4"><div class="markdown prose w-full break-words dark:prose-invert light"><p>To perform the prediction on the Boston Housing data using a neural network with the specified architecture, we'll follow these steps:</p><p>Step 1: Load Training and Testing Data
+Step 2: Build and Train the Neural Network Model
+Step 3: Compare Mean Absolute Error (MAE) with Linear Regression Model
+Step 4: Retrain the Neural Network Model using K-Fold Cross-Validation (K=5)</p><p>Let's begin:</p><p>Step 1: Load Training and Testing Data
+We'll start by loading the Boston Housing data from Keras and splitting it into training and testing sets.</p><pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>python</span></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> tensorflow.keras.datasets <span class="hljs-keyword">import</span> boston_housing
+<span class="hljs-keyword">from</span> tensorflow.keras.models <span class="hljs-keyword">import</span> Sequential
+<span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> Dense
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_absolute_error
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> KFold
+
+<span class="hljs-comment"># Load the Boston Housing data</span>
+(X_train, y_train), (X_test, y_test) = boston_housing.load_data()
+
+<span class="hljs-comment"># Normalize the data</span>
+mean = X_train.mean(axis=<span class="hljs-number">0</span>)
+std = X_train.std(axis=<span class="hljs-number">0</span>)
+X_train = (X_train - mean) / std
+X_test = (X_test - mean) / std
+</code></div></div></pre><p>Step 2: Build and Train the Neural Network Model
+Next, we'll build the neural network model and train it using the training data.</p><pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>python</span></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-python"><span class="hljs-comment"># Build the neural network model</span>
+model = Sequential([
+    Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">'relu'</span>, input_shape=(X_train.shape[<span class="hljs-number">1</span>],)),
+    Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">'relu'</span>),
+    Dense(<span class="hljs-number">1</span>)
+])
+
+<span class="hljs-comment"># Compile the model</span>
+model.<span class="hljs-built_in">compile</span>(optimizer=<span class="hljs-string">'adam'</span>, loss=<span class="hljs-string">'mse'</span>)
+
+<span class="hljs-comment"># Train the model</span>
+model.fit(X_train, y_train, epochs=<span class="hljs-number">100</span>, batch_size=<span class="hljs-number">16</span>, verbose=<span class="hljs-number">0</span>)
+</code></div></div></pre><p>Step 3: Compare Mean Absolute Error (MAE) with Linear Regression Model
+We'll now compare the mean absolute error of the neural network model with a linear regression model on the testing data.</p><pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>python</span></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-python"><span class="hljs-comment"># Linear Regression Model</span>
+lr_model = LinearRegression()
+lr_model.fit(X_train, y_train)
+lr_predictions = lr_model.predict(X_test)
+lr_mae = mean_absolute_error(y_test, lr_predictions)
+
+<span class="hljs-comment"># Neural Network Model</span>
+nn_predictions = model.predict(X_test)
+nn_mae = mean_absolute_error(y_test, nn_predictions)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">"Mean Absolute Error (Linear Regression):"</span>, lr_mae)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">"Mean Absolute Error (Neural Network):"</span>, nn_mae)
+</code></div></div></pre><p>Step 4: Retrain the Neural Network Model using K-Fold Cross-Validation (K=5)
+Finally, we'll retrain the neural network model using K-Fold Cross-Validation with K=5 and calculate the mean absolute error.</p><pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>python</span></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-python"><span class="hljs-comment"># Initialize K-Fold with K=5</span>
+kfold = KFold(n_splits=<span class="hljs-number">5</span>, shuffle=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Lists to store the mean absolute errors for each fold</span>
+mae_scores = []
+
+<span class="hljs-comment"># Perform K-Fold Cross-Validation</span>
+<span class="hljs-keyword">for</span> train_idx, val_idx <span class="hljs-keyword">in</span> kfold.split(X_train):
+    X_train_fold, X_val = X_train[train_idx], X_train[val_idx]
+    y_train_fold, y_val = y_train[train_idx], y_train[val_idx]
+
+    <span class="hljs-comment"># Build the neural network model for each fold</span>
+    model = Sequential([
+        Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">'relu'</span>, input_shape=(X_train.shape[<span class="hljs-number">1</span>],)),
+        Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">'relu'</span>),
+        Dense(<span class="hljs-number">1</span>)
+    ])
+
+    <span class="hljs-comment"># Compile the model</span>
+    model.<span class="hljs-built_in">compile</span>(optimizer=<span class="hljs-string">'adam'</span>, loss=<span class="hljs-string">'mse'</span>)
+
+    <span class="hljs-comment"># Train the model for this fold</span>
+    model.fit(X_train_fold, y_train_fold, epochs=<span class="hljs-number">100</span>, batch_size=<span class="hljs-number">16</span>, verbose=<span class="hljs-number">0</span>)
+
+    <span class="hljs-comment"># Evaluate the model on the validation data for this fold</span>
+    val_predictions = model.predict(X_val)
+    fold_mae = mean_absolute_error(y_val, val_predictions)
+
+    mae_scores.append(fold_mae)
+
+<span class="hljs-comment"># Calculate and display the mean absolute error from K-Fold Cross-Validation</span>
+mean_mae_kfold = np.mean(mae_scores)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">"Mean Absolute Error (K-Fold Cross-Validation):"</span>, mean_mae_kfold)
+</code></div></div></pre><p>In this code, we first train the neural network model using the entire training data. Then, we compare its mean absolute error with a linear regression model on the testing data. Finally, we use K-Fold Cross-Validation with K=5 to evaluate the neural network model's performance and calculate the mean absolute error.</p></div></div></div><div class="flex justify-between lg:block"><div class="text-gray-400 flex self-end lg:self-center justify-center mt-2 gap-2 md:gap-3 lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 visible"></div></div></div></div></div></body>
+                            </html>
