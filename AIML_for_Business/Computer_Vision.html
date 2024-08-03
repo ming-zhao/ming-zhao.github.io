@@ -567,7 +567,7 @@ what if without maxpooling
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    val_loss <span class="op">=</span> history[<span class="st">'val_loss'</span>]</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    epochs <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(acc))</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">6</span>))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plt.subplot(1, 2, 1)</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    plt.plot(epochs, acc, <span class="st">'bo'</span>, label<span class="op">=</span><span class="st">'Training'</span>)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    plt.plot(epochs, val_acc, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'Validation'</span>)</span>
@@ -616,14 +616,14 @@ what if without maxpooling
 <h2 class="anchored" data-anchor-id="first-model">First Model</h2>
 <p>We often heard that deep learning requires lots of data. While it is partially true that deep learning requires lots of data, one fundamental characteristic of deep learning is its ability to identify interesting features in the training data on its own. This is especially beneficial for complex input samples, such as images. However, what constitutes <q>lots</q> of samples is relative to the size of the network being trained.</p>
 <p>Convolutional neural networks (convnets) are highly efficient at learning local, translation-invariant features, which makes them highly data efficient for perceptual problems. Even with a small image dataset, training a convnet from scratch can yield reasonable results.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>base_url <span class="op">=</span> (<span class="st">"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">"/master/AIML_for_Business"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -684,81 +684,164 @@ what if without maxpooling
 <span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fit model and get validation information</span></span>
 <span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> model.fit(train_generator, steps_per_epoch<span class="op">=</span><span class="dv">100</span>, epochs<span class="op">=</span><span class="dv">30</span>, </span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>                        validation_data<span class="op">=</span>validation_generator, validation_steps<span class="op">=</span><span class="dv">50</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>                        validation_data<span class="op">=</span>validation_generator, validation_steps<span class="op">=</span><span class="dv">50</span>)    </span>
 <span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'./data/history_cats_and_dogs_small_1.pkl'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
 <span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>        pickle.dump(history.history, f)</span>
 <span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> history.history</span>
 <span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model, history</span>
 <span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="co"># model, history = build_model()</span></span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> models.load_model(get_file(origin <span class="op">=</span> os.path.join(base_url, <span class="st">'model/cats_and_dogs_small_1.keras'</span>)))</span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> pickle.loads(urlopen(os.path.join(base_url, <span class="st">"data/history_cats_and_dogs_small_1.pkl"</span>)).read())</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>model, history <span class="op">=</span> build_model()</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="co"># model = models.load_model(get_file(origin = os.path.join(base_url, 'model/cats_and_dogs_small_1.h5')))</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="co"># history = pickle.loads(urlopen(os.path.join(base_url, "data/history_cats_and_dogs_small_1.pkl")).read())</span></span>
 <span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>model.summary()</span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>validation_plot(history)    </span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>plot_test_images(model)</span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>K.clear_session()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a><span class="co"># model.summary()</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="co"># validation_plot(history)    </span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_test_images(model)</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a><span class="co"># K.clear_session()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Found 2000 images belonging to 2 classes.
-Found 1000 images belonging to 2 classes.</code></pre>
-</div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2024-08-03 17:15:09.924265: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+<pre><code>2024-08-03 17:32:26.723855: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/Users/mgzhao/anaconda3/envs/work/lib/python3.11/site-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:120: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+2024-08-03 17:33:13.203975: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:15:09.939376: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+/Users/mgzhao/anaconda3/envs/work/lib/python3.11/contextlib.py:158: UserWarning: Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches. You may need to use the `.repeat()` function when building your dataset.
+  self.gen.throw(typ, value, traceback)
+2024-08-03 17:33:13.220160: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:15:52.599576: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:33:57.013931: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:15:52.612270: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:33:57.029703: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:16:35.287919: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:34:45.007372: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:16:35.299984: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:34:45.024224: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:17:18.131042: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:35:29.269000: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:17:18.145334: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:35:29.282918: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:17:58.787380: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:36:13.115771: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:17:58.800756: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:36:13.130318: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:18:39.090683: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:36:58.065758: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:18:39.103787: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:36:58.080135: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:19:20.072553: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:37:42.058669: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:19:20.084817: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:37:42.073320: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:20:03.232702: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:38:26.254138: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:20:03.246979: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:38:26.268758: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:20:48.753626: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:39:10.236459: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:20:48.769158: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:39:10.250935: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:21:34.693773: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:39:53.507154: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]
-2024-08-03 17:21:34.707012: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-08-03 17:39:53.521713: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:40:38.968373: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:40:38.983667: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:41:25.188278: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:41:25.203193: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:42:10.003082: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:42:10.019211: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:42:58.121421: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:42:58.136661: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:43:46.370720: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+     [[{{node IteratorGetNext}}]]
+2024-08-03 17:43:46.385865: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
      [[{{node IteratorGetNext}}]]</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 2000 images belonging to 2 classes.
+Found 1000 images belonging to 2 classes.
+Epoch 1/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 42s 401ms/step - acc: 0.5191 - loss: 0.6916 - val_acc: 0.6240 - val_loss: 0.6833
+Epoch 2/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 347us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 3/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 434ms/step - acc: 0.5821 - loss: 0.6799 - val_acc: 0.6310 - val_loss: 0.6590
+Epoch 4/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 265us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 5/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 48s 475ms/step - acc: 0.6168 - loss: 0.6555 - val_acc: 0.5500 - val_loss: 0.6890
+Epoch 6/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 282us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 7/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 436ms/step - acc: 0.6619 - loss: 0.6185 - val_acc: 0.6600 - val_loss: 0.6154
+Epoch 8/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 244us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 9/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 434ms/step - acc: 0.6887 - loss: 0.5831 - val_acc: 0.6840 - val_loss: 0.5943
+Epoch 10/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 245us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 11/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 45s 444ms/step - acc: 0.7312 - loss: 0.5476 - val_acc: 0.6770 - val_loss: 0.5856
+Epoch 12/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 244us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 13/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 435ms/step - acc: 0.7205 - loss: 0.5480 - val_acc: 0.7020 - val_loss: 0.5714
+Epoch 14/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 253us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 15/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 437ms/step - acc: 0.7551 - loss: 0.5087 - val_acc: 0.6870 - val_loss: 0.5640
+Epoch 16/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 248us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 17/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 44s 435ms/step - acc: 0.7639 - loss: 0.4986 - val_acc: 0.6690 - val_loss: 0.6298
+Epoch 18/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 245us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 19/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 43s 427ms/step - acc: 0.7631 - loss: 0.4752 - val_acc: 0.6700 - val_loss: 0.6116
+Epoch 20/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 248us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 21/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 45s 450ms/step - acc: 0.7752 - loss: 0.4586 - val_acc: 0.6900 - val_loss: 0.5941
+Epoch 22/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 260us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 23/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 46s 457ms/step - acc: 0.7912 - loss: 0.4405 - val_acc: 0.7130 - val_loss: 0.5417
+Epoch 24/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 254us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 25/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 45s 443ms/step - acc: 0.8092 - loss: 0.4173 - val_acc: 0.7260 - val_loss: 0.5494
+Epoch 26/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 271us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 27/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 48s 476ms/step - acc: 0.8187 - loss: 0.3900 - val_acc: 0.7450 - val_loss: 0.5202
+Epoch 28/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 261us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00
+Epoch 29/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 48s 476ms/step - acc: 0.8242 - loss: 0.3887 - val_acc: 0.7430 - val_loss: 0.5335
+Epoch 30/30
+100/100 ━━━━━━━━━━━━━━━━━━━━ 0s 262us/step - acc: 0.0000e+00 - loss: 0.0000e+00 - val_acc: 0.0000e+00 - val_loss: 0.0000e+00</code></pre>
 </div>
-<p>The accuracy and loss plots are characteristic of overfitting.</p>
-<ul>
-<li><p>The training accuracy increases linearly over time, until it reaches nearly 100%, whereas the validation accuracy stalls at low percentages.</p></li>
-<li><p>the training loss keeps decreasing linearly until it reaches nearly 0, whereas the validation loss reaches its minimum after only 5-10 epochs.</p></li>
-</ul>
-<p>Overfitting is a significant concern since we only have 2,000 training samples. This problem is caused by having too few samples to learn from, which can result in an inability to train a model that can generalize to new data. To mitigate this issue, we will use data augmentation, a technique that is specific to computer vision and is almost universally used when processing images with deep-learning models.</p>
+</div>
+<p>The accuracy plot highlights the problem of overfitting. The training accuracy increases linearly over time, eventually reaching nearly 100%, while the validation accuracy stalls at a much lower percentage.</p>
+<p>Overfitting is a significant concern since we only have 2,000 training samples. This issue arises because having too few samples makes it difficult to train a model that can generalize to new data. To mitigate this problem, we will use data augmentation, a technique specific to computer vision that is almost universally applied when processing images with deep-learning models.</p>
 </section>
 <section id="data-augmentation" class="level2">
 <h2 class="anchored" data-anchor-id="data-augmentation">Data Augmentation</h2>
-<p>Data augmentation is a technique that generates more training data from existing training samples. It works by augmenting the samples through a number of random transformations that yield believable-looking images.</p>
-<p>The code block demonstrates the augmented images:</p>
-<div class="cell" data-execution_count="21">
+<p>Data augmentation is a technique that generates additional training data from existing samples by applying a number of random transformations to create believable variations of the images.</p>
+<p>This time, <code>ImageDataGenerator</code> is configured with the following parameters: <code>rotation_range=40, width_shift_range=0.2, height_shift_range=0.2, shear_range=0.2, and zoom_range=0.2</code>. These parameters introduce random transformations, unlike before, where we do not use any those parameters and hence use only the original images. Now, the code can generate random variations of the original images within the specified ranges.</p>
+<p>The following code block demonstrates the augmented images:</p>
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>train_dir <span class="op">=</span> <span class="st">'./dogs-vs-cats_small/train'</span></span>
