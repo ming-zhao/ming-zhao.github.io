@@ -118,15 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filters" id="toc-filters" class="nav-link" data-scroll-target="#filters">Filters</a></li>
   <li><a href="#heatmaps-of-class-activation" id="toc-heatmaps-of-class-activation" class="nav-link" data-scroll-target="#heatmaps-of-class-activation">Heatmaps of Class Activation</a></li>
   </ul></li>
-  <li><a href="#introduction-to-computer-vision" id="toc-introduction-to-computer-vision" class="nav-link" data-scroll-target="#introduction-to-computer-vision">Introduction to Computer Vision</a>
-  <ul class="collapse">
-  <li><a href="#applications" id="toc-applications" class="nav-link" data-scroll-target="#applications">Applications</a>
-  <ul class="collapse">
-  <li><a href="#autonomous-vehicles" id="toc-autonomous-vehicles" class="nav-link" data-scroll-target="#autonomous-vehicles">Autonomous vehicles</a></li>
-  <li><a href="#bio-medical-image-diagnosis" id="toc-bio-medical-image-diagnosis" class="nav-link" data-scroll-target="#bio-medical-image-diagnosis">Bio Medical Image Diagnosis</a></li>
-  </ul></li>
-  <li><a href="#u-net" id="toc-u-net" class="nav-link" data-scroll-target="#u-net">U-Net</a></li>
-  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
 </div>
@@ -164,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>
-<a href="https://colab.research.google.com/drive/1VX9Cch860eI52dItMkG1ZkQBhBxTJrcO" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
+<a href="https://colab.research.google.com/drive/1ZN5VQkCj2u-5vovwuPNCXv1PM4rymhJD" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
 </p>
 <p>Execute the following code block to import all necessary packages.</p>
 <div class="cell" data-execution_count="2">
@@ -1460,7 +1452,7 @@ fine-tune
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># from keras.applications.xception import preprocess_input, decode_predictions</span></span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>img_path <span class="op">=</span> get_file(origin<span class="op">=</span>os.path.join(base_url, <span class="st">'figure/african_elephant.jpg'</span>))</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># img_path = get_file(origin=base+'figures/cat_and_dog.jpg') </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># img_path = get_file(origin=os.path.join(base_url, 'figure/cat_and_dog.jpg'))</span></span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(load_img(img_path))</span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>img <span class="op">=</span> load_img(img_path, target_size<span class="op">=</span>model.layers[<span class="dv">0</span>].output.shape[<span class="dv">1</span>:<span class="dv">3</span>])</span>
@@ -1506,11 +1498,10 @@ fine-tune
 <figcaption class="figure-caption">Figure&nbsp;6: CAM</figcaption>
 </figure>
 </div>
-<p>For instance, the CAM visualization shows that the Xception model predicts the cat and dog as the top two classes, while VGG16 fails to predict the cat class.</p>
 </section>
 </section>
-<section id="introduction-to-computer-vision" class="level1">
-<h1>Introduction to Computer Vision</h1>
+<section id="summary" class="level1">
+<h1>Summary</h1>
 <p>Computer vision is an interdisciplinary field that deals with how computers can be made to gain a high-level understanding of digital images or videos. There are several levels of granularity in which computers can understand images.</p>
 <ol type="1">
 <li><p>Image classification: This is the most fundamental building block in computer vision. Given an image, the computer outputs a label, which identifies the main object in the image. We have demonstrated image classification with examples such as MNIST and Dogs vs.&nbsp;Cats.</p></li>
@@ -1521,25 +1512,10 @@ fine-tune
 </ol>
 <p>The figure below shows their connections and differences.</p>
 <p><img src="https://raw.github.com/ming-zhao/ming-zhao.github.io/master/AIML_for_Business/figure/segmentation.png" width="700"></p>
-<section id="applications" class="level2">
-<h2 class="anchored" data-anchor-id="applications">Applications</h2>
-<section id="autonomous-vehicles" class="level3">
-<h3 class="anchored" data-anchor-id="autonomous-vehicles">Autonomous vehicles</h3>
-<p>Autonomous driving is a complex robotics tasks that requires perception, planning and execution within constantly evolving environments. This task also needs to be performed with utmost precision, since safety is of paramount importance. Semantic Segmentation provides information about free space on the roads, as well as to detect lane markings and traffic signs.</p>
+<p>We have focused on the fundamentals of computer vision, exploring basic concepts and techniques such as Convolutional Neural Networks (ConvNets) and methods to interpret computer vision models. However, it is important to note that the field of computer vision has seen numerous advanced developments that we could not cover here, such as the U-Net architecture for image segmentation and the YOLO (You Only Look Once) algorithm for real-time object detection.</p>
+<p>Computer vision remains a crucial area of artificial intelligence with a wide range of applications, from healthcare and security to entertainment. One of the most notable applications is in autonomous driving, where computer vision technologies enable vehicles to perceive and navigate the world safely.</p>
+<p>Autonomous driving is a complex task that requires perception, planning, and execution within constantly changing environments. This task demands utmost precision, as safety is paramount. Techniques like semantic segmentation provide vital information about free space on the roads, lane markings, and traffic signs. As the field of computer vision continues to evolve, it will undoubtedly lead to even more groundbreaking innovations and applications.</p>
 <p><img src="https://raw.github.com/ming-zhao/ming-zhao.github.io/master/AIML_for_Business/figure/video-road-scene-seg-1.webp" width="700"></p>
-</section>
-<section id="bio-medical-image-diagnosis" class="level3">
-<h3 class="anchored" data-anchor-id="bio-medical-image-diagnosis">Bio Medical Image Diagnosis</h3>
-<p>Machines can augment analysis performed by radiologists, greatly reducing the time required to run diagnostic tests.</p>
-<p><img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Computer_Vision/figures/chest.jpg" width="400"></p>
-</section>
-</section>
-<section id="u-net" class="level2">
-<h2 class="anchored" data-anchor-id="u-net">U-Net</h2>
-<p>The U-Net is a powerful encoder-decoder convolutional neural network architecture for semantic segmentation.</p>
-<p>a specific convolutional network architecture used for semantic segmentation, and it is also used in the stable diffusion model.</p>
-<p><img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/res/Computer_Vision/figures/Unet2D.webp" width="700"></p>
-</section>
 </section>
 
 </main>
