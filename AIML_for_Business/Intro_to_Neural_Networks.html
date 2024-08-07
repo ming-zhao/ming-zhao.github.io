@@ -365,39 +365,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
 <p>To feed our neural network the right kind of data, we need to reshape it first:</p>
-<div id="fig-data_reshape" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<center>
-<img src="https://github.com/ming-zhao/ming-zhao.github.io/raw/master/AIML_for_Business/figure/mnist_1.jpg" width="700" class="figure-img">
-</center>
-<figcaption class="figure-caption">Figure&nbsp;8: Data Reshape</figcaption>
-</figure>
-</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Image Reshape</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Label Reshape</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>In the MNIST dataset, each image is a grid of 28x28 pixels, and each pixel appears as a tiny square in the figure. These pixels contain numbers between 0 and 255 that represent how light or dark each pixel is. To prepare the images for our neural network, we turn this grid into a single long list, or vector, with 784 numbers (because 28 multiplied by 28 gives us 784). We also adjust these numbers to be between 0 and 1 by dividing them by 255, which helps the network process the images more effectively.</p>
+<div id="fig-reshape1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<center>
+<img src="https://raw.github.com/ming-zhao/ming-zhao.github.io/master/AIML_for_Business/figure/mnist_image_reshape.png" width="500" class="figure-img">
+</center>
+<figcaption class="figure-caption">Figure&nbsp;8: Image Reshape</figcaption>
+</figure>
+</div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>For the labels, which are the actual numbers that the images represent, we have a list with either 60,000 entries for the training set or 10,000 for the testing set. These numbers vary from 0 to 9. We use a so-called one-hot encoding to turn each number into a ten-element list, where only one element is <q>1</q> (indicating the digit), and the rest are <q>0’s. So, the number ’2</q> becomes [0, 0, 1, 0, …, 0], a vector of size 10.</p>
+<div id="fig-reshape2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<center>
+<img src="https://raw.github.com/ming-zhao/ming-zhao.github.io/master/AIML_for_Business/figure/mnist_label_reshape.png" width="500" class="figure-img">
+</center>
+<figcaption class="figure-caption">Figure&nbsp;9: Lable Reshape</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <p>So, for our training set of 60,000 images and the testing set of 10,000 images, we end up with two big lists. The training list is 60,000 rows long and 784 columns wide, and the testing list is 10,000 rows by 784 columns. We do the same for our labels, creating lists that are 60,000x10 for training and 10,000x10 for testing, where each row has one <q>1</q> and nine ’0’s to show what digit the image is.</p>
-<p>The data preparation steps are carried out using the following Python code:</p>
-<pre class="{python}"><code>train_images_reshape = train_images.reshape((60000, 28 * 28))
-train_images_reshape = train_images_reshape.astype('float32') / 255
-test_images_reshape = test_images.reshape((10000, 28 * 28))
-test_images_reshape = test_images_reshape.astype('float32') / 255
-
-train_labels_cat = to_categorical(train_labels)
-test_labels_cat = to_categorical(test_labels)</code></pre>
 <p>For the labels, which are values between 0 and 9 representing the actual numbers depicted in the images, the example below demonstrates how these labels are reshaped.</p>
 <div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>to_categorical([[<span class="dv">0</span>], [<span class="dv">2</span>], [<span class="dv">3</span>], [<span class="dv">9</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>to_categorical([[<span class="dv">0</span>], [<span class="dv">2</span>], [<span class="dv">3</span>], [<span class="dv">9</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>array([[1., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
@@ -406,6 +406,14 @@ test_labels_cat = to_categorical(test_labels)</code></pre>
        [0., 0., 0., 0., 0., 0., 0., 0., 0., 1.]])</code></pre>
 </div>
 </div>
+<p>The data preparation steps are carried out using the following Python code:</p>
+<pre class="{python}"><code>train_images_reshape = train_images.reshape((60000, 28 * 28))
+train_images_reshape = train_images_reshape.astype('float32') / 255
+test_images_reshape = test_images.reshape((10000, 28 * 28))
+test_images_reshape = test_images_reshape.astype('float32') / 255
+
+train_labels_cat = to_categorical(train_labels)
+test_labels_cat = to_categorical(test_labels)</code></pre>
 </section>
 <section id="network-architecture" class="level2">
 <h2 class="anchored" data-anchor-id="network-architecture">Network Architecture</h2>
@@ -476,7 +484,7 @@ Anatomy of Neural Network for Digit Classification
 <section id="the-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-model">The Model</h2>
 <p>We have compiled all the code snippets together to present the complete model as follows:</p>
-<div class="cell" data-outputid="ad4b50a9-d6ad-492a-8e11-86050d4b310b" data-execution_count="3">
+<div class="cell" data-outputid="ad4b50a9-d6ad-492a-8e11-86050d4b310b" data-execution_count="5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -488,54 +496,55 @@ Anatomy of Neural Network for Digit Classification
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model_url <span class="op">=</span> (<span class="st">"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io"</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>           <span class="st">"/master/AIML_for_Business/model"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model():</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> models.Sequential(name<span class="op">=</span><span class="st">'mnist_simple'</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Input(shape<span class="op">=</span>(<span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>,)))</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Dense(<span class="dv">512</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Dense(<span class="dv">10</span>, activation<span class="op">=</span><span class="st">'softmax'</span>))</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'rmsprop'</span>, loss<span class="op">=</span><span class="st">'categorical_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'acc'</span>])</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    model.fit(train_images_reshape, train_labels_cat, epochs<span class="op">=</span><span class="dv">5</span>, batch_size<span class="op">=</span><span class="dv">128</span>, verbose<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    model.save(<span class="st">'./model/mnist_simple.keras'</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.datasets <span class="im">import</span> mnist</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>(train_images, train_labels), (test_images, test_labels) <span class="op">=</span> mnist.load_data()</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>train_images_reshape <span class="op">=</span> train_images.reshape((<span class="dv">60000</span>, <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>))</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>train_images_reshape <span class="op">=</span> train_images_reshape.astype(<span class="st">'float32'</span>) <span class="op">/</span> <span class="dv">255</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>test_images_reshape <span class="op">=</span> test_images.reshape((<span class="dv">10000</span>, <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>))</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>test_images_reshape <span class="op">=</span> test_images_reshape.astype(<span class="st">'float32'</span>) <span class="op">/</span> <span class="dv">255</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>train_labels_cat <span class="op">=</span> to_categorical(train_labels)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>test_labels_cat <span class="op">=</span> to_categorical(test_labels)</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># model = build_model()</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> models.load_model(get_file(origin<span class="op">=</span>os.path.join(model_url, <span class="st">'mnist_simple.keras'</span>)))<span class="op">;</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>model.summary()</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model.evaluate(test_images_reshape, test_labels_cat, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.argmax(model.predict(test_images_reshape, verbose<span class="op">=</span><span class="dv">0</span>), axis<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">abs</span>(predicted <span class="op">-</span> test_labels)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>misclassified <span class="op">=</span> np.where(result<span class="op">&gt;</span><span class="dv">0</span>)[<span class="dv">0</span>]</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test accuracy is </span><span class="sc">{}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="bu">round</span>(test_acc<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)))</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out of 10000 testing images, </span><span class="sc">{}</span><span class="st"> misclassified images.</span><span class="ch">\n</span><span class="st">'</span>.<span class="bu">format</span>(misclassified.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model_url <span class="op">=</span> (</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"/master/AIML_for_Business/model"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model():</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> models.Sequential(name<span class="op">=</span><span class="st">'mnist_simple'</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Input(shape<span class="op">=</span>(<span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>,)))</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Dense(<span class="dv">512</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    model.add(layers.Dense(<span class="dv">10</span>, activation<span class="op">=</span><span class="st">'softmax'</span>))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'rmsprop'</span>, loss<span class="op">=</span><span class="st">'categorical_crossentropy'</span>, metrics<span class="op">=</span>[<span class="st">'acc'</span>])</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    model.fit(train_images_reshape, train_labels_cat, epochs<span class="op">=</span><span class="dv">5</span>, batch_size<span class="op">=</span><span class="dv">128</span>, verbose<span class="op">=</span><span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    model.save(<span class="st">'./model/mnist_simple.keras'</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.datasets <span class="im">import</span> mnist</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>(train_images, train_labels), (test_images, test_labels) <span class="op">=</span> mnist.load_data()</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>train_images_reshape <span class="op">=</span> train_images.reshape((<span class="dv">60000</span>, <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>))</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>train_images_reshape <span class="op">=</span> train_images_reshape.astype(<span class="st">'float32'</span>) <span class="op">/</span> <span class="dv">255</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>test_images_reshape <span class="op">=</span> test_images.reshape((<span class="dv">10000</span>, <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>))</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>test_images_reshape <span class="op">=</span> test_images_reshape.astype(<span class="st">'float32'</span>) <span class="op">/</span> <span class="dv">255</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>train_labels_cat <span class="op">=</span> to_categorical(train_labels)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>test_labels_cat <span class="op">=</span> to_categorical(test_labels)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># model = build_model()</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> models.load_model(get_file(origin<span class="op">=</span>os.path.join(model_url, <span class="st">'mnist_simple.keras'</span>)))<span class="op">;</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>model.summary()</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model.evaluate(test_images_reshape, test_labels_cat, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> np.argmax(model.predict(test_images_reshape, verbose<span class="op">=</span><span class="dv">0</span>), axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">abs</span>(predicted <span class="op">-</span> test_labels)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>misclassified <span class="op">=</span> np.where(result<span class="op">&gt;</span><span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test accuracy is </span><span class="sc">{}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="bu">round</span>(test_acc<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)))</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out of 10000 testing images, </span><span class="sc">{}</span><span class="st"> misclassified images.</span><span class="ch">\n</span><span class="st">'</span>.<span class="bu">format</span>(misclassified.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/5
-469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 3ms/step - acc: 0.8710 - loss: 0.4424
+469/469 ━━━━━━━━━━━━━━━━━━━━ 3s 3ms/step - acc: 0.8718 - loss: 0.4401
 Epoch 2/5
-469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 3ms/step - acc: 0.9654 - loss: 0.1209
+469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 3ms/step - acc: 0.9656 - loss: 0.1148
 Epoch 3/5
-469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - acc: 0.9795 - loss: 0.0712
+469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 4ms/step - acc: 0.9792 - loss: 0.0706
 Epoch 4/5
-469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - acc: 0.9855 - loss: 0.0491
+469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 4ms/step - acc: 0.9846 - loss: 0.0504
 Epoch 5/5
-469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 3ms/step - acc: 0.9896 - loss: 0.0371
-Test accuracy is 98.07%
-Out of 10000 testing images, 193 misclassified images.
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - acc: 0.9892 - loss: 0.0369
+Test accuracy is 97.79%
+Out of 10000 testing images, 221 misclassified images.
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -546,9 +555,9 @@ Out of 10000 testing images, 193 misclassified images.
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
 ┃<span style="font-weight: bold"> Layer (type)                    </span>┃<span style="font-weight: bold"> Output Shape           </span>┃<span style="font-weight: bold">       Param # </span>┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ dense (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                   │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">512</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">401,920</span> │
+│ dense_2 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">512</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">401,920</span> │
 ├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_1 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">10</span>)             │         <span style="color: #00af00; text-decoration-color: #00af00">5,130</span> │
+│ dense_3 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">10</span>)             │         <span style="color: #00af00; text-decoration-color: #00af00">5,130</span> │
 └─────────────────────────────────┴────────────────────────┴───────────────┘
 </pre>
 </div>
@@ -588,12 +597,12 @@ Out of 10000 testing images, 193 misclassified images.
 <div id="fig-misclassified" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Intro_to_Neural_Networks_files/figure-html/fig-misclassified-output-1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: Examples of misclassified images</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;10: Examples of misclassified images</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-misclassified">Figure&nbsp;9</a> displays five misclassified images. For instance, at the top of all the 5 images, it shows <q>predicted: X, Label: Y</q> for some X <span class="math inline">\neq</span> Y — indicating that the label is Y, but our model predicted X.</p>
+<p><a href="#fig-misclassified">Figure&nbsp;10</a> displays five misclassified images. For instance, at the top of all the 5 images, it shows <q>predicted: X, Label: Y</q> for some X <span class="math inline">\neq</span> Y — indicating that the label is Y, but our model predicted X.</p>
 <div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
@@ -615,16 +624,16 @@ Out of 10000 testing images, 193 misclassified images.
 <div id="fig-first_layer_heatmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Intro_to_Neural_Networks_files/figure-html/fig-first_layer_heatmap-output-1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;10: Plot weights of the first layer as a heatmap</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;11: Plot weights of the first layer as a heatmap</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-first_layer_heatmap">Figure&nbsp;10</a> is the heatmap of the first layer’s weights. This layer contains 512 neurons, resulting in 512 images. Recall that the code snippet below added this layer to the model:</p>
+<p><a href="#fig-first_layer_heatmap">Figure&nbsp;11</a> is the heatmap of the first layer’s weights. This layer contains 512 neurons, resulting in 512 images. Recall that the code snippet below added this layer to the model:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>network.add(layers.Dense(<span class="dv">512</span>, activation<span class="op">=</span><span class="st">'relu'</span>, input_shape<span class="op">=</span>(<span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>,)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each image in <a href="#fig-first_layer_heatmap">Figure&nbsp;10</a> represents the specific features that a neuron is detecting. For more details, see Anatomy of Neural Network for Digit Classification: Layer 1 Weight.</p>
-<p><a href="#fig-more_layer_heatmap">Figure&nbsp;11</a> aggregates the weights of both layers into a heatmap. While the aggregated weights plots don’t take into account activation functions and bias terms, they do provide some insight into how the neural network operates.</p>
-<p>Consider the first image in <a href="#fig-more_layer_heatmap">Figure&nbsp;11</a>, which demonstrates how an image is classified as the digit 0. According to the color scale on the right, yellow or light green indicates high values, suggesting that pixels in these areas significantly contribute to classifying an image as 0. Conversely, dark colors indicate low values (or even negative), showing that pixels in these areas do not support the classification as 0. For instance, the center of the 0 image displays strongly negative values, indicating that any color in the center of the image is less likely to be classified as 0.</p>
+<p>Each image in <a href="#fig-first_layer_heatmap">Figure&nbsp;11</a> represents the specific features that a neuron is detecting. For more details, see Anatomy of Neural Network for Digit Classification: Layer 1 Weight.</p>
+<p><a href="#fig-more_layer_heatmap">Figure&nbsp;12</a> aggregates the weights of both layers into a heatmap. While the aggregated weights plots don’t take into account activation functions and bias terms, they do provide some insight into how the neural network operates.</p>
+<p>Consider the first image in <a href="#fig-more_layer_heatmap">Figure&nbsp;12</a>, which demonstrates how an image is classified as the digit 0. According to the color scale on the right, yellow or light green indicates high values, suggesting that pixels in these areas significantly contribute to classifying an image as 0. Conversely, dark colors indicate low values (or even negative), showing that pixels in these areas do not support the classification as 0. For instance, the center of the 0 image displays strongly negative values, indicating that any color in the center of the image is less likely to be classified as 0.</p>
 <div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
@@ -643,7 +652,7 @@ Out of 10000 testing images, 193 misclassified images.
 <div id="fig-more_layer_heatmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Intro_to_Neural_Networks_files/figure-html/fig-more_layer_heatmap-output-1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;11: Plot aggregated weights of both layers as a heatmap</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;12: Plot aggregated weights of both layers as a heatmap</figcaption>
 </figure>
 </div>
 </div>
