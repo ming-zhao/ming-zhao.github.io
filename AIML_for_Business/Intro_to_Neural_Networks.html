@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2024-08-06">
+<meta name="dcterms.date" content="2024-09-14">
 
 <title>Neural Networks</title>
 <style>
@@ -22,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-q { quotes: "“" "”" "‘" "’"; }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
@@ -145,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 6, 2024</p>
+      <p class="date">September 14, 2024</p>
     </div>
   </div>
   
@@ -156,11 +155,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>
-<a href="https://colab.research.google.com/drive/14CECv-8O2u4HXnzv3KXJtZnrgnVs2s3Y" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
+<a href="https://colab.research.google.com/drive/14CECv-8O2u4HXnzv3KXJtZnrgnVs2s3Y" target="_blank"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
 </p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p><strong>Introduction to Artificial Intelligence</strong> Artificial intelligence (AI) has captured widespread attention, frequently discussed in various media beyond just technical outlets. The journey of AI began in the 1950s with computer scientists exploring the potential for computers to <q>think.</q> AI aims to automate tasks traditionally performed by humans, encompassing several approaches including both learning and non-learning methods.</p>
+<p><strong>Introduction to Artificial Intelligence</strong> Artificial intelligence (AI) has captured widespread attention, frequently discussed in various media beyond just technical outlets. The journey of AI began in the 1950s with computer scientists exploring the potential for computers to “think.” AI aims to automate tasks traditionally performed by humans, encompassing several approaches including both learning and non-learning methods.</p>
 <p><strong>Early AI and Symbolic AI</strong> Initially, AI was dominated by Symbolic AI up until the late 1980s. This approach involved programmers creating explicit sets of rules to manipulate knowledge. However, Symbolic AI struggled with complex problems due to its inflexibility and limited scope, leading to the exploration of alternative methods.</p>
 <p><span class="math display">\begin{align*}
 \left.
@@ -178,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 &amp;\text{Machine learning} \longrightarrow \text{Rules}
 \end{align*}</span></p>
 <p><strong>Rise of Machine Learning</strong> As the limitations of Symbolic AI became apparent, machine learning emerged as a new paradigm. Unlike traditional programming, which relies on hard-coded rules, machine learning enables computers to learn from data. This shift allows systems to develop their own rules by finding patterns in data, which is more effective for tasks with complex or less defined rules. The success of machine learning has been propelled by advances in computing power and the availability of large datasets.</p>
-<p><strong>Introduction and Explanation of Deep Learning</strong> Within machine learning, deep learning represents a further specialization, characterized by models that process data through many layers (hence <q>deep</q>) of neural networks. These layers construct increasingly abstract representations of data, which are not explicitly programmed but learned from vast amounts of training data. Deep learning excels at identifying intricate structures in high-dimensional data, making it a powerful tool for many AI applications.</p>
+<p><strong>Introduction and Explanation of Deep Learning</strong> Within machine learning, deep learning represents a further specialization, characterized by models that process data through many layers (hence “deep”) of neural networks. These layers construct increasingly abstract representations of data, which are not explicitly programmed but learned from vast amounts of training data. Deep learning excels at identifying intricate structures in high-dimensional data, making it a powerful tool for many AI applications.</p>
 <p><strong>Educational Approach</strong> Our educational approach focuses on building intuitive understanding of these concepts without delving too deeply into technical complexities. This strategy is designed to help learners grasp the fundamental principles of deep learning and apply them to real-world problems effectively.</p>
 </section>
 <section id="fundamentals-of-neural-networks" class="level1">
@@ -198,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Input Layer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Hidden Layer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Output Layer</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>It consists of a single node represented as <q>input x</q>, which represents the input data for the network.</p>
+<p>It consists of a single node represented as “input x”, which represents the input data for the network.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ul>
@@ -305,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption class="figure-caption">Figure&nbsp;6: Anatomy of a Neural Network</figcaption>
 </figure>
 </div>
-<p><a href="#fig-hidden_layers">Figure&nbsp;7</a> displays the features captured by the hidden layers. Essentially, the neural network learns from the blue dots (denoted as <q>func</q> in the figure legend) and infers that the final curve (represented by the red solid line, or the <q>predicted curve</q>) is a weighted sum of three dashed curves generated by the hidden layers. It is observed that the predicted curve aligns closely with the true function, indicating that the neural network effectively learns from the scattered input points.</p>
+<p><a href="#fig-hidden_layers">Figure&nbsp;7</a> displays the features captured by the hidden layers. Essentially, the neural network learns from the blue dots (denoted as “func” in the figure legend) and infers that the final curve (represented by the red solid line, or the “predicted curve”) is a weighted sum of three dashed curves generated by the hidden layers. It is observed that the predicted curve aligns closely with the true function, indicating that the neural network effectively learns from the scattered input points.</p>
 <div class="cell" data-outputid="9c8f2d12-7576-47f1-ccea-2fc4d65766e0" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div id="fig-hidden_layers" class="quarto-figure quarto-figure-center anchored">
@@ -380,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>For the labels, which are the actual numbers that the images represent, we have a list with either 60,000 entries for the training set or 10,000 for the testing set. These numbers vary from 0 to 9. We use a so-called one-hot encoding to turn each number into a ten-element list, where only one element is <q>1</q> (indicating the digit), and the rest are <q>0’s. So, the number ’2</q> becomes [0, 0, 1, 0, …, 0], a vector of size 10.</p>
+<p>For the labels, which are the actual numbers that the images represent, we have a list with either 60,000 entries for the training set or 10,000 for the testing set. These numbers vary from 0 to 9. We use a so-called one-hot encoding to turn each number into a ten-element list, where only one element is ‘1’ (indicating the digit), and the rest are ‘0’s. So, the number ’2’ becomes [0, 0, 1, 0, …, 0], a vector of size 10.</p>
 <div id="fig-reshape2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <center>
@@ -392,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>So, for our training set of 60,000 images and the testing set of 10,000 images, we end up with two big lists. The training list is 60,000 rows long and 784 columns wide, and the testing list is 10,000 rows by 784 columns. We do the same for our labels, creating lists that are 60,000x10 for training and 10,000x10 for testing, where each row has one <q>1</q> and nine ’0’s to show what digit the image is.</p>
+<p>So, for our training set of 60,000 images and the testing set of 10,000 images, we end up with two big lists. The training list is 60,000 rows long and 784 columns wide, and the testing list is 10,000 rows by 784 columns. We do the same for our labels, creating lists that are 60,000x10 for training and 10,000x10 for testing, where each row has one ‘1’ and nine ’0’s to show what digit the image is.</p>
 <p>For the labels, which are values between 0 and 9 representing the actual numbers depicted in the images, the example below demonstrates how these labels are reshaped.</p>
 <div class="cell" data-execution_count="4">
 <details>
@@ -463,9 +462,9 @@ Anatomy of Neural Network for Digit Classification
 <h2 class="anchored" data-anchor-id="compilation">Compilation</h2>
 <p>Before we training our neural network to recognize digits, we need to set up a few things. It’s like prepping a player before the big game. We need to:</p>
 <ul>
-<li><p>Choose an optimizer: This is like the coach for the network. It helps the network improve step by step. In our code, we’re using <q>rmsprop</q>, which is a smart coach that adjusts the player’s (network’s) moves to perform better over time.</p></li>
-<li><p>Pick a loss function: This is how the network knows if it’s winning or losing. It’s like the scoreboard. The <q>categorical_crossentropy</q> we’ve chosen is perfect for when the answers are one choice out of many, like picking which digit is in the image.</p></li>
-<li><p>Decide on metrics: This is what we want to keep an eye on. We’ve picked <q>accuracy</q> because we want to see how often the network gets the right answer.</p></li>
+<li><p>Choose an optimizer: This is like the coach for the network. It helps the network improve step by step. In our code, we’re using ‘rmsprop’, which is a smart coach that adjusts the player’s (network’s) moves to perform better over time.</p></li>
+<li><p>Pick a loss function: This is how the network knows if it’s winning or losing. It’s like the scoreboard. The ‘categorical_crossentropy’ we’ve chosen is perfect for when the answers are one choice out of many, like picking which digit is in the image.</p></li>
+<li><p>Decide on metrics: This is what we want to keep an eye on. We’ve picked ‘accuracy’ because we want to see how often the network gets the right answer.</p></li>
 </ul>
 <p>And here’s how we write it down in our Python playbook:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>network.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'rmsprop'</span>, <span class="co"># rmsprop = Root Mean Squared Propagation</span></span>
@@ -602,7 +601,7 @@ Out of 10000 testing images, 221 misclassified images.
 </div>
 </div>
 </div>
-<p><a href="#fig-misclassified">Figure&nbsp;10</a> displays five misclassified images. For instance, at the top of all the 5 images, it shows <q>predicted: X, Label: Y</q> for some X <span class="math inline">\neq</span> Y — indicating that the label is Y, but our model predicted X.</p>
+<p><a href="#fig-misclassified">Figure&nbsp;10</a> displays five misclassified images. For instance, at the top of all the 5 images, it shows “predicted: X, Label: Y” for some X <span class="math inline">\neq</span> Y — indicating that the label is Y, but our model predicted X.</p>
 <div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
