@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2024-08-03">
+<meta name="dcterms.date" content="2024-09-14">
 
 <title>Neural Networks</title>
 <style>
@@ -22,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-q { quotes: "“" "”" "‘" "’"; }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
@@ -152,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 3, 2024</p>
+      <p class="date">September 14, 2024</p>
     </div>
   </div>
   
@@ -163,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>
-<a href="https://colab.research.google.com/drive/1VX9Cch860eI52dItMkG1ZkQBhBxTJrcO" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
+<a href="https://colab.research.google.com/drive/1VX9Cch860eI52dItMkG1ZkQBhBxTJrcO" target="_blank"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
 </p>
 <section id="application-breast-cancer-diagnosis" class="level1">
 <h1>Application: Breast Cancer Diagnosis</h1>
@@ -426,7 +425,7 @@ Prompt
 <p>Utilize the breast cancer data in Sklearn to conduct the following analysis:</p>
 <p>1). Provide an explanation of the dataset and display the first few rows of the data.</p>
 <p>2). Plot the percentage of benign (value 1) and malignant (value 0) cases. Y-axis shows percentage.</p>
-<p>3). Generate a plot comparing the distribution of the feature <q>mean area</q> for benign and malignant cases. Y-axis shows percentage. Do the same for the feature <q>worst area</q>.</p>
+<p>3). Generate a plot comparing the distribution of the feature “mean area” for benign and malignant cases. Y-axis shows percentage. Do the same for the feature “worst area”.</p>
 <p>4). show a correlation plot of input features and the target variable</p>
 </div>
 </div>
@@ -873,7 +872,7 @@ Prompt
 </div>
 </div>
 </div>
-<p><a href="#fig-benign1">Figure&nbsp;5</a> and <a href="#fig-malignant1">Figure&nbsp;6</a> list the top 5 important features from top to bottom. The figure title shows <q>(DNN Confidence: X%)</q>, indicating that the DNN model predicted the result (benign or malignant) with a confidence of X%. To understand how it arrived at that prediction, the figure shows the weights or importance of each feature as horizontal bars (red for negative values, green for positive values). On the left side of the figure, there is text in the format lower&nbsp;value &lt; feature&nbsp;name ≤ upper&nbsp;value. According to LIME, the reason the model predicted benign was because the feature values were within these specified ranges.</p>
+<p><a href="#fig-benign1">Figure&nbsp;5</a> and <a href="#fig-malignant1">Figure&nbsp;6</a> list the top 5 important features from top to bottom. The figure title shows “(DNN Confidence: X%)”, indicating that the DNN model predicted the result (benign or malignant) with a confidence of X%. To understand how it arrived at that prediction, the figure shows the weights or importance of each feature as horizontal bars (red for negative values, green for positive values). On the left side of the figure, there is text in the format lower&nbsp;value &lt; feature&nbsp;name ≤ upper&nbsp;value. According to LIME, the reason the model predicted benign was because the feature values were within these specified ranges.</p>
 </section>
 <section id="shapley-additive-explanations-shap" class="level3">
 <h3 class="anchored" data-anchor-id="shapley-additive-explanations-shap">SHapley Additive exPlanations (SHAP)</h3>
@@ -892,7 +891,7 @@ How it works
 <li><p>Pick a Game: First, choose a specific game whose prediction you want to understand.</p></li>
 <li><p>Think of Features: The features of the game include players, coach, game location, etc. The goal is to predict whether the team will win or lose based on these features.</p></li>
 <li><p>Calculate Contributions: In this context, each feature’s contribution to the prediction is calculated. SHAP does this by looking at all possible combinations of features and seeing how adding each feature changes the prediction. This is similar to figuring out how much each player contributes to the team’s score, or how important the coach or game location is for winning the game.</p></li>
-<li><p>Shapley Values: These contributions are called Shapley values. They tell you how much each feature contributed to the model’s prediction. A positive Shapley value means the feature pushes the prediction towards <q>win,</q> while a negative Shapley value means it pushes the prediction towards <q>lose.</q></p></li>
+<li><p>Shapley Values: These contributions are called Shapley values. They tell you how much each feature contributed to the model’s prediction. A positive Shapley value means the feature pushes the prediction towards “win,” while a negative Shapley value means it pushes the prediction towards “lose.”</p></li>
 <li><p>Summarize the Contributions: SHAP combines all these contributions to explain the model’s prediction. It shows which features had the biggest impact on predicting whether the team will win or lose.</p></li>
 </ul>
 </div>
@@ -1409,15 +1408,15 @@ Mean Absolute Error (Linear Regression): 0.5332001304956989</code></pre>
 <section id="dropout" class="level3">
 <h3 class="anchored" data-anchor-id="dropout">Dropout</h3>
 <p>Dropout is one of the most effective and commonly used regularization techniques for neural networks.</p>
-<p>When applied to a layer, dropout randomly <q>drops out</q> (i.e., sets to zero) a number of output features during training. For example, if a given layer would normally return a vector [0.2, 0.5, 1.3, 0.8, 1.1] for an input sample during training, after applying dropout, this vector might have a few zero entries distributed at random, e.g., [0, 0.5, 1.3, 0, 1.1].</p>
-<p>The <q>dropout rate</q> is the fraction of the features that are zeroed out and is usually set between 0.2 and 0.5.</p>
+<p>When applied to a layer, dropout randomly “drops out” (i.e., sets to zero) a number of output features during training. For example, if a given layer would normally return a vector [0.2, 0.5, 1.3, 0.8, 1.1] for an input sample during training, after applying dropout, this vector might have a few zero entries distributed at random, e.g., [0, 0.5, 1.3, 0, 1.1].</p>
+<p>The “dropout rate” is the fraction of the features that are zeroed out and is usually set between 0.2 and 0.5.</p>
 <p>Dropout processing is only performed during training. At the time of testing or when using the model to make predictions, no units are dropped out. Instead, the layer’s output values are scaled down by a factor equal to the dropout rate to account for the fact that more units are active than during training.</p>
 <p>To implement dropout, we can simply add a dropout layer between two layers as follows:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">64</span>, input_dim<span class="op">=</span>X_train.shape[<span class="dv">1</span>], activation<span class="op">=</span><span class="st">'relu'</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model.add(layers.Dropout(<span class="fl">0.5</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This technique may seem strange and arbitrary. Why would this help reduce overfitting? The idea was inspired by a fraud prevention mechanism used by banks. In the inventor’s own words: <q>I went to my bank. The tellers kept changing, and I asked one of them why. He said he didn’t know, but they got moved around a lot. I figured it must be because it would require cooperation between employees to successfully defraud the bank. This made me realize that randomly removing a different subset of neurons on each example would prevent conspiracies and thus reduce overfitting.</q></p>
-<p>The core idea is that introducing noise in the output values of a layer can break up happenstance patterns that are not significant (referred to as <q>conspiracies</q> in the above example), which the network would start memorizing if no noise was present.</p>
+<p>This technique may seem strange and arbitrary. Why would this help reduce overfitting? The idea was inspired by a fraud prevention mechanism used by banks. In the inventor’s own words: “I went to my bank. The tellers kept changing, and I asked one of them why. He said he didn’t know, but they got moved around a lot. I figured it must be because it would require cooperation between employees to successfully defraud the bank. This made me realize that randomly removing a different subset of neurons on each example would prevent conspiracies and thus reduce overfitting.”</p>
+<p>The core idea is that introducing noise in the output values of a layer can break up happenstance patterns that are not significant (referred to as “conspiracies” in the above example), which the network would start memorizing if no noise was present.</p>
 </section>
 <section id="k-fold-validation" class="level3">
 <h3 class="anchored" data-anchor-id="k-fold-validation">K-fold Validation</h3>
@@ -1466,7 +1465,7 @@ Important Notes
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>It’s important to note that once a model is chosen, its parameters need to be trained using the entire training dataset before the model is deployed for use.</p>
+<p>Once a model is chosen, its parameters need to be trained using the entire training dataset before the model is deployed for use.</p>
 </div>
 </div>
 </div>
@@ -1544,8 +1543,8 @@ Important Notes
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>To evaluate different models, simply replace the code in Step 2: Build the neural network model with alternative models and select the one with the lowest Mean Absolute Error.</p>
-<p>Since the code in Step 3 employs K-fold validation with 5 splits, it may take long time (approximately 10 minutes on Google Colab) to complete the evaluation for each model.</p>
+<p>To evaluate different models, simply replace the code block under the comment “Step 2: Build the neural network model” with alternative models, then select the one with the lowest Mean Absolute Error.</p>
+<p>Since the code under the comment “Step 3” employs K-fold validation (with 5 splits), it will take long time (approximately 10 minutes on Google Colab) to complete the evaluation for each model.</p>
 </div>
 </div>
 </div>

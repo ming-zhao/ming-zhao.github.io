@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2024-08-07">
+<meta name="dcterms.date" content="2024-09-14">
 
 <title>Natural Language Processing</title>
 <style>
@@ -22,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-q { quotes: "“" "”" "‘" "’"; }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
@@ -144,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 7, 2024</p>
+      <p class="date">September 14, 2024</p>
     </div>
   </div>
   
@@ -155,15 +154,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>
-<a href="https://colab.research.google.com/drive/163GItZQt4HYOIAeivnhrgnmpS7c9Bkq_" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
+<a href="https://colab.research.google.com/drive/163GItZQt4HYOIAeivnhrgnmpS7c9Bkq_" target="_blank"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
 </p>
 <section id="word-embedding" class="level1">
 <h1>Word Embedding</h1>
 <p>Machine learning models only work with a numeric representation of input data. Suppose we have a training corpus with three sentences:</p>
 <ul>
-<li><q>the dog saw a cat</q>,</li>
-<li><q>the dog chased the cat</q>,</li>
-<li><q>the cat climbed a tree</q>.</li>
+<li>“the dog saw a cat”,</li>
+<li>“the dog chased the cat”,</li>
+<li>“the cat climbed a tree”.</li>
 </ul>
 <p>The corpus vocabulary has eight words, which are listed alphabetically as follows</p>
 <table class="table">
@@ -210,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <section id="tokenization" class="level2">
 <h2 class="anchored" data-anchor-id="tokenization">Tokenization</h2>
-<p>The different units into which you can break down text are called tokens. The token can be a word (e.g.&nbsp;<q>cat</q>), or a phrase (e.g., <q>the cat</q>, or <q>a cat</q>). Eventually, we will transform each token to a numeric vector.</p>
+<p>The different units into which you can break down text are called tokens. The token can be a word (e.g.&nbsp;“cat”), or a phrase (e.g., “the cat”, or “a cat”). Eventually, we will transform each token to a numeric vector.</p>
 <div class="cell" data-execution_count="41">
 <details>
 <summary>Code</summary>
@@ -230,11 +229,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>The sequences generated from text are: [[1, 3, 5, 4, 2], [1, 3, 6, 1, 2], [1, 2, 7, 4, 8]]</code></pre>
 </div>
 </div>
-<p>The code provides an example of tokenization. It creates tokens for each of the 8 words in the vocabulary and assigns an integer to each token (e.g., <q>then</q> = 1 and <q>dog</q> = 3). As a result, each sentence is transformed into a sequence of numbers.</p>
+<p>The code provides an example of tokenization. It creates tokens for each of the 8 words in the vocabulary and assigns an integer to each token (e.g., “then” = 1 and “dog” = 3). As a result, each sentence is transformed into a sequence of numbers.</p>
 </section>
 <section id="one-hot-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="one-hot-encoding">One-hot encoding</h2>
-<p>One-hot encoding is the most common, most basic way to turn a token into a vector. It is a binary vector of the size of the vocabulary where the vector has 1 for the index of the word, and 0 elsewhere. For example, <q>cat</q> has index 2 in the alphabetical order of the vocabulary. Then, the one-hot encoding of the word <q>cat</q> can be <span class="math display">\underbrace{[0,1,0,0,0,0,0,0]}_{8}</span> and, the sentence <q>the dog saw a cat</q> can be represented as a <span class="math inline">5 \times 8</span> matrix</p>
+<p>One-hot encoding is the most common, most basic way to turn a token into a vector. It is a binary vector of the size of the vocabulary where the vector has 1 for the index of the word, and 0 elsewhere. For example, “cat” has index 2 in the alphabetical order of the vocabulary. Then, the one-hot encoding of the word “cat” can be <span class="math display">\underbrace{[0,1,0,0,0,0,0,0]}_{8}</span> and, the sentence “the dog saw a cat” can be represented as a <span class="math inline">5 \times 8</span> matrix</p>
 <p><span class="math display">
 \left[
 \begin{matrix}
@@ -249,14 +248,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One-hot encoding has two drawbacks for natural language processing (NLP) tasks:</p>
 <ul>
 <li><p>The dimensionality of the vector space becomes very high and sparse because each vector has the size of the vocabulary.</p></li>
-<li><p>There is no connection between words with similar meanings. For example, it is impossible to know that <q>dog</q> and <q>cat</q> are both pets.</p></li>
+<li><p>There is no connection between words with similar meanings. For example, it is impossible to know that “dog” and “cat” are both pets.</p></li>
 </ul>
 </section>
 <section id="frequency-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="frequency-encoding">Frequency Encoding</h2>
-<p>One-hot encoding is a binary vector of the size of the vocabulary where the vector is all zeros, but has 1 for the index of the word. We can also encode the sentence based on the frequency of each word’s occurrence. Then, the sentence <q>the dog saw a cat</q> becomes an array</p>
+<p>One-hot encoding is a binary vector of the size of the vocabulary where the vector is all zeros, but has 1 for the index of the word. We can also encode the sentence based on the frequency of each word’s occurrence. Then, the sentence “the dog saw a cat” becomes an array</p>
 <p><span class="math display">[4, 2, 1, 2, 3]</span></p>
-<p>However, similar to one-hot encoding, this frequency-based encoding does not capture any relationships between words with similar meanings. Even worse, in our example, <q>dog</q> and <q>a</q> have the same frequency, making them indistinguishable from each other.</p>
+<p>However, similar to one-hot encoding, this frequency-based encoding does not capture any relationships between words with similar meanings. Even worse, in our example, “dog” and “a” have the same frequency, making them indistinguishable from each other.</p>
 </section>
 <section id="embedding" class="level2">
 <h2 class="anchored" data-anchor-id="embedding">Embedding</h2>
@@ -265,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Given input texts, a word embedding model constructs a numeric vector for each word, transforming the text into a numerical representation. Initially, words are often represented using basic methods like one-hot encoding. These vectors are then passed through an embedding model. This model, built from large corpora of text, functions as a complex mathematical system that performs extensive calculations to generate more informative word vectors. These vectors position words with similar meanings close to each other in the vector space, effectively capturing their semantic relationships.</p>
 <p>Word embeddings are foundational in NLP, enabling advanced applications such as sentiment analysis, machine translation, and more. By capturing the nuances of language, word embeddings significantly enhance the performance of machine learning models in understanding and generating human language.</p>
 <p>Next, we will use a popular pre-trained embedding model, <strong>word2vec</strong>, to see how we can perform various operations with these vectors.</p>
-<p>In word2vec, each word is converted into a vector of numbers. For example, the word <q>university</q> might be represented as a 300-dimensional vector, meaning it has 300 numbers associated with it. These numbers capture various aspects of the word’s meaning and context. The example below shows the first 4 numbers in the vector.</p>
+<p>In word2vec, each word is converted into a vector of numbers. For example, the word “university” might be represented as a 300-dimensional vector, meaning it has 300 numbers associated with it. These numbers capture various aspects of the word’s meaning and context. The example below shows the first 4 numbers in the vector.</p>
 <div class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model[<span class="st">'university'</span>][:<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
@@ -275,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploring-word-similarity" class="level3">
 <h3 class="anchored" data-anchor-id="exploring-word-similarity">Exploring Word Similarity</h3>
 <p>One of the cool things about word embeddings is that we can measure how similar two words are by looking at the distance between their vectors. Words with similar meanings will have vectors that are close to each other.</p>
-<p>For instance, using the word2vec model, we can find the top 3 words most similar to <q>university</q> are: <q>universities</q>, <q>faculty</q>, <q>undergraduate</q>. The number after each word quantifies the probability of the similarity.</p>
+<p>For instance, using the word2vec model, we can find the top 3 words most similar to “university” are: “universities”, “faculty”, “undergraduate”. The number after each word quantifies the probability of the similarity.</p>
 <div class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.most_similar(positive<span class="op">=</span>[<span class="st">'university'</span>], topn <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="48">
@@ -287,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="finding-the-odd-word-out" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-odd-word-out">Finding the Odd Word Out</h3>
-<p>Word embeddings can also help us find a word that doesn’t fit in a list of words. For example, given the list [<q>apple,</q> <q>banana,</q> <q>car,</q> <q>orange</q>], the word <q>car</q> would be identified as the odd one out because it is not a fruit.</p>
+<p>Word embeddings can also help us find a word that doesn’t fit in a list of words. For example, given the list [“apple,” “banana,” “car,” “orange”], the word “car” would be identified as the odd one out because it is not a fruit.</p>
 <div class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model.doesnt_match([<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"car"</span>, <span class="st">"orange"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="50">
@@ -305,13 +304,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="performing-mathematical-operations">Performing Mathematical Operations</h3>
 <p>Another interesting feature of word embeddings is that we can perform mathematical operations with the vectors to find relationships between words. Here are two examples:</p>
 <blockquote class="blockquote">
-<p>Word Analogy: <q>woman</q> + <q>king</q> - <q>man</q> = <q>queen</q></p>
+<p>Word Analogy: “woman” + “king” - “man” = “queen”</p>
 </blockquote>
-<p>This operation finds that the relationship between <q>woman</q> and <q>man</q> is similar to the relationship between <q>queen</q> and <q>king.</q></p>
+<p>This operation finds that the relationship between “woman” and “man” is similar to the relationship between “queen” and “king.”</p>
 <blockquote class="blockquote">
-<p>Geographic Analogy: <q>Paris</q> + <q>Germany</q> - <q>Berlin</q> = <q>France</q></p>
+<p>Geographic Analogy: “Paris” + “Germany” - “Berlin” = “France”</p>
 </blockquote>
-<p>This operation shows that the relationship between <q>Paris</q> and <q>Berlin</q> is similar to the relationship between <q>France</q> and <q>Germany.</q></p>
+<p>This operation shows that the relationship between “Paris” and “Berlin” is similar to the relationship between “France” and “Germany.”</p>
 <div class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model.most_similar(positive<span class="op">=</span>[<span class="st">'woman'</span>,<span class="st">'king'</span>], negative<span class="op">=</span>[<span class="st">'man'</span>], topn <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="56">
@@ -612,11 +611,11 @@ Prompt
 </figure>
 </div>
 <p>In <a href="#fig-wdcnt">Figure&nbsp;1</a>, we can see no significant differences between positive and negative reviews in terms of the number of words. Therefore, the number of words in a review does not accurately predict whether the review is positive or negative.</p>
-<p>Next, we will build a neural network model. Before training a machine learning model, the dataset needs to be preprocessed. This includes removing frequently occurring words that do not contribute much to the meaning of the text, such as stopwords like <q>the,</q> <q>and,</q> or <q>a.</q> Additionally, most machine learning algorithms require the same number of features, i.e., the same length for each review.</p>
+<p>Next, we will build a neural network model. Before training a machine learning model, the dataset needs to be preprocessed. This includes removing frequently occurring words that do not contribute much to the meaning of the text, such as stopwords like “the,” “and,” or “a.” Additionally, most machine learning algorithms require the same number of features, i.e., the same length for each review.</p>
 <p>To achieve this, the pad_sequences function sets the maximum number of words in each review (<code>maxlen</code>):</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> pad_sequences(x_train, maxlen<span class="op">=</span>maxlen)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> pad_sequences(x_test, maxlen<span class="op">=</span>maxlen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For reviews that have fewer than <code>maxlen</code> words, the above code pads them with <q>0</q> For reviews that have more than <code>maxlen</code> words, the code truncates them.</p>
+<p>For reviews that have fewer than <code>maxlen</code> words, the above code pads them with “0” For reviews that have more than <code>maxlen</code> words, the code truncates them.</p>
 <div class="cell" data-execution_count="73">
 <details>
 <summary>Code</summary>

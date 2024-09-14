@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2024-08-06">
+<meta name="dcterms.date" content="2024-09-14">
 
 <title>Neural Networks</title>
 <style>
@@ -22,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-q { quotes: "“" "”" "‘" "’"; }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
@@ -145,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 6, 2024</p>
+      <p class="date">September 14, 2024</p>
     </div>
   </div>
   
@@ -156,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>
-<a href="https://colab.research.google.com/drive/1ZN5VQkCj2u-5vovwuPNCXv1PM4rymhJD" target="_blank"><img src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667" alt="Colab" data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
+<a href="https://colab.research.google.com/drive/1ZN5VQkCj2u-5vovwuPNCXv1PM4rymhJD" target="_blank"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" style="max-width: 100%;"></a>
 </p>
 <p>Execute the following code block to import all necessary packages.</p>
 <div class="cell" data-execution_count="2">
@@ -611,7 +610,7 @@ what if without maxpooling
 </div>
 <section id="first-model" class="level2">
 <h2 class="anchored" data-anchor-id="first-model">First Model</h2>
-<p>We often heard that deep learning requires lots of data. While it is partially true that deep learning requires lots of data, one fundamental characteristic of deep learning is its ability to identify interesting features in the training data on its own. This is especially beneficial for complex input samples, such as images. However, what constitutes <q>lots</q> of samples is relative to the size of the network being trained.</p>
+<p>We often heard that deep learning requires lots of data. While it is partially true that deep learning requires lots of data, one fundamental characteristic of deep learning is its ability to identify interesting features in the training data on its own. This is especially beneficial for complex input samples, such as images. However, what constitutes ‘lots’ of samples is relative to the size of the network being trained.</p>
 <p>Convolutional neural networks (convnets) are highly efficient at learning local, translation-invariant features, which makes them highly data efficient for perceptual problems. Even with a small image dataset, training a convnet from scratch can yield reasonable results.</p>
 <p>Our first model architecture is similar to the previous model used for classifying MNIST data.</p>
 <div class="cell" data-execution_count="11">
@@ -1142,7 +1141,7 @@ fine-tune
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        layer.trainable <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        layer.trainable <span class="op">=</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>(<q>block5_conv1</q>,<q>block5_conv2</q>,<q>block5_conv3</q> are layer names in <a href="#fig-vgg16">Figure&nbsp;5</a>)</p>
+<p>(‘block5_conv1’,‘block5_conv2’,‘block5_conv3’ are layer names in <a href="#fig-vgg16">Figure&nbsp;5</a>)</p>
 <p>You might be wondering why we chose to fine-tune the last block of layers instead of the first block of layers, or why we didn’t fine-tune the whole model or more layers.</p>
 <p>The answer to the first question will be addressed later when we visualize the Convenet. As for the second question, training more parameters increases the risk of overfitting. With 15 million parameters, it would be risky to attempt to train the entire convolutional base on our small dataset.</p>
 </div>
@@ -1152,12 +1151,12 @@ fine-tune
 </section>
 <section id="visualizing-convnets" class="level1">
 <h1>Visualizing Convnets</h1>
-<p>It is commonly said that deep learning models are <q>black boxes</q> because they learn complex representations that are difficult to interpret and present in a human-readable form. However, the representations learned by convolutional neural networks (convnets) are highly amenable to visualization, mainly because they are representations of visual concepts.</p>
+<p>It is commonly said that deep learning models are “black boxes” because they learn complex representations that are difficult to interpret and present in a human-readable form. However, the representations learned by convolutional neural networks (convnets) are highly amenable to visualization, mainly because they are representations of visual concepts.</p>
 <section id="intermediate-outputs" class="level2">
 <h2 class="anchored" data-anchor-id="intermediate-outputs">Intermediate Outputs</h2>
 <p>Visualizing intermediate outputs, also known as activations (the output of the activation function), can help us understand how information flows through a neural network and how it makes decisions based on a given input image.</p>
 <p>A deep neural network can be seen as an information distillation pipeline. The raw data is transformed repeatedly, filtering out irrelevant information such as specific visual appearance of the image, and useful information is magnified and refined.</p>
-<p>It’s important to note that the intermediate outputs of an input image are not a single image but rather a set of images, where each image relates a feature learned by that layer. Therefore, all the images in the outputs of a convolutional layer are called feature maps. To illustrate this, we can visualize the intermediate outputs of the convolutional layers for a test image, like <q>cat.1502.jpg</q>, using the model trained with data augmentation.</p>
+<p>It’s important to note that the intermediate outputs of an input image are not a single image but rather a set of images, where each image relates a feature learned by that layer. Therefore, all the images in the outputs of a convolutional layer are called feature maps. To illustrate this, we can visualize the intermediate outputs of the convolutional layers for a test image, like ‘cat.1502.jpg’, using the model trained with data augmentation.</p>
 <div class="cell" data-execution_count="32">
 <details>
 <summary>Code</summary>
@@ -1268,7 +1267,7 @@ fine-tune
 <ul>
 <li><p>Start with a Blank Image: Imagine starting with a completely blank image, like a blank piece of paper.</p></li>
 <li><p>Change the Image Step by Step: We want to change this blank image little by little. Each change is made to make a specific filter in the ConvNet respond as strongly as possible.</p></li>
-<li><p>Maximize Filter Response: The goal is to tweak the image so that the chosen filter’s response (its activation) is as strong as it can be. This means the filter <q>sees</q> exactly what it is designed to detect.</p></li>
+<li><p>Maximize Filter Response: The goal is to tweak the image so that the chosen filter’s response (its activation) is as strong as it can be. This means the filter “sees” exactly what it is designed to detect.</p></li>
 <li><p>Use Gradient Descent: Gradient descent is a method we use to figure out how to change the image. It’s like having a set of instructions that tell us how to adjust the image to get a stronger response from the filter. We do this by repeatedly making small changes to the image.</p></li>
 <li><p>See the Result: After many small changes, the blank image will now have patterns or shapes that make the filter respond strongly. This final image shows us what the filter is looking for.</p></li>
 </ul>
@@ -1325,7 +1324,7 @@ fine-tune
 <span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>We use the VGG16 model to examine its layers: <q>block1_conv1</q>, <q>block2_conv1</q>, <q>block3_conv1</q>, and <q>block4_conv1</q>.</p>
+<p>We use the VGG16 model to examine its layers: ‘block1_conv1’, ‘block2_conv1’, ‘block3_conv1’, and ‘block4_conv1’.</p>
 <div class="cell" data-execution_count="36">
 <details>
 <summary>Code</summary>
@@ -1354,16 +1353,16 @@ fine-tune
 <li><p>block3_conv1 and block4_conv1: Filters in these layers become more sophisticated. They start to recognize complex textures and parts of objects found in natural images, such as waves, leaves, and eyes.</p></li>
 </ul>
 <p>Visualizing filters helps us understand how each layer in the VGG16 model contributes to recognizing and classifying images. As the layers go deeper, the filters get better at recognizing more complex and detailed features. This layered approach allows the model to build up from simple shapes and colors to understanding detailed and specific parts of an image.</p>
-<p>By using gradient descent to maximize the response of a specific filter, starting from a blank input image, we can see what each filter is <q>looking for</q> and how it contributes to the model’s ability to recognize objects. This process is crucial for improving the model and making it more accurate in recognizing and classifying images.</p>
+<p>By using gradient descent to maximize the response of a specific filter, starting from a blank input image, we can see what each filter is “looking for” and how it contributes to the model’s ability to recognize objects. This process is crucial for improving the model and making it more accurate in recognizing and classifying images.</p>
 </section>
 <section id="heatmaps-of-class-activation" class="level2">
 <h2 class="anchored" data-anchor-id="heatmaps-of-class-activation">Heatmaps of Class Activation</h2>
 <p>The technique used for understanding which parts of a given image led a convnet to its final classification decision is called Class Activation Map (CAM) visualization.</p>
-<p>A class activation heatmap is a matrix of scores associated with a specific output class. Let’s use the VGG16 model and an elephant picture as an example. The final convolutional layer in VGG16 is called <q>block5_conv3</q> and has an output shape of (None, 14, 14, 512), which consists of 512 14x14 filter images.</p>
+<p>A class activation heatmap is a matrix of scores associated with a specific output class. Let’s use the VGG16 model and an elephant picture as an example. The final convolutional layer in VGG16 is called “block5_conv3” and has an output shape of (None, 14, 14, 512), which consists of 512 14x14 filter images.</p>
 <p><span class="math display">\begin{align*}
 \text{Heatmap} = \sum_{\text{sum over 512 filter images}} \big( \text{each 14 $\times$ 14 filter image} \big) \times \text{weight}
 \end{align*}</span></p>
-<p>where <code>weight</code> indicates how important each filter is with regard to the <q>elephant</q> class. Technically speaking, it is related to the gradient of the <q>elephant</q> class with respect to the output of the layer <code>block5_conv3</code>.</p>
+<p>where <code>weight</code> indicates how important each filter is with regard to the “elephant” class. Technically speaking, it is related to the gradient of the “elephant” class with respect to the output of the layer <code>block5_conv3</code>.</p>
 <p>Given an image fed into VGG16, CAM visualization overlays the heatmap on the image and shows how important each location in the image is with respect to the class under consideration.</p>
 <p>The following code block contains functions that generate heatmaps and display the class activation map:</p>
 <div class="cell" data-execution_count="38">
