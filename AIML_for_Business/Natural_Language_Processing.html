@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ming Zhao">
-<meta name="dcterms.date" content="2024-09-14">
+<meta name="dcterms.date" content="2024-11-23">
 
 <title>Natural Language Processing</title>
 <style>
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 14, 2024</p>
+      <p class="date">November 23, 2024</p>
     </div>
   </div>
   
@@ -1067,7 +1067,7 @@ StockCode: 22815, Description: card psychedelic apples, Similarity: 0.77</code><
 </div>
 </div>
 <p>Since the target product is a birthday card, the model finds that greeting cards have the highest similarity. This is quite amazing, considering that the training data we fed into the model is simply the StockCode, which to us (humans) has no inherent meaning. The model learns the relationships between products purely through the sets of StockCodes that are purchased together.</p>
-<p>With this embedding model, we can build a recommendation system. For a basic example, we can predict the next purchase based on a given purchase history. The example shows that for a customer in the testing data, we use his/herIt is certainly debatable if this is the best logic to use for recommendations. It is also worth noting that this model is probably too simplistic to be deployed in a real-world scenario. Nevertheless, this example effectively demonstrates the application of embeddings, and many recommendation systems in real businesses are indeed built using embedding methods. first purchase to predict a future purchase, and this predicted purchase is indeed among the items the customer bought.</p>
+<p>With this embedding model, we can build a recommendation system. For a basic example, we can predict the next purchase based on a given purchase history. The example shows that for a customer in the testing data, we use his/her purchase history to predict the next purchase.</p>
 <div class="cell" data-execution_count="122">
 <details>
 <summary>Code</summary>
